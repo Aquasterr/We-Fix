@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastramento de Portfolios - WeFix</title>
+        <!-- Pra Colocar a logo na aba -->
+        <link rel="icon" href="logo.png">
+        <!-- Importando estilos do Bootstrap -->
+        <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+    </head>
+    <body style="background-color: #ADD8E6;">
+        <!-- Cabeçalho -->
+        <nav class="navbar navbar-expand-lg" style="background-color: #1515a8;">
+            <a class="navbar-brand  text-white font-weight-bold" href="#">
+                <!-- PNG da Logo aqui -->
+                <img src="logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            </a>
+            <!-- Lista de outros links do Site Contendo CRUD -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <!-- Link para o Inicio -->
+                        <a class="nav-link"
+                        href="#"
+                        style="color: white;
+                        font-weight: bold";
+                        >Inicio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para o Cadastro de Cliente -->
+                        <a class="nav-link"
+                        href="frontCliente.html"
+                        style="color: white;
+                        font-weight: bold";
+                        >Cadastro de Cliente</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para o Cadastro de Equipe -->
+                        <a class="nav-link"
+                        href="frontEquipe.HTML"
+                        style="color: white;
+                        font-weight: bold";
+                        >Cadastro de Equipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para o Cadastro de Profissional -->
+                        <a class="nav-link"
+                        href="frontProfissional.html"
+                        style="color: white;
+                        font-weight: bold";
+                        >Cadastro de Profissional</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para a Criação de Portfólios -->
+                        <a class="nav-link"
+                        href="frontPortfolio.html"
+                        style="color: white;
+                        font-weight: bold";
+                        >Portfólio</a>
+                    </li>
+                </ul>
+                <!-- Barra de Pesquisa -->
+                <form class="form-inline" onsubmit="event.preventDefault(); displayPortfoliosPorNome();">
+                    <input class="form-control mr-sm-2" type="search" id="barraPesquisa" placeholder="Buscar...">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+            </div>
+        </nav>
+    <div class="container">
+        <br>
+        <h1 class="text-center">Cadastramento de Portfolios</h1>
+        <!-- Formulário para adicionar/editar Portfolios -->
+        <form id="portfolioForm" class="my-4">
+            <div class="form-group">
+                <!-- Campo de Nome -->
+                <label for="NomePrestador">Nome Prestador:</label>
+                <input
+                type="text"
+                id="NomePrestador"
+                class="form-control"
+                placeholder="Nome"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <!-- Campo de Tipo de Reforma -->
+                <label for="TipoDeReforma">Tipo da reforma:</label>
+                <input
+                type="text"
+                id="TipoDeReforma"
+                class="form-control"
+                placeholder="Descreva sua reforma"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <!-- Campo de CPF -->
+                <label for="cpf">CPF:</label>
+                <input
+                type="number"
+                max="99999999999"
+                id="cpf"
+                class="form-control"
+                placeholder="CPF"
+                required
+            />
+            <div class="form-group">
+                <!-- Campo de Detalhes-->
+                <label for="Detalhes">Detalhes da reforma:</label>
+                <input
+                type="text"
+                id="Detalhes"
+                class="form-control"
+                placeholder="Detalhes da sua reforma"
+                required
+                />
+
+            <div class="form-group">
+                <label for="Funcao">Função:</label>
+                <select id="Funcao" class="form-control">
+                    <option selected>Eletricista</option>
+                    <option>Pintor</option>
+                    <option>Pedreiro</option>
+                    <option>Encanador</option>
+                    required
+                </select>
+
+                <div class="form-group">
+                    <!-- Campo de ibagens-->
+                    <label for="Imagem">Imagem da reforma</label>
+                    <input
+                    type="text"
+                    id="Imagem"
+                    name="Imagem"
+                    class="form-control"    
+                    accept="image/*"
+                    required
+                    />
+            </div>
+            </div>
+                <!-- Botão para Cadastrar-se -->
+                <button 
+                type="submit" 
+                class="btn btn-primary"
+                >Cadastrar
+                </button>
+                <!-- Botão para Cancelar (Somente Visivel durante alteração) -->
+                <button
+                type="button"
+                id="cancelBtn"
+                class="btn btn-secondary"
+                style="display: none"
+                >Cancelar
+                </button>
+        </form>
+        <!-- Tabela para listar portfolios -->
+        <table class="table table-bordered table-hover" style="background-color: #a9b8e6; border: 2px solid #5f626e;">
+            <thead>
+            <tr>
+            <th style="border: 2px solid #5f626e";>Nome</th>
+            <th style="border: 2px solid #5f626e";>Tipo</th>
+            <th style="border: 2px solid #5f626e";>CPF</th>
+            <th style="border: 2px solid #5f626e";>Detalhes</th>
+            <th style="border: 2px solid #5f626e";>Funcao</th>
+            <th style="border: 2px solid #5f626e";>Imagem</th>
+            </tr>
+            </thead>
+            <tbody id="portfoliosTable"></tbody>
+        </table>
+        <script>
+            // Array para armazenar os portfolios do servidor
+            let portfolios = [];
+            // ID do portfolio em edição
+            let portfolioAtual = null;
+
+            // Função para exibir produtos na tabela
+            function displayPortfolios() {
+                const tbody = document.getElementById("portfoliosTable");
+                tbody.innerHTML = "";
+                portfolios.forEach((portfolio) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                    
+                    <td style="border: 2px solid #5f626e";>${portfolio.NomePrestador}</td>
+                    <td style="border: 2px solid #5f626e";>${portfolio.TipoDeReforma}</td>
+                    <td style="border: 2px solid #5f626e";>${portfolio.cpf}</td>
+                    <td style="border: 2px solid #5f626e";>${portfolio.Detalhes}</td>
+                    <td style="border: 2px solid #5f626e";>${portfolio.Funcao}</td>
+                    <td style="border: 2px solid #5f626e";>${portfolio.Imagem}</td>
+                    <td style="border: 2px solid #5f626e";>
+                    <button class="btn btn-warning btn-sm" type="button"
+
+                    onclick="editPortfolio(${portfolio.cpf})">Alterar</button>
+                            
+                    <button class="btn btn-danger btn-sm"
+                    onclick="deletePortfolio(${portfolio.cpf})">Remover</button>
+
+                    </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            // Função para mostrar portfolios caso seja procurado pela Barra de Pesquisa
+            function displayPortfoliosPorNome() {
+                const tbody = document.getElementById("portfoliosTable");
+                tbody.innerHTML = "";
+
+                // Obtenha o nome da barra de pesquisa
+                const nomePesquisa = document.getElementById("barraPesquisa").value;
+
+                // Filtrar portfolios que têm o mesmo nome que o nome da pesquisa
+                const portfoliosFiltrados = portfolios.filter(p => p.NomePrestador == nomePesquisa);
+
+                portfoliosFiltrados.forEach((portfolio) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td style="border: 2px solid #5f626e";>${portfolio.NomePrestador}</td>
+                        <td style="border: 2px solid #5f626e";>${portfolio.TipoDeReforma}</td>
+                        <td style="border: 2px solid #5f626e";>${portfolio.cpf}</td>
+                        <td style="border: 2px solid #5f626e";>${portfolio.Detalhes}</td>
+                        <td style="border: 2px solid #5f626e";>${portfolio.Funcao}</td>
+                        <td style="border: 2px solid #5f626e";>${portfolio.Imagem}</td>
+                        <td style="border: 2px solid #5f626e";>
+                            <button class="btn btn-warning btn-sm" onclick="editPortfolio(${portfolio.cpf})">Alterar</button>
+                            <button class="btn btn-danger btn-sm" onclick="deletePortfolio(${portfolio.cpf})">Remover</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            // Função para carregar um portfolio no formulário para edição
+            function editPortfolio(cpf) {
+                portfolioAtual = cpf;
+                const portfolio = portfolios.find((p) => p.cpf === cpf.toString());
+                document.getElementById("NomePrestador").value = portfolio.NomePrestador;
+                document.getElementById("TipoDeReforma").value = portfolio.TipoDeReforma;
+                document.getElementById("cpf").value = portfolio.cpf;
+                document.getElementById("Detalhes").value = portfolio.Detalhes;
+                document.getElementById("Funcao").value = portfolio.Funcao;
+                document.getElementById("Imagem").value = portfolio.Imagem;
+                // Mostra o botão cancelar durante a edição
+                document.getElementById("cancelBtn").style.display = "inline-block";
+            }
+            // Função para remover portfolio do servidor e atualizar a lista
+            function deletePortfolio(cpf) {
+                fetch("http://localhost:3002/portfolios/" + cpf, {
+                method: "DELETE"
+                })
+                .then(() => {
+                    portfolios = portfolios.filter((p) => p.cpf !== cpf.toString());
+                    displayPortfolios();
+                })
+                .catch((error) => console.error("Error:", error));
+            }
+            // Evento para lidar com o envio do formulário
+            document
+            .getElementById("portfolioForm")
+            .addEventListener("submit", function (event) {
+            event.preventDefault();
+            // Coleta os valores do formulário
+            const portfolio = {
+                cpf: document.getElementById("cpf").value,
+                NomePrestador: document.getElementById("NomePrestador").value,
+                TipoDeReforma: document.getElementById("TipoDeReforma").value,
+                Funcao: document.getElementById("Funcao").value,
+                Detalhes: document.getElementById("Detalhes").value,
+                Imagem: document.getElementById("Imagem").value,
+            };
+            if (portfolioAtual) {
+                // Se estiver editando
+                fetch("http://localhost:3002/portfolios/" + portfolioAtual, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(portfolio),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    const index = portfolios.findIndex((p) => p.cpf === portfolioAtual.toString());
+                    portfolios[index] = data;
+                    displayPortfolios();
+                    // Limpa o formulário e reseta o produto em edição
+                    document.getElementById("portfolioForm").reset();
+                    portfolioAtual = null;
+                    document.getElementById("cancelBtn").style.display = "none";
+                })
+                .catch((error) => console.error("Error:", error));
+            } else {
+            // Se for um novo portfolio
+            fetch("http://localhost:3002/portfolios", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(portfolio),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                portfolios.push(data);
+                displayPortfolios();
+                document.getElementById("portfolioForm").reset();
+            })
+            .catch((error) => console.error("Error:", error));
+            }
+            });
+            // Cancela a edição e limpa o formulário
+            document
+            .getElementById("cancelBtn")
+            .addEventListener("click", function () {
+                portfolioAtual = null;
+                document.getElementById("portfolioForm").reset();
+                this.style.display = "none";
+            });
+            // Carrega portfolios do servidor ao carregar a página
+            fetch("http://localhost:3002/portfolios/")
+            .then((response) => response.json())
+            .then((data) => {
+                portfolios = data;
+                displayPortfolios();
+            })
+            .catch((error) => console.error("Error:", error));
+        </script>
+        <!-- Bibliotecas JS auxiliares (Bootstrap requer jQuery e Popper.js) -->
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+    </body>
+</html>

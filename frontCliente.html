@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastramento de Clientes - WeFix</title>
+        <!-- Pra Colocar a logo na aba -->
+        <link rel="icon" href="logo.png">
+        <!-- Importando estilos do Bootstrap -->
+        <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+    </head>
+    <body style="background-color: #ADD8E6;">
+        <!-- Cabeçalho -->
+        <nav class="navbar navbar-expand-lg" style="background-color: #1515a8;">
+            <a class="navbar-brand  text-white font-weight-bold" href="#">
+                <!-- PNG da Logo aqui -->
+                <img src="logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            </a>
+            <!-- Lista de outros links do Site Contendo CRUD -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <!-- Link para o Inicio -->
+                        <a class="nav-link"
+                        href="#"
+                        style="color: white;
+                        font-weight: bold";
+                        >Inicio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para o Cadastro de Cliente -->
+                        <a class="nav-link"
+                        href="frontCliente.html"
+                        style="color: white;
+                        font-weight: bold";
+                        >Cadastro de Cliente</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para o Cadastro de Equipe -->
+                        <a class="nav-link"
+                        href="frontEquipe.HTML"
+                        style="color: white;
+                        font-weight: bold";
+                        >Cadastro de Equipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para o Cadastro de Profissional -->
+                        <a class="nav-link"
+                        href="frontProfissional.html"
+                        style="color: white;
+                        font-weight: bold";
+                        >Cadastro de Profissional</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Link para a Criação de Portfólios -->
+                        <a class="nav-link"
+                        href="frontPortfolio.html"
+                        style="color: white;
+                        font-weight: bold";
+                        >Portfólio</a>
+                    </li>
+                </ul>
+                <!-- Barra de Pesquisa -->
+                <form class="form-inline" onsubmit="event.preventDefault(); displayClientesPorNome();">
+                    <input class="form-control mr-sm-2" type="search" id="barraPesquisa" placeholder="Buscar...">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+            </div>
+        </nav>
+    <div class="container">
+        <br>
+        <h1 class="text-center">Cadastramento de Clientes</h1>
+        <!-- Formulário para adicionar/editar Clientes -->
+        <form id="clienteForm" class="my-4">
+            <div class="form-group">
+                <!-- Campo de Nome -->
+                <label for="nome">Nome Completo:</label>
+                <input
+                type="text"
+                id="nome"
+                class="form-control"
+                placeholder="Nome"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <!-- Campo de E-mail -->
+                <label for="email">Email:</label>
+                <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Email@exemplo.com"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <!-- Campo de Senha -->
+                <label for="senha">Senha:</label>
+                <input
+                type="password"
+                id="senha"
+                class="form-control"
+                placeholder="Senha"
+                required
+                />
+            </div>
+            <div class="form-group">
+                <!-- Campo de CPF -->
+                <label for="cpf">CPF:</label>
+                <input
+                type="number"
+                max="99999999999"
+                id="cpf"
+                class="form-control"
+                placeholder="CPF"
+                required
+            />
+            </div>
+            <div class="form-group">
+                <!-- Campo de Endereço -->
+                <label for="endereco">Endereço:</label>
+                <textarea class="form-control"
+                id="endereco"
+                rows="3"
+                placeholder="Endereço"></textarea>
+            </div>
+                <!-- Botão para Cadastrar-se -->
+                <button 
+                type="submit" 
+                class="btn btn-primary"
+                >Cadastrar
+                </button>
+                <!-- Botão para Cancelar (Somente Visivel durante alteração) -->
+                <button
+                type="button"
+                id="cancelBtn"
+                class="btn btn-secondary"
+                style="display: none"
+                >Cancelar
+                </button>
+        </form>
+        <!-- Tabela para listar Clientes -->
+        <table class="table table-bordered table-hover" style="background-color: #a9b8e6; border: 2px solid #5f626e;">
+            <thead>
+            <tr>
+            <th style="border: 2px solid #5f626e";>Nome</th>
+            <th style="border: 2px solid #5f626e";>E-mail</th>
+            <th style="border: 2px solid #5f626e";>Senha</th>
+            <th style="border: 2px solid #5f626e";>CPF</th>
+            <th style="border: 2px solid #5f626e";>Endereço</th>
+            </tr>
+            </thead>
+            <tbody id="clientesTable"></tbody>
+        </table>
+        <script>
+            // Array para armazenar os clientes do servidor
+            let clientes = [];
+            // ID do cliente em edição
+            let clienteAtual = null;
+
+            // Função para exibir produtos na tabela
+            function displayClientes() {
+                const tbody = document.getElementById("clientesTable");
+                tbody.innerHTML = "";
+                clientes.forEach((cliente) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                    
+                    <td style="border: 2px solid #5f626e";>${cliente.nome}</td>
+                    <td style="border: 2px solid #5f626e";>${cliente.email}</td>
+                    <td style="border: 2px solid #5f626e";>${cliente.senha}</td>
+                    <td style="border: 2px solid #5f626e";>${cliente.cpf}</td>
+                    <td style="border: 2px solid #5f626e";>${cliente.endereco}</td>
+                    <td style="border: 2px solid #5f626e";>
+                    <button class="btn btn-warning btn-sm"
+
+                    onclick="editCliente(${cliente.cpf})">Alterar</button>
+                            
+                    <button class="btn btn-danger btn-sm"
+                    onclick="deleteCliente(${cliente.cpf})">Remover</button>
+
+                    </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            // Função para mostrar clientes caso seja procurado pela Barra de Pesquisa
+            function displayClientesPorNome() {
+                const tbody = document.getElementById("clientesTable");
+                tbody.innerHTML = "";
+
+                // Obtenha o nome da barra de pesquisa
+                const nomePesquisa = document.getElementById("barraPesquisa").value;
+
+                // Filtrar clientes que têm o mesmo nome que o nome da pesquisa
+                const clientesFiltrados = clientes.filter(c => c.nome == nomePesquisa);
+
+                clientesFiltrados.forEach((cliente) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td style="border: 2px solid #5f626e";>${cliente.nome}</td>
+                        <td style="border: 2px solid #5f626e";>${cliente.email}</td>
+                        <td style="border: 2px solid #5f626e";>${cliente.senha}</td>
+                        <td style="border: 2px solid #5f626e";>${cliente.cpf}</td>
+                        <td style="border: 2px solid #5f626e";>${cliente.endereco}</td>
+                        <td style="border: 2px solid #5f626e";>
+                            <button class="btn btn-warning btn-sm" onclick="editCliente(${cliente.cpf})">Alterar</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteCliente(${cliente.cpf})">Remover</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            // Função para carregar um cliente no formulário para edição
+            function editCliente(cpf) {
+                clienteAtual = cpf;
+                const cliente = clientes.find((c) => c.cpf === cpf.toString());
+                document.getElementById("nome").value = cliente.nome;
+                document.getElementById("email").value = cliente.email;
+                document.getElementById("senha").value = cliente.senha;
+                document.getElementById("cpf").value = cliente.cpf;
+                document.getElementById("endereco").value = cliente.endereco;
+                // Mostra o botão cancelar durante a edição
+                document.getElementById("cancelBtn").style.display = "inline-block";
+            }
+            // Função para remover Cliente do servidor e atualizar a lista
+            function deleteCliente(cpf) {
+                fetch("http://localhost:3002/clientes/" + cpf, {
+                method: "DELETE"
+                })
+                .then(() => {
+                    clientes = clientes.filter((c) => c.cpf !== cpf.toString());
+                    displayClientes();
+                })
+                .catch((error) => console.error("Error:", error));
+            }
+            // Evento para lidar com o envio do formulário
+            document
+            .getElementById("clienteForm")
+            .addEventListener("submit", function (event) {
+            event.preventDefault();
+            // Coleta os valores do formulário
+            const cliente = {
+                cpf: document.getElementById("cpf").value,
+                nome: document.getElementById("nome").value,
+                email: document.getElementById("email").value,
+                senha: document.getElementById("senha").value,
+                endereco: document.getElementById("endereco").value,
+            };
+            if (clienteAtual) {
+                // Se estiver editando
+                fetch("http://localhost:3002/clientes/" + clienteAtual, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(cliente),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    const index = clientes.findIndex((c) => c.cpf === clienteAtual.toString());
+                    clientes[index] = data;
+                    displayClientes();
+                    // Limpa o formulário e reseta o produto em edição
+                    document.getElementById("clienteForm").reset();
+                    clienteAtual = null;
+                    document.getElementById("cancelBtn").style.display = "none";
+                })
+                .catch((error) => console.error("Error:", error));
+            } else {
+            // Se for um novo cliente
+            fetch("http://localhost:3002/clientes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(cliente),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                clientes.push(data);
+                displayClientes();
+                document.getElementById("clienteForm").reset();
+            })
+            .catch((error) => console.error("Error:", error));
+            }
+            });
+            // Cancela a edição e limpa o formulário
+            document
+            .getElementById("cancelBtn")
+            .addEventListener("click", function () {
+                clienteAtual = null;
+                document.getElementById("clienteForm").reset();
+                this.style.display = "none";
+            });
+            // Carrega clientes do servidor ao carregar a página
+            fetch("http://localhost:3002/clientes/")
+            .then((response) => response.json())
+            .then((data) => {
+                clientes = data;
+                displayClientes();
+            })
+            .catch((error) => console.error("Error:", error));
+        </script>
+        <!-- Bibliotecas JS auxiliares (Bootstrap requer jQuery e Popper.js) -->
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+    </body>
+</html>
