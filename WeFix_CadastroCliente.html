@@ -9,14 +9,7 @@
     <!-- CSS -->
     <style>
         .gradient-custom {
-        /* fallback for old browsers */
-            background: #93c9fb;
-
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to bottom right, rgb(207, 220, 247), #4a7eee)
+            background: linear-gradient(to bottom right, #84a8f8, #4a7eee)
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -35,22 +28,22 @@
         <div class="container py-5 h-100">
           <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-9 col-xl-7">
-              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+              <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registro de Cliente</h3>
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro de Cliente</h3>
                   <form>
                     <div class="row">
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
-                          <input type="text" id="firstName" class="form-control form-control-lg" />
-                          <label class="form-label" for="firstName">First Name</label>
+                          <label class="form-label" for="nome">Nome Completo</label>
+                          <input type="text" id="nome" class="form-control form-control-lg" placeholder="Digite seu nome completo" />
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
       
                         <div class="form-outline">
-                          <input type="text" id="lastName" class="form-control form-control-lg" />
-                          <label class="form-label" for="lastName">Last Name</label>
+                          <label class="form-label" for="email">E-mail</label>
+                          <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" />
                         </div>
       
                       </div>
@@ -59,72 +52,27 @@
                     <div class="row">
                       <div class="col-md-6 mb-4 d-flex align-items-center">
       
-                        <div class="form-outline datepicker w-100">
-                          <input type="text" class="form-control form-control-lg" id="birthdayDate" />
-                          <label for="birthdayDate" class="form-label">Birthday</label>
-                        </div>
-      
-                      </div>
-                      <div class="col-md-6 mb-4">
-      
-                        <h6 class="mb-2 pb-1">Gender: </h6>
-      
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                            value="option1" checked />
-                          <label class="form-check-label" for="femaleGender">Female</label>
-                        </div>
-      
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                            value="option2" />
-                          <label class="form-check-label" for="maleGender">Male</label>
-                        </div>
-      
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                            value="option3" />
-                          <label class="form-check-label" for="otherGender">Other</label>
-                        </div>
-      
-                      </div>
-                    </div>
-      
-                    <div class="row">
-                      <div class="col-md-6 mb-4 pb-2">
-      
                         <div class="form-outline">
-                          <input type="email" id="emailAddress" class="form-control form-control-lg" />
-                          <label class="form-label" for="emailAddress">Email</label>
+                          <label for="senha" class="form-label">Senha</label>
+                          <input type="text" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" />
                         </div>
       
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
-      
                         <div class="form-outline">
-                          <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
-                          <label class="form-label" for="phoneNumber">Phone Number</label>
+                          <label class="form-label" for="cpf">CPF</label>
+                          <input type="text" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" />
                         </div>
-      
                       </div>
                     </div>
-      
                     <div class="row">
                       <div class="col-12">
-      
-                        <select class="select form-control-lg">
-                          <option value="1" disabled>Choose option</option>
-                          <option value="2">Subject 1</option>
-                          <option value="3">Subject 2</option>
-                          <option value="4">Subject 3</option>
-                        </select>
-                        <label class="form-label select-label">Choose option</label>
-      
+                        <label class="form-label select-label">Digite seu Endereço</label>
+                        <textarea class="form-control" id="endereco" rows="3"></textarea>
                       </div>
                     </div>
-      
                     <div class="mt-4 pt-2">
-                      <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                      <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
                     </div>
       
                   </form>
