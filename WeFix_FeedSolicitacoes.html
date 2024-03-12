@@ -11,7 +11,8 @@
     <!-- CSS -->
     <style>
         .gradient-custom {
-            background: linear-gradient(to bottom right, #9dbaf8, #4a7eee)
+            background: linear-gradient(to bottom right, #9dbaf8, #4a7eee);
+            min-height: 100vh;
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -23,73 +24,61 @@
         .card-registration .select-arrow {
             top: 13px;
         }
+
     </style>
 </head>
 <body>
-    <section class="vh-100 gradient-custom">
-        <div class="container py-5 h-100">
-          <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 ">
-              <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
-                <div class="card-body p-4 p-md-5">
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Feed de Solicitações</h3>
-                  <form>
-                    <div class="row">
-                      <div class="col-md-6 mb-4">
-                        <div class="form-outline">
-                          <label class="form-label" for="nome">Nome Completo</label>
-                          <input type="text" id="nome" class="form-control form-control-lg" placeholder="Digite seu nome completo" />
-                        </div>
+  <section class="gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-lg">
+          <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h1 class="mb-4 pb-2 pb-md-0 mb-md-3">Feed de Solicitações</h3>
+              <form>
+                <select name="slt_local">
+                  <option value="" disabled selected>Local</option>
+                  <option value="valor1">São Paulo - SP</option>
+                  <option value="valor2">São Caetano do Sul - SP</option>
+                </select>
+                <select name="slt_ordem">
+                  <option value="" disabled selected>Ordem</option>
+                  <option value="valor1">Ordem Alfabetica</option>
+                  <option value="valor2">Mais recente</option>
+                  <option value="valor3">Maior nota</option>
+                  <option value="valor4">Menor nota</option>
+                </select>
+                <select name="slt_funcao">
+                  <option value="" disabled selected>Função</option>
+                  <option value="valor1">Arquiteto</option>
+                  <option value="valor2">Pintor</option>
+                </select>
+              </form>
+              <a href="#" class="btn btn-primary btn-md" style="margin-top: 10px">Filtrar</a>
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-3">
+                        <img src="WeFix.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;">
+                        <h5 class="card-title mb-0">Nome</h5>
                       </div>
-                      <div class="col-md-6 mb-4">
-                        <div class="form-outline">
-                          <label class="form-label" for="email">E-mail</label>
-                          <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" />
-                        </div>
-                      </div>
+                      <p class="card-text">Descrição da Solicitação.</p>
                     </div>
-      
-                    <div class="row">
-                      <div class="col-md-6 mb-4 align-items-center">
-      
-                        <div class="form-outline">
-                          <label for="senha" class="form-label">Senha</label>
-                          <input type="password" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" />
-                        </div>
-      
-                      </div>
-                      <div class="col-md-6 mb-4 pb-2">
-                        <div class="form-outline">
-                          <label class="form-label" for="cpf">CPF</label>
-                          <input type="number" max="99999999999" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" />
-                        </div>
-                      </div>
+                    <div class="card-footer">
+                      <a href="#" class="btn btn-primary btn-md">Contratar</a>
+                      <a href="#" class="btn btn-primary btn-md">Ver Perfil</a>
                     </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <label class="form-label select-label">Digite seu Endereço</label>
-                        <textarea class="form-control" id="endereco" rows="3"></textarea>
-                      </div>
-                    </div>
-                    <div class="mt-4 pt-2">
-                      <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
-                    </div>
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+                  </div>
+                </div>                
+                
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>
