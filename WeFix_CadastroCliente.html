@@ -96,8 +96,18 @@
                 endereco: document.getElementById("endereco").value,
               };
               console.log(JSON.stringify(cliente));
+              // Se o Cliente ja for cadastrado.
+              const cpfForm = document.getElementById("cpf").value
+
+              fetch(`http://localhost:3002/clientes/${cpfForm}`)
+              .then((response) => response.json)
+              .then((data) => {
+                if (data.length > 0) {
+                  alert("Este CPF já está cadastrado.")
+                }
+              })
               if (clienteAtual) {
-                // Se o Cliente ja for cadastrado.
+                // Esqueci
               } else {
                 // Se for novo cliente
                 fetch("http://localhost:3002/clientes", {
