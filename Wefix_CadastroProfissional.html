@@ -11,7 +11,7 @@
     <!-- CSS -->
     <style>
         .gradient-custom {
-            background: linear-gradient(to bottom right, #84a8f8, #4a7eee)
+            background: linear-gradient(to bottom right, #84a8f8, #4a7eee);
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -88,8 +88,13 @@
                         </div>
                         <br>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Certificados:</label>
-                            <input class="form-control" type="file" id="formFile">
+                          <label for="formFileMultiple" class="form-label">Certificados:</label>
+                          <input class="form-control" type="file" id="formFileMultiple" multiple />
+                          </div>
+                          <br>
+                          <div class="mb-3">
+                            <label for="formFileMultiple" class="form-label">Portfólio:</label>
+                            <input class="form-control" type="file" id="formFileMultiple" multiple />
                           </div>
                       
                     <div class="mt-4 pt-2">
