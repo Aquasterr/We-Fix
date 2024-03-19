@@ -31,49 +31,44 @@
               <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro de Cliente</h3>
-                  <form>
+                  <form id="clienteForm">
                     <div class="row">
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="nome">Nome Completo</label>
-                          <input type="text" id="nome" class="form-control form-control-lg" placeholder="Digite seu nome completo" />
+                          <input type="text" id="nome" class="form-control form-control-lg" placeholder="Digite seu nome completo" required/>
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="email">E-mail</label>
-                          <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" />
+                          <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" required/>
                         </div>
-      
                       </div>
                     </div>
-      
                     <div class="row">
                       <div class="col-md-6 mb-4 align-items-center">
-      
                         <div class="form-outline">
                           <label for="senha" class="form-label">Senha</label>
-                          <input type="password" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" />
+                          <input type="password" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" required/>
                         </div>
-      
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                           <label class="form-label" for="cpf">CPF</label>
-                          <input type="number" max="99999999999" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" />
+                          <input type="number" max="99999999999" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" required/>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-12">
                         <label class="form-label select-label">Digite seu Endereço</label>
-                        <textarea class="form-control" id="endereco" rows="3"></textarea>
+                        <textarea class="form-control" id="endereco" rows="3" required></textarea>
                       </div>
                     </div>
                     <div class="mt-4 pt-2">
                       <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
                     </div>
-      
                   </form>
                 </div>
               </div>
@@ -81,5 +76,46 @@
           </div>
         </div>
       </section>
+      <script>
+            // Array para armazenar os clientes do servidor
+            let clientes = [];
+            // ID do cliente em edição
+            let clienteAtual = null;
+
+            // Evento para lidar com o envio do formulario
+            document
+            .getElementById("clienteForm")
+            .addEventListener("submit", function (event) {
+              event.preventDefault();
+              // Coleta os valores do formulario
+              const cliente = {
+                cpf_cliente: document.getElementById("cpf").value,
+                nome: document.getElementById("nome").value,
+                email: document.getElementById("email").value,
+                senha: document.getElementById("senha").value,
+                endereco: document.getElementById("endereco").value,
+              };
+              console.log(JSON.stringify(cliente));
+              if (clienteAtual) {
+                // Se o Cliente ja for cadastrado.
+              } else {
+                // Se for novo cliente
+                fetch("http://localhost:3002/clientes", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(cliente),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                  clientes.push(data);
+                  // displayClientes();
+                  document.getElementById("clienteForm").reset();
+                })
+                .catch((error) => console.error("Erro:", error));
+              }
+            });
+      </script>
 </body>
 </html>
