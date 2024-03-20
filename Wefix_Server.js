@@ -31,13 +31,21 @@ app.get('/clientes', cors(), (req, res) => {
     });
 });
 
-// Obter um Cliente
+// Obter um Cliente por CPF
 app.get('/clientes/:cpf_cliente', (req, res) => {
     let sql = `SELECT * FROM cliente WHERE cpf_cliente=${req.params.cpf_cliente}`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     });
 });
+
+// Obter uma Conta por Email
+app.get('/contas/:email', (req, res) => {
+    let sql = `SELECT * FROM cliente WHERE email='${req.params.email}'`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    })
+})
 
 // ---------------- POSTs ----------------
 

@@ -81,35 +81,43 @@
         </div>
       </section>
       <script>
-            // Array para armazenar os clientes do servidor
-            let clientes = [];
-            // ID do cliente em edição
-            let clienteAtual = null;
-
-            // Evento para lidar com o envio do formulario
-            document
-            .getElementById("clienteForm")
-            .addEventListener("submit", function (event) {
-              event.preventDefault();
-              // Coleta os valores do formulario
-              const cliente = {
-                cpf_cliente: document.getElementById("cpf").value,
-                nome: document.getElementById("nome").value,
-                email: document.getElementById("email").value,
-                senha: document.getElementById("senha").value,
-                endereco: document.getElementById("endereco").value,
-                telefone: document.getElementById("telefone").value
-              };
-              console.log(JSON.stringify(cliente));
-              // Se o Cliente ja for cadastrado.
-
-              fetch(`http://localhost:3002/clientes/${cliente.cpf_cliente}`, {method: "GET"})
+        // Array para armazenar os clientes do servidor
+        let clientes = [];
+        // ID do cliente em edição
+        let clienteAtual = null;
+      
+        // Evento para lidar com o envio do formulario
+        document
+        .getElementById("clienteForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          // Coleta os valores do formulario
+          const cliente = {
+            cpf_cliente: document.getElementById("cpf").value,
+            nome: document.getElementById("nome").value,
+            email: document.getElementById("email").value,
+            senha: document.getElementById("senha").value,
+            endereco: document.getElementById("endereco").value,
+            telefone: document.getElementById("telefone").value
+          };
+          console.log(JSON.stringify(cliente));
+          // Se o Cliente ja for cadastrado.
+          fetch(`http://localhost:3002/clientes/${cliente.cpf_cliente}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length > 0) {
+              alert("Este CPF já está cadastrado.")
+            } 
+            else {
+              // Confere se Email ja esta cadastrado
+              fetch(`http://localhost:3002/contas/${cliente.email}`, {method: "GET"})
               .then((response) => response.json())
               .then((data) => {
                 if (data.length > 0) {
-                  alert("Este CPF já está cadastrado.")
+                  alert("Este email já está cadastrado.")
                 } 
                 else {
+                  else {
                   // Se for novo cliente
                   fetch("http://localhost:3002/clientes", {
                     method: "POST",
@@ -126,8 +134,11 @@
                   })
                   .catch((error) => console.error("Erro:", error));
                 }
+                }
               })
-            });
-      </script>
+            }
+          })
+        });
+      </script>      
 </body>
 </html>
