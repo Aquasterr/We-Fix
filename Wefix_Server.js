@@ -32,8 +32,8 @@ app.get('/clientes', cors(), (req, res) => {
 });
 
 // Obter um Cliente
-app.get('/clientes/:cpf', (req, res) => {
-    let sql = `SELECT * FROM cliente WHERE cpf_cliente=${req.params.cpf}`;
+app.get('/clientes/:cpf_cliente', (req, res) => {
+    let sql = `SELECT * FROM cliente WHERE cpf_cliente=${req.params.cpf_cliente}`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     });

@@ -61,9 +61,13 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-md-6 mb-4 align-items-center">
+                        <label class="form-label select-label">Digite seu Telefone</label>
+                        <input type="tel" id="telefone" class="form-control form-control-lg" placeholder="Digite o Telefone" required></input>
+                      </div>
+                      <div class="col-md-6 mb-4 pb-2">
                         <label class="form-label select-label">Digite seu Endereço</label>
-                        <textarea class="form-control" id="endereco" rows="3" required></textarea>
+                        <textarea class="form-control form-control-lg" id="endereco" rows="2" placeholder="Digite o Endereço" required></textarea>
                       </div>
                     </div>
                     <div class="mt-4 pt-2">
@@ -94,37 +98,35 @@
                 email: document.getElementById("email").value,
                 senha: document.getElementById("senha").value,
                 endereco: document.getElementById("endereco").value,
+                telefone: document.getElementById("telefone").value
               };
               console.log(JSON.stringify(cliente));
               // Se o Cliente ja for cadastrado.
-              const cpfForm = document.getElementById("cpf").value
 
-              fetch(`http://localhost:3002/clientes/${cpfForm}`)
-              .then((response) => response.json)
+              fetch(`http://localhost:3002/clientes/${cliente.cpf_cliente}`, {method: "GET"})
+              .then((response) => response.json())
               .then((data) => {
                 if (data.length > 0) {
                   alert("Este CPF já está cadastrado.")
+                } 
+                else {
+                  // Se for novo cliente
+                  fetch("http://localhost:3002/clientes", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(cliente),
+                  })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    clientes.push(data);
+                    // displayClientes();
+                    document.getElementById("clienteForm").reset();
+                  })
+                  .catch((error) => console.error("Erro:", error));
                 }
               })
-              if (clienteAtual) {
-                // Esqueci
-              } else {
-                // Se for novo cliente
-                fetch("http://localhost:3002/clientes", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(cliente),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                  clientes.push(data);
-                  // displayClientes();
-                  document.getElementById("clienteForm").reset();
-                })
-                .catch((error) => console.error("Erro:", error));
-              }
             });
       </script>
 </body>
