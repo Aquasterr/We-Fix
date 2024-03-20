@@ -12,7 +12,7 @@
 
 4-) Executar o comando "npm install express cors mysql" via terminal no VScode
 
-5-) Iniciar o back-end com o comando "node server3" via terminal no VScode
+5-) Iniciar o back-end com o comando "node wefix_server" via terminal no VScode
 
 6-) Abir o Front-End clickando com o botao direito e clickando em "Open with Live Server"
 
