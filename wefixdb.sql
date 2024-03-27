@@ -265,10 +265,6 @@ ALTER TABLE `obra`
 -- Limitadores para a tabela `profissionais_solicitados`
 --
 ALTER TABLE `profissionais_solicitados`
-  ADD CONSTRAINT `profissionais_solicitados_ibfk_1` FOREIGN KEY (`id_solicitacao`) REFERENCES `solicitacao` (`id_solicitacao`),
-  ADD CONSTRAINT `profissionais_solicitados_ibfk_2` FOREIGN KEY (`cpf_arquiteto`) REFERENCES `arquiteto` (`cpf_arquiteto`),
-  ADD CONSTRAINT `profissionais_solicitados_ibfk_3` FOREIGN KEY (`cpf_engenheiro`) REFERENCES `engenheiro` (`cpf_engenheiro`),
-  ADD CONSTRAINT `profissionais_solicitados_ibfk_4` FOREIGN KEY (`cpf_profissional`) REFERENCES `profissionalgeral` (`cpf_profissional`),
   ADD CONSTRAINT `profissionais_solicitados_ibfk_5` FOREIGN KEY (`id_solicitacao`) REFERENCES `solicitacao` (`id_solicitacao`),
   ADD CONSTRAINT `profissionais_solicitados_ibfk_6` FOREIGN KEY (`cpf_arquiteto`) REFERENCES `arquiteto` (`cpf_arquiteto`),
   ADD CONSTRAINT `profissionais_solicitados_ibfk_7` FOREIGN KEY (`cpf_engenheiro`) REFERENCES `engenheiro` (`cpf_engenheiro`),
