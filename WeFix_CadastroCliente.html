@@ -110,7 +110,7 @@
             } 
             else {
               // Confere se Email ja esta cadastrado
-              fetch(`http://localhost:3002/contas/${cliente.email}`, {method: "GET"})
+              fetch(`http://localhost:3002/clientes/${cliente.email}`, {method: "GET"})
               .then((response) => response.json())
               .then((data) => {
                 if (data.length > 0) {

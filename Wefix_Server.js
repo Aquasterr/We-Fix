@@ -39,9 +39,19 @@ app.get('/clientes/:cpf_cliente', (req, res) => {
     });
 });
 
-// Obter uma Conta por Email
-app.get('/contas/:email', (req, res) => {
+// Obtem um cliente por email
+app.get('/clientes/email/:email', (req, res) => {
     let sql = `SELECT * FROM cliente WHERE email='${req.params.email}'`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    })
+})
+
+// ---- ARQUITETOS
+
+// Obtem um arquiteto por email
+app.get('/arquiteto/email/:email', (req, res) => {
+    let sql = `SELECT * FROM arquiteto WHERE email='${req.params.email}'`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     })

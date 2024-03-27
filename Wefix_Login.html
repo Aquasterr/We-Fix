@@ -34,7 +34,7 @@
                 class="img-fluid" alt="WeFix Logo">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form>
+              <form id="loginForm">
                 <!-- Email -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="emailInput">Endereço de Email</label>
@@ -44,8 +44,8 @@
       
                 <!-- Senha -->
                 <div class="form-outline mb-3">
-                    <label class="form-label" for="loginSenha">Senha</label>
-                  <input type="password" id="loginSenha" class="form-control form-control-lg"
+                    <label class="form-label" for="senhaInput">Senha</label>
+                  <input type="password" id="senhaInput" class="form-control form-control-lg"
                     placeholder="Digite sua senha" />
                 </div>
       
@@ -61,8 +61,9 @@
                 </div>
       
                 <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-outline-primary btn-lg"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                  <input class="btn btn-outline-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                  type="submit" value="Login" />
                   <p class="small fw-bold mt-2 pt-1 mb-0">Não é cadastrado? <a href="WeFix_Cadastro.html"
                       class="link-danger">Registre-se</a></p>
                 </div>
@@ -78,5 +79,70 @@
           </div>
         </div>
       </section>
+      <script>
+        // Array para armazenar os clientes do servidor
+        let clientes = [];
+      
+        // Evento para lidar com o envio do formulario
+        document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          // Coleta os valores do formulario
+          const login = {
+            email: document.getElementById("emailInput").value,
+            senha: document.getElementById("senhaInput").value
+          };
+          console.log(JSON.stringify(login));
+          // Verifica se ja esta cadastrado como cliente.
+          fetch(`http://localhost:3002/clientes/email/${login.email}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+              if (data.length > 0) {
+                if (data[0].senha === login.senha)
+                {
+                  alert("Login com sucesso!")
+                  window.location.href = "Wefix_FeedServicos.html"
+                }
+              }
+            })
+          // Verifica se ja esta cadastrado como Arquiteto.
+          fetch(`http://localhost:3002/arquiteto/email/${login.email}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length > 0) {
+              if (data[0].senha === login.senha)
+                {
+                  alert("Login com sucesso!")
+                  window.location.href = "Wefix_FeedSolicitacoes.html"
+                }
+            }
+          })
+          // Verifica se ja esta cadastrado como Empreiteiro. !!!
+          fetch(`http://localhost:3002/arquiteto/email/${login.email}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length > 0) {
+              if (data[0].senha === login.senha)
+                {
+                  alert("Login com sucesso!")
+                  window.location.href = "Wefix_FeedSolicitacoes.html"
+                }
+            }
+          })
+          // Verifica se ja esta cadastrado como Profissional Geral. !!!
+          fetch(`http://localhost:3002/arquiteto/email/${login.email}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length > 0) {
+              if (data[0].senha === login.senha)
+                {
+                  alert("Login com sucesso!")
+                  window.location.href = "Wefix_FeedSolicitacoes.html"
+                }
+            }
+          })
+        });
+      </script>    
 </body>
 </html>
