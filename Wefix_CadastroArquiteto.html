@@ -58,7 +58,7 @@
                       <div class="col-md-6 mb-4 d-flex align-items-center">     
                         <div class="form-outline">
                           <label for="senha" class="form-label">Senha</label>
-                          <input type="text" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" />
+                          <input type="password" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" required/>
                         </div>     
                       </div>
                       <div class="col-md-6 mb-4 d-flex align-items-center">
@@ -67,7 +67,7 @@
                           <input type="text" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" />
                         </div>
                      </div>
-                     <div class="row">
+                     
                         <div class="col-md-6 mb-4 d-flex align-items-center">      
                           <div class="form-outline">
                             <label for="senha" class="form-label">Telefone</label>
@@ -76,20 +76,27 @@
                         </div>                          
                         <div class="col-md-6 mb-4 d-flex align-items-center">
                           <div class="form-outline">
-                            <label class="form-label" for="cpf">CAU</label>
-                            <input type="text" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CAU" />
+                            <label class="form-label" for="idCAU">CAU</label>
+                            <input type="text" id="idCAU" class="form-control form-control-lg" placeholder="Digite seu idCAU" />
                         </div>
                      </div>
-                     <div class="row">
-                            <div class="col-12">
-                              <label class="form-label select-label">Digite seu Endereço</label>
-                              <textarea class="form-control" id="endereco" rows="3"></textarea>
-                            </div>
-                        </div>
+                     
+                     
+                      <div class="col-md-6 mb-1 d-flex align-items-center">     
+                        <div class="form-outline">
+                          <label for="senha" class="form-label">Endereço</label>
+                          <input type="text" class="form-control form-control-lg" id="endereço" placeholder="Digite seu Endereço" />
+                        </div>     
+                      </div>
+                      
+
+
                         <br>                              
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-100 d-flex align-items-center">
+                          <div class="form-outline">
                             <label for="formFileMultiple" class="form-label">Certificados:</label>
                             <input class="form-control" type="file" id="formFileMultiple" multiple />
+                        </div>
                         </div>
                         <br>
                      </div>                      
