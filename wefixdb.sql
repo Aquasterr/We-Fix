@@ -54,16 +54,6 @@ CREATE TABLE `cliente` (
   `telefone` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `cliente`
---
-
-INSERT INTO `cliente` (`nome`, `cpf_cliente`, `email`, `senha`, `endereco`, `telefone`) VALUES
-('Crudder2', '15236845268', 'Crudder2@crud.com.br', 'Curdsad2', 'Crudder Rua CRUD Estrada Crud	Crudder Rua CRUD Estrada Crud', '0'),
-('Crudder Amo Crud', '212323213', 'Crudder@crud.com.br', '213213123', 'Crudder Rua CRUD Estrada Crud', '0'),
-('Cruddererr', '22222222222', 'HomemCrud@CRUD.com.br', 'CrudCrud', 'Crudder Rua CRUD Estrada Crud', '0'),
-('Homem CRUD', '344444324', 'Crudder2@CRUD.com.br', 'asdascsacsa', 'Crudder Crudder Crudder Crudder Crudder Crudder Crudder Crudder amo crud', '0');
-
 -- --------------------------------------------------------
 
 --
