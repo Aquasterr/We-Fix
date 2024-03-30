@@ -49,9 +49,63 @@ app.get('/clientes/email/:email', (req, res) => {
 
 // ---- ARQUITETOS
 
+// Obtem Arquitetos
+app.get('/arquitetos', cors(), (req, res) => {
+    let sql = 'SELECT * FROM arquiteto';
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obter um Arquitetos por CPF
+app.get('/arquitetos/:cpf_arquiteto', (req, res) => {
+    let sql = `SELECT * FROM arquiteto WHERE cpf_arquiteto=${req.params.cpf_arquiteto}`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
 // Obtem um arquiteto por email
-app.get('/arquiteto/email/:email', (req, res) => {
+app.get('/arquitetos/email/:email', (req, res) => {
     let sql = `SELECT * FROM arquiteto WHERE email='${req.params.email}'`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    })
+})
+
+
+
+// ---- EMPREITEIROS ! ! ! !
+
+// Obtem Empreiteiros
+app.get('/empreiteiros', cors(), (req, res) => {
+    let sql = 'SELECT * FROM empreiteiro';
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obtem um Empreiteiros por email
+app.get('/empreiteiros/email/:email', (req, res) => {
+    let sql = `SELECT * FROM empreiteiros WHERE email='${req.params.email}'`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    })
+})
+
+// ---- PROFISSIONAL GERAL ! ! ! !
+
+// Obtem Profissional Geral
+app.get('/profissionalgeral', cors(), (req, res) => {
+    let sql = 'SELECT * FROM profissionalgeral';
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obtem um Profissional Geral por email
+app.get('/profissionalgeral/email/:email', (req, res) => {
+    let sql = `SELECT * FROM profissionalgeral WHERE email='${req.params.email}'`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     })
@@ -67,6 +121,26 @@ app.post('/clientes', (req, res) => {
         console.log(resultados);
     });
     res.status(201).json(cliente);
+})
+
+// Adiciona Arquitetos
+app.post('/arquitetos', (req, res) => {
+    let arquiteto = req.body;
+    let sql = 'INSERT INTO arquiteto SET ?';
+    db.query(sql, arquiteto, (err, resultados) => {
+        console.log(resultados);
+    });
+    res.status(201).json(arquiteto);
+})
+
+// Adiciona Empreiteiros
+app.post('/empreiteiros', (req, res) => {
+    let empreiteiro = req.body;
+    let sql = 'INSERT INTO empreiteiro SET ?';
+    db.query(sql, empreiteiro, (err, resultados) => {
+        console.log(resultados);
+    });
+    res.status(201).json(empreiteiro);
 })
 
 // Ola mundo!

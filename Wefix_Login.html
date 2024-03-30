@@ -104,10 +104,14 @@
                   alert("Login com sucesso!")
                   window.location.href = "Wefix_FeedServicos.html"
                 }
+                else
+                {
+                  alert("Senha Incorreta")
+                }
               }
             })
           // Verifica se ja esta cadastrado como Arquiteto.
-          fetch(`http://localhost:3002/arquiteto/email/${login.email}`, {method: "GET"})
+          fetch(`http://localhost:3002/arquitetos/email/${login.email}`, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
@@ -116,10 +120,14 @@
                   alert("Login com sucesso!")
                   window.location.href = "Wefix_FeedSolicitacoes.html"
                 }
+                else
+                {
+                  alert("Senha Incorreta")
+                }
             }
           })
-          // Verifica se ja esta cadastrado como Empreiteiro. !!!
-          fetch(`http://localhost:3002/arquiteto/email/${login.email}`, {method: "GET"})
+          // Verifica se ja esta cadastrado como Empreiteiro. !!! CADEO OEMPREITERO
+          fetch(`http://localhost:3002/empreiteiros/email/${login.email}`, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
@@ -128,10 +136,14 @@
                   alert("Login com sucesso!")
                   window.location.href = "Wefix_FeedSolicitacoes.html"
                 }
+                else
+                {
+                  alert("Senha Incorreta")
+                }
             }
           })
-          // Verifica se ja esta cadastrado como Profissional Geral. !!!
-          fetch(`http://localhost:3002/arquiteto/email/${login.email}`, {method: "GET"})
+          // Verifica se ja esta cadastrado como Profissional Geral.
+          fetch(`http://localhost:3002/profissionalgeral/email/${login.email}`, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
@@ -139,6 +151,10 @@
                 {
                   alert("Login com sucesso!")
                   window.location.href = "Wefix_FeedSolicitacoes.html"
+                }
+                else
+                {
+                  alert("Senha Incorreta")
                 }
             }
           })
