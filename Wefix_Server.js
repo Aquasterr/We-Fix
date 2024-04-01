@@ -94,7 +94,7 @@ app.get('/engenheiros/:cpf_engenheiro', (req, res) => {
 });
 
 // Obtem um Engenheiro por email
-app.get('/engenheiro/email/:email', (req, res) => {
+app.get('/engenheiros/email/:email', (req, res) => {
     let sql = `SELECT * FROM engenheiro WHERE email='${req.params.email}'`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);

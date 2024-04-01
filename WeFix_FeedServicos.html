@@ -25,44 +25,41 @@
             top: 13px;
         }
 
-        @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            
+        }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', serif;
-    
-}
+        .content{
+            width: 420px;
+            margin-top: 0px;
+        }
 
-                                   .content{
-                                       width: 420px;
-                                       margin-top: 0px;
-                                   }
+        .ratings{
 
-                                   .ratings{
+            
+                padding: 0.1px;
+                text-align: left;
+                
+                
 
-                                       
-                                           padding: 0.1px;
-                                           text-align: left;
-                                           
-                                           
-   
-                                   }
+        }
 
-                                   .product-rating{
+        .product-rating{
 
-                                       font-size: 20px;
-                                   }
+            font-size: 20px;
+        }
 
-                                   .stars i{
+        .stars i{
 
-                                       font-size: 20px;
-                                       color: #28a745;
-                                   }
+            font-size: 20px;
+            color: #28a745;
+        }
 
-                                   .rating-text{
-                                       margin-top: 0.5px;
-                                   }
+        .rating-text{
+            margin-top: 0.5px;
+        }
 
 
     </style>
@@ -98,36 +95,22 @@ body {
                 </select>
               </form>
               <a href="#" class="btn btn-primary btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
-              <div class="row row-cols-1 row-cols-md-3 g-4">
+              <div class="row row-cols-1 row-cols-md-3 g-4"  id="cardEmpreiteiro">
                 <div class="col">
                   <div class="card">
                     <div class="card-body" style="background-color: #f0f0f0;">
                       <div class="d-flex align-items-center mb-3">
-                        <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;">
-                        <h5 class="card-title mb-0">Nome</h5>
+                        <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;" id="avatar">
+                        <h5 class="card-title mb-0" id="nome">Nome</h5>
                       </div>
-                      <p class="card-footer">Função - Localização</p>
+                      <p class="card-footer" id="funcaoElocalizacao">Função - Localização</p>
                       <div class="d-flex justify-content-text-center">
-                                        
-                                    
                         <div class="content margin">
-
-
                             <div class="ratings">
                                 <img src="./Wefix_Inicio_files/estrela.png" style="height: 17px; width: 15px; vertical-align: center;">
                                 <span class="product-rating">4.6</span><span></span>
-                                <div class="stars">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-
-                                
                             </div>
-                            
                         </div>
-                    
                     </div> 
                     </div>
                     <div class="card-footer">
@@ -143,6 +126,66 @@ body {
       </div>
     </div>
   </section>
+  <script>
+    // Pega as End Points de cada tipo de empreiteiro
+    const arquitetoEndPoint = 'http://localhost:3002/arquitetos/';
+    const engenheiroEndPoint = 'http://localhost:3002/engenheiros/';
+    const profissionalEndPoint = 'http://localhost:3002/profissionalgeral/';
+    
+    // Fetch Tabela do arquiteto
+    fetch(arquitetoEndPoint)
+      .then(response => response.json())
+      .then(data => alimentaFeed(data, 'cardEmpreiteiro', 'Arquiteto'))
+      .catch(error => console.error('Error:', error));
+    
+    // Fetch Tabela do engenheiro
+    fetch(engenheiroEndPoint)
+      .then(response => response.json())
+      .then(data => alimentaFeed(data, 'cardEmpreiteiro', 'Engenheiro'))
+      .catch(error => console.error('Error:', error));
 
+    // Fetch Tabela do Profissional Geral
+    fetch(profissionalEndPoint)
+      .then(response => response.json())
+      .then(data => alimentaFeed(data, 'cardEmpreiteiro', 'Profissional Geral'))
+      .catch(error => console.error('Error:', error));
+    
+    // Função Pra adicionar Empreiteiro no grid
+    function alimentaFeed(data, cardContainerId, funcao) {
+      const cardContainer = document.getElementById(cardContainerId);
+      data.forEach(empreiteiro => {
+        if (funcao === 'Profissional Geral')
+        {
+          funcao = empreiteiro.especialidade;
+        }
+        const card = document.createElement('div');
+        card.className = 'col';
+        card.innerHTML = `
+        <div class="card">
+          <div class="card-body" style="background-color: #f0f0f0;">
+            <div class="d-flex align-items-center mb-3">
+              <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;" id="avatar">
+              <h5 class="card-title mb-0" id="nome">${empreiteiro.nome}</h5>
+            </div>
+            <p class="card-footer" id="funcaoElocalizacao">${funcao} - ${empreiteiro.localizacao}</p>
+            <div class="d-flex justify-content-text-center">
+              <div class="content margin">
+                <div class="ratings">
+                  <img src="./Wefix_Inicio_files/estrela.png" style="height: 17px; width: 15px; vertical-align: center;">
+                  <span class="product-rating">${empreiteiro.nota}</span><span></span>
+                </div>
+              </div>
+            </div> 
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary btn-md">Contratar</a>
+            <a href="#" class="btn btn-primary btn-md">Ver Perfil</a>
+          </div>
+        </div>
+        `;
+        cardContainer.appendChild(card);
+      });
+    }
+    </script>
 </body>
 </html>
