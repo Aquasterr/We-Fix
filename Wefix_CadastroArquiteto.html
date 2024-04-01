@@ -28,7 +28,7 @@
   background-color: #84a8f8;
   margin: 0;
   padding: 0;
-}
+    }   
     </style>
 </head>
 <body>
@@ -50,7 +50,7 @@
                       <div class="col-md-6 mb-4">     
                         <div class="form-outline">
                           <label class="form-label" for="email">E-mail</label>
-                          <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" />
+                          <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" required/>
                         </div>    
                       </div>
                      </div>      
@@ -64,25 +64,25 @@
                       <div class="col-md-6 mb-4 d-flex align-items-center">
                         <div class="form-outline">
                           <label class="form-label" for="cpf">CPF</label>
-                          <input type="text" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" />
+                          <input type="number" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" required/>
                         </div>
                      </div>
                         <div class="col-md-6 mb-4 d-flex align-items-center">      
                           <div class="form-outline">
                             <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" class="form-control form-control-lg" id="telefone" placeholder="Digite seu Telefone" />
+                            <input type="number" class="form-control form-control-lg" id="telefone" placeholder="Digite seu Telefone" required/>
                           </div>
                         </div>                          
                         <div class="col-md-6 mb-4 d-flex align-items-center">
                           <div class="form-outline">
                             <label class="form-label" for="idcauarquiteto">CAU</label>
-                            <input type="text" id="idcauarquiteto" class="form-control form-control-lg" placeholder="Digite seu idCAU" />
+                            <input type="number" id="idcauarquiteto" class="form-control form-control-lg" placeholder="Digite seu idCAU" required/>
                         </div>
                      </div>
                       <div class="col-md-6 mb-1 d-flex align-items-center">     
                         <div class="form-outline">
                           <label for="endereco" class="form-label">Endereço</label>
-                          <input type="text" class="form-control form-control-lg" id="endereco" placeholder="Digite seu Endereço" />
+                          <input type="text" class="form-control form-control-lg" id="endereco" placeholder="Digite seu Endereço" required/>
                         </div>     
                       </div>
                         <br>                              
@@ -103,20 +103,10 @@
             </div>
           </div>
         </div>
-        
       </section>
       <script>
-        // Array para armazenar os clientes do servidor
-        let arquitetos  = [];
-        // ID do cliente em edição
-        let arquitetoAtual = null;
-      
-        // Evento para lidar com o envio do formulario
-        document
-        .getElementById("arquitetoForm")
-        .addEventListener("submit", function (event) {
-          // event.preventDefault();
-          // Coleta os valores do formulario
+        document.getElementById("arquitetoForm").addEventListener("submit", function (event) {
+          event.preventDefault();
           const arquiteto = {
             cpf_arquiteto: document.getElementById("cpf").value,
             nome: document.getElementById("nome").value,
@@ -127,43 +117,35 @@
             certificados: document.getElementById("certificados").value,
             id_cau_arquiteto: document.getElementById("idcauarquiteto").value
           };
-          console.log(JSON.stringify(arquiteto));
-          // Se o Arquiteto ja for cadastrado.
           fetch(`http://localhost:3002/arquitetos/${arquiteto.cpf_arquiteto}`, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
               alert("Este CPF já está cadastrado.")
-            } 
-            else {
-              // Confere se Email ja esta cadastrado
-              fetch(`http://localhost:3002/arquitetos/email/${arquiteto.email}`, {method: "GET"})
-              .then((response) => response.json())  
-              .then((data) => {
-                if (data.length > 0) {
-                  alert("Este email já está cadastrado.")
-                } 
-                else {
-                  // Se for novo cliente
-                  fetch("http://localhost:3002/arquitetos", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(arquiteto),
-                  })
-                  .then((response) => response.json())
-                  .then((data) => {
-                    clientes.push(data);
-                    // displayClientes();
-                    document.getElementById("arquitetoForm").reset();
-                  })
-                  .catch((error) => console.error("Erro:", error));
-                }
+            } else {
+              return fetch(`http://localhost:3002/arquitetos/email/${arquiteto.email}`, {method: "GET"})
+            }
+          })
+          .then((response) => response.json())  
+          .then((data) => {
+            if (data.length > 0) {
+              alert("Este email já está cadastrado.")
+            } else {
+              return fetch("http://localhost:3002/arquitetos", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(arquiteto),
               })
             }
           })
-        });
-      </script>      
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(arquiteto);
+            document.getElementById("arquitetoForm").reset();
+          })
+        })
+        </script>  
 </body>
 </html>
