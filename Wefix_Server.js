@@ -75,19 +75,27 @@ app.get('/arquitetos/email/:email', (req, res) => {
 
 
 
-// ---- EMPREITEIROS ! ! ! !
+// ---- ENGENHEIROS ! ! ! !
 
-// Obtem Empreiteiros
-app.get('/empreiteiros', cors(), (req, res) => {
-    let sql = 'SELECT * FROM empreiteiro';
+// Obtem Engenheiros
+app.get('/engenheiros', cors(), (req, res) => {
+    let sql = 'SELECT * FROM engenheiro';
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     });
 });
 
-// Obtem um Empreiteiros por email
-app.get('/empreiteiros/email/:email', (req, res) => {
-    let sql = `SELECT * FROM empreiteiros WHERE email='${req.params.email}'`;
+// Obter um Engenheiro por CPF
+app.get('/engenheiros/:cpf_engenheiro', (req, res) => {
+    let sql = `SELECT * FROM engenheiro WHERE cpf_engenheiro=${req.params.cpf_engenheiro}`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obtem um Engenheiro por email
+app.get('/engenheiro/email/:email', (req, res) => {
+    let sql = `SELECT * FROM engenheiro WHERE email='${req.params.email}'`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     })
@@ -98,6 +106,14 @@ app.get('/empreiteiros/email/:email', (req, res) => {
 // Obtem Profissional Geral
 app.get('/profissionalgeral', cors(), (req, res) => {
     let sql = 'SELECT * FROM profissionalgeral';
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obter um Profissional Geral por CPF
+app.get('/profissionaisgerais/:cpf_profissional', (req, res) => {
+    let sql = `SELECT * FROM profissionalgeral WHERE cpf_profissional=${req.params.cpf_profissional}`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
     });
@@ -133,14 +149,24 @@ app.post('/arquitetos', (req, res) => {
     res.status(201).json(arquiteto);
 })
 
-// Adiciona Empreiteiros
-app.post('/empreiteiros', (req, res) => {
-    let empreiteiro = req.body;
-    let sql = 'INSERT INTO empreiteiro SET ?';
-    db.query(sql, empreiteiro, (err, resultados) => {
+// Adiciona Engenheiros
+app.post('/engenheiros', (req, res) => {
+    let engenheiro = req.body;
+    let sql = 'INSERT INTO engenheiro SET ?';
+    db.query(sql, engenheiro, (err, resultados) => {
         console.log(resultados);
     });
-    res.status(201).json(empreiteiro);
+    res.status(201).json(engenheiro);
+})
+
+// Adiciona Profissionais Gerais
+app.post('/profissionaisgerais', (req, res) => {
+    let profissionalgeral = req.body;
+    let sql = 'INSERT INTO profissionalgeral SET ?';
+    db.query(sql, profissionalgeral, (err, resultados) => {
+        console.log(resultados);
+    });
+    res.status(201).json(profissionalgeral);
 })
 
 // Ola mundo!
