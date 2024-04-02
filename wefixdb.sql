@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Abr-2024 às 14:56
+-- Tempo de geração: 02-Abr-2024 às 15:54
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.3.6
 
@@ -62,16 +62,17 @@ CREATE TABLE `cliente` (
   `email` varchar(80) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `endereco` varchar(255) NOT NULL,
-  `telefone` varchar(10) NOT NULL
+  `telefone` varchar(10) NOT NULL,
+  `local` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `cliente`
 --
 
-INSERT INTO `cliente` (`nome`, `cpf_cliente`, `email`, `senha`, `endereco`, `telefone`) VALUES
-('NomeCliente', '45678978978', 'NomeCliente@NomeCliente', 'NomeCliente123', 'Rua NomeCliente', '987987654'),
-('Cliente Teste 2', '45685245612', 'Cliente@email.com', 'Cliente123', 'Rua Cliente', '456456456');
+INSERT INTO `cliente` (`nome`, `cpf_cliente`, `email`, `senha`, `endereco`, `telefone`, `local`) VALUES
+('NomeCliente', '45678978978', 'NomeCliente@NomeCliente', 'NomeCliente123', 'Rua NomeCliente', '987987654', 'São Caetano do Sul - SP'),
+('Cliente Teste 2', '45685245612', 'Cliente@email.com', 'Cliente123', 'Rua Cliente', '456456456', 'São Caetano do Sul - SP');
 
 -- --------------------------------------------------------
 
