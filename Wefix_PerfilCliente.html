@@ -23,10 +23,51 @@
       .card-registration .select-arrow {
           top: 13px;
       }
+      ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #4a7eee;
+}
+
+li {
+  float: left;
+  border-right:1px solid #0a0a0a;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #f0f1f7;
+}
+
+.active {
+  background-color: #13339c;
+}
 
   </style>
 </head>
 <body>
+
+  <ul>
+    <li><a class="active" href="WeFix_FeedServicos.html">Feed de Profissionais</a></li>
+    <li><a href="Wefix_SolicitacaoServico.html">Criar Solicitação</a></li>
+    <li></li>
+    
+    
+  </ul>
+
     <section class="vh-100 gradient-custom">
         <div class="container" style="padding-top: 10pc;">
           <div class="row justify-content-center align-items-center">
