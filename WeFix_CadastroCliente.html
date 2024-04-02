@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wefix | Cadastro De Cliente</title>
-    <!-- Pra Colocar a logo na aba -->
-    <link rel="icon" href="logo.png">
     <!-- Bootstrap -->  
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- CSS -->
@@ -68,22 +66,28 @@
                         <input type="tel" id="telefone" class="form-control form-control-lg" placeholder="Digite o Telefone" required></input>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
-                        <select class="form-select">
-                          <option value="" disabled selected>Local</option>
-                          <option value="1">São Paulo - SP</option>
-                          <option value="2">São Caetano do Sul - SP</option>
-                        </select>
+                        <label class="form-label select-label">Digite seu Endereço</label>
+                        <textarea class="form-control form-control-lg" id="endereco" rows="2" placeholder="Digite o Endereço" required></textarea>
                       </div>
                     </div>
-                    <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-                      <label class="form-label select-label">Digite seu Endereço</label>
-                      <textarea class="form-control form-control-lg" id="endereco" rows="2" placeholder="Digite o Endereço" required></textarea>
+
+                    <div class="col-12">
+                      <div class="form-outline">
+                      <label for="quantidade">Região</label>
+                      <select class="form-control form-control-lg" aria-label=".form-select-lg" id="quantidade">
+                          <option disabled selected>Selecione a Região</option>
+                          <option value="1">São Paulo - SP</option>
+                          <option value="2">São Caetano - SP</option>
+                          
+                      </div>
+                      
                     </div>
-                    </div>
-                    <div class="mt-4 pt-2">
+                    <div class="form-outline">
                       <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="Cadastrar" />
                     </div>
+                    
+                    
+
                   </form>
                 </div>
               </div>
@@ -92,6 +96,11 @@
         </div>
       </section>
       <script>
+        // Array para armazenar os clientes do servidor
+        let clientes = [];
+        // ID do cliente em edição
+        let clienteAtual = null;
+      
         // Evento para lidar com o envio do formulario
         document
         .getElementById("clienteForm")
@@ -133,9 +142,9 @@
                   })
                   .then((response) => response.json())
                   .then((data) => {
+                    clientes.push(data);
+                    // displayClientes();
                     document.getElementById("clienteForm").reset();
-                    alert("Cadastro com sucesso!")
-                    window.location.href = "Wefix_Login.html"
                   })
                   .catch((error) => console.error("Erro:", error));
                 }
