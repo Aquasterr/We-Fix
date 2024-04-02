@@ -1,0 +1,48 @@
+You can accomplish this by passing the unique identifier (like an ID) of each empreiteiro as a parameter in the URL. This ID can then be used on the Empreteiro Perfil page to fetch the correct data. Here’s how you can modify your code:
+
+JavaScript
+
+function alimentaFeed(data, cardContainerId, funcao) {
+  const cardContainer = document.getElementById(cardContainerId);
+  data.forEach(empreiteiro => {
+    if (funcao === 'Profissional Geral') {
+      funcao = empreiteiro.especialidade;
+    }
+    const card = document.createElement('div');
+    card.className = 'col';
+    card.innerHTML = `
+    <div class="card">
+      <div class="card-body" style="background-color: #f0f0f0;">
+        <div class="d-flex align-items-center mb-3">
+          <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;" id="avatar">
+          <h5 class="card-title mb-0" id="nome">${empreiteiro.nome}</h5>
+        </div>
+        <p class="card-footer" id="funcaoElocalizacao">${funcao} - ${empreiteiro.local}</p>
+        <div class="d-flex justify-content-text-center">
+          <div class="content margin">
+            <div class="ratings">
+              <img src="./Wefix_Inicio_files/estrela.png" style="height: 17px; width: 15px; vertical-align: center;">
+              <span class="product-rating">${empreiteiro.nota.toFixed(1)}</span><span></span>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div class="card-footer">
+        <a href="#" class="btn btn-primary btn-md">Contratar</a>
+        <a href="EmpreteiroPerfil.html?id=${empreiteiro.id}" class="btn btn-primary btn-md">Ver Perfil</a>
+      </div>
+    </div>
+    `;
+    cardContainer.appendChild(card);
+  });
+}
+Código gerado por IA. Examine e use com cuidado. Mais informações em perguntas frequentes.
+In the EmpreteiroPerfil.html page, you can get the ID from the URL using JavaScript and use it to fetch the correct data:
+
+JavaScript
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+// Use 'id' to fetch the data for the correct empreiteiro
+Código gerado por IA. Examine e use com cuidado. Mais informações em perguntas frequentes.
+This way, each “Ver Perfil” button will link to the EmpreteiroPerfil.html page with the correct empreiteiro ID in the URL, and you can use this ID to fetch and display the correct data. Please replace id with the actual property name that represents the unique identifier of empreiteiro. Also, ensure that the path to EmpreteiroPerfil.html is correct. If it’s not in the same directory, you’ll need to adjust the path accordingly.

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Abr-2024 às 15:54
+-- Tempo de geração: 02-Abr-2024 às 16:32
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.3.6
 
@@ -71,6 +71,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`nome`, `cpf_cliente`, `email`, `senha`, `endereco`, `telefone`, `local`) VALUES
+('Cliente Teste 3', '32132132112', 'Cliente3@email.com', 'Cliente123', 'Rua CLiente 2', '123123123', ''),
 ('NomeCliente', '45678978978', 'NomeCliente@NomeCliente', 'NomeCliente123', 'Rua NomeCliente', '987987654', 'São Caetano do Sul - SP'),
 ('Cliente Teste 2', '45685245612', 'Cliente@email.com', 'Cliente123', 'Rua Cliente', '456456456', 'São Caetano do Sul - SP');
 
@@ -194,7 +195,7 @@ INSERT INTO `profissionalgeral` (`nome`, `cpf_profissional`, `email`, `senha`, `
 CREATE TABLE `solicitacao` (
   `id_solicitacao` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
-  `regiao` varchar(100) NOT NULL,
+  `local` varchar(100) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `cpf_cliente` varchar(11) DEFAULT NULL,
   `data_solicitacao` datetime NOT NULL
@@ -267,7 +268,8 @@ ALTER TABLE `profissionalgeral`
 --
 ALTER TABLE `solicitacao`
   ADD PRIMARY KEY (`id_solicitacao`),
-  ADD KEY `cpf_cliente` (`cpf_cliente`);
+  ADD KEY `cpf_cliente` (`cpf_cliente`),
+  ADD KEY `nome` (`nome`);
 
 --
 -- Restrições para despejos de tabelas
