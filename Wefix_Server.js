@@ -112,7 +112,7 @@ app.get('/profissionalgeral', cors(), (req, res) => {
 });
 
 // Obter um Profissional Geral por CPF
-app.get('/profissionaisgerais/:cpf_profissional', (req, res) => {
+app.get('/profissionalgeral/:cpf_profissional', (req, res) => {
     let sql = `SELECT * FROM profissionalgeral WHERE cpf_profissional=${req.params.cpf_profissional}`;
     db.query(sql, (err, resultados) => {
         res.json(resultados);
@@ -160,7 +160,7 @@ app.post('/engenheiros', (req, res) => {
 })
 
 // Adiciona Profissionais Gerais
-app.post('/profissionaisgerais', (req, res) => {
+app.post('/profissionalgeral', (req, res) => {
     let profissionalgeral = req.body;
     let sql = 'INSERT INTO profissionalgeral SET ?';
     db.query(sql, profissionalgeral, (err, resultados) => {

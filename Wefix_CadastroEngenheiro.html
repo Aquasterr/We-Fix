@@ -96,7 +96,13 @@
                         </div>
                         </div>
                         <br>
-                     </div>                      
+                     </div>
+                     <label for="local">Região</label>
+                     <select class="form-control form-control-lg" aria-label=".form-select-lg" id="local">
+                       <option disabled selected>Selecione a Região</option>
+                       <option value="São Paulo - SP">São Paulo - SP</option>
+                       <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
+                   </select>
                      <div class="mt-4 pt-2">
                       <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
                     </div>      
@@ -118,7 +124,8 @@
             endereco: document.getElementById("endereco").value,
             telefone: document.getElementById("telefone").value,
             certificados: document.getElementById("certificados").value,
-            id_crea_engenheiro: document.getElementById("idCREA").value
+            id_crea_engenheiro: document.getElementById("idCREA").value,
+            local: document.getElementById("local").value
           };
           fetch(`http://localhost:3002/engenheiros/${engenheiro.cpf_engenheiro}`, {method: "GET"})
           .then((response) => response.json())

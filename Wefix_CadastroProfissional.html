@@ -50,23 +50,18 @@
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
-      
                         <div class="form-outline">
                           <label class="form-label" for="email">E-mail</label>
                           <input type="email" id="email" class="form-control form-control-lg" placeholder="Digite seu E-mail" />
                         </div>
-      
                       </div>
                     </div>
-      
                     <div class="row">
                       <div class="col-md-6 mb-4 d-flex align-items-center">
-      
                         <div class="form-outline">
                           <label for="senha" class="form-label">Senha</label>
                           <input type="password" class="form-control form-control-lg" id="senha" placeholder="Digite sua Senha" />
                         </div>
-      
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
@@ -74,16 +69,12 @@
                           <input type="number" id="cpf" class="form-control form-control-lg" placeholder="Digite seu CPF" />
                         </div>
                       </div>
-
                       <div class="col-md-6 mb- pb-2">
                         <div class="form-outline">
                           <label class="form-label" for="telefone">Telefone</label>
                           <input type="number" id="telefone" class="form-control form-control-lg" placeholder="Digite seu Telefone" />
                         </div>
                       </div>
-
-                    
-                    
                       <div class="col-md-6 mb-1 d-flex align-items-center">     
                         <div class="form-outline">
                           <label for="endereco" class="form-label">Endereço</label>
@@ -101,13 +92,19 @@
                             <option value="Mestre de Obra">Mestre de Obra</option>
                             <option value="Pintor">Pintor</option>
                           </select>
-                        </div>
-                        <br>
-                        <div class="mb-3">
-                          <label for="certificados" class="form-label">Certificados:</label>
-                          <input class="form-control" type="file" id="certificados" multiple />
+                          <div class="form-outline mb-2">
+                            <label for="local">Região</label>
+                            <select class="form-control form-control-lg" aria-label=".form-select-lg" id="local">
+                                <option disabled selected>Selecione a Região</option>
+                                <option value="São Paulo - SP">São Paulo - SP</option>
+                                <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
+                            </select>
                           </div>
-                          <br>
+                    </div>
+                    <div class="mt-3 pt-1">
+                      <label for="certificados" class="form-label">Certificados:</label>
+                      <input class="form-control" type="file" id="certificados" multiple />
+                    </div>
                     <div class="mt-4 pt-2">
                       <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
                     </div>
@@ -129,7 +126,8 @@
             endereco: document.getElementById("endereco").value,
             telefone: document.getElementById("telefone").value,
             certificados: document.getElementById("certificados").value,
-            especialidade: document.getElementById("especialidade").value
+            especialidade: document.getElementById("especialidade").value,
+            local: document.getElementById("local").value
           };
           fetch(`http://localhost:3002/profissionalgeral/${profissionalGeral.cpf_profissional}`, {method: "GET"})
           .then((response) => response.json())
@@ -137,7 +135,7 @@
             if (data.length > 0) {
               alert("Este CPF já está cadastrado.")
             } else {
-              return fetch(`http://localhost:3002/arquitetos/email/${arquiteto.email}`, {method: "GET"})
+              return fetch(`http://localhost:3002/profissionalgeral/email/${profissionalGeral.email}`, {method: "GET"})
             }
           })
           .then((response) => response.json())  
@@ -145,19 +143,19 @@
             if (data.length > 0) {
               alert("Este email já está cadastrado.")
             } else {
-              return fetch("http://localhost:3002/arquitetos", {
+              return fetch("http://localhost:3002/profissionalgeral", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(arquiteto),
+                body: JSON.stringify(profissionalGeral),
               })
             }
           })
           .then((response) => response.json())
           .then((data) => {
-            console.log(arquiteto);
-            document.getElementById("arquitetoForm").reset();
+            console.log(profissionalGeral);
+            document.getElementById("profissionalForm").reset();
             alert("Cadastro com sucesso!")
             window.location.href = "Wefix_Login.html"
           })

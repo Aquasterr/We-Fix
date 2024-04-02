@@ -112,7 +112,6 @@
                 <select name="slt_ordem">
                   <option value="" disabled selected>Ordem</option>
                   <option value="valor1">Ordem Alfabetica</option>
-                  <option value="valor2">Mais recente</option>
                   <option value="valor3">Maior nota</option>
                   <option value="valor4">Menor nota</option>
                 </select>
@@ -120,7 +119,11 @@
                 <select name="slt_funcao">
                   <option value="" disabled selected>Função</option>
                   <option value="valor1">Arquiteto</option>
-                  <option value="valor2">Pintor</option>
+                  <option value="valor2">Engenheiro</option>
+                  <option value="valor3">Eletricista</option>
+                  <option value="valor4">Encanador</option>
+                  <option value="valor5">Mestre de Obra</option>
+                  <option value="valor6">Pintor</option>
                 </select>
               </form>
               <a href="#" class="btn btn-primary btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
@@ -183,9 +186,10 @@
     function alimentaFeed(data, cardContainerId, funcao) {
       const cardContainer = document.getElementById(cardContainerId);
       data.forEach(empreiteiro => {
+        let funcaoFinal = funcao;
         if (funcao === 'Profissional Geral')
         {
-          funcao = empreiteiro.especialidade;
+          funcaoFinal = empreiteiro.especialidade;
         }
         const card = document.createElement('div');
         card.className = 'col';
@@ -196,7 +200,7 @@
               <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;" id="avatar">
               <h5 class="card-title mb-0" id="nome">${empreiteiro.nome}</h5>
             </div>
-            <p class="card-footer" id="funcaoElocalizacao">${funcao} - ${empreiteiro.local}</p>
+            <p class="card-footer" id="funcaoElocalizacao">${funcaoFinal} - ${empreiteiro.local}</p>
             <div class="d-flex justify-content-text-center">
               <div class="content margin">
                 <div class="ratings">
@@ -207,8 +211,8 @@
             </div> 
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-md">Contratar</a>
-            <a href="#" class="btn btn-primary btn-md">Ver Perfil</a>
+            <a href="Wefix_CadastroObra.html" class="btn btn-primary btn-md">Contratar</a>
+            <a href="Wefix_PerfilProfissional.html?email=${empreiteiro.email}" class="btn btn-primary btn-md">Ver Perfil</a>
           </div>
         </div>
         `;
@@ -231,7 +235,6 @@
     }
     return null;
 }
-
-    </script>
+  </script>
 </body>
 </html>

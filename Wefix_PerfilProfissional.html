@@ -75,10 +75,10 @@
               <div class="card mb-4">
                 <div class="card-body text-center">
                   <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
-                  <h5 class="my-3">Nome</h5>
-                  <h5 class="my-3">Especialidade</h5>
-                  <p class="text-muted mb-1">E-Mail</p>
-                  <p class="text-muted mb-4">Local</p>
+                  <h3 class="my-3" id="nomePerfil">Nome</h5>
+                  <h4 class="my-3" id="especialidadePerfil">Especialidade</h5>
+                  <p class="text-muted mb-1" id="emailPerfil">E-Mail</p>
+                  <p class="text-muted mb-4" id="localPerfil">Local</p>
                   <div class="d-flex justify-content-center mb-2">
                     <button type="button" class="btn btn-primary">Seguir</button>
                     <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
@@ -96,7 +96,7 @@
                       <p class="mb-0">Nome Completo</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">*Nome*</p>
+                      <p class="text-muted mb-0" id="nome">*Nome*</p>
                     </div>
                   </div>
                   <hr>
@@ -106,7 +106,7 @@
                       <p class="mb-0">Especialidade</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">*Especialidade*</p>
+                      <p class="text-muted mb-0" id="especialidade">*Especialidade*</p>
                     </div>
                   </div>
                   <hr>
@@ -116,7 +116,7 @@
                       <p class="mb-0">Email</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">exemplo@exemplo</p>
+                      <p class="text-muted mb-0" id="email">exemplo@exemplo</p>
                     </div>
                   </div>
                   <hr>
@@ -125,7 +125,7 @@
                       <p class="mb-0">Telefone</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">(000) 0000-0000</p>
+                      <p class="text-muted mb-0" id="telefone">(000) 0000-0000</p>
                     </div>
                   </div>
                   
@@ -136,14 +136,14 @@
                       <p class="mb-0">Endereço</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">*Endereço*</p>
+                      <p class="text-muted mb-0" id="endereco">*Endereço*</p>
                     </div>
                   </div>
 
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                        <p class="mb-0">Certificados</p>
+                      <p class="mb-0">Certificados</p>
                     </div>
                     <div class="col-sm-3">
                         <div class="thumbnail">
@@ -187,5 +187,51 @@
           </div>
         </div>
       </section>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const email = urlParams.get('email');
 
+      const arquitetoEndPoint = `http://localhost:3002/arquitetos/email/${email}`;
+      const engenheiroEndPoint = `http://localhost:3002/engenheiros/email/${email}`;
+      const profissionalEndPoint = `http://localhost:3002/profissionalgeral/email/${email}`;
+
+      fetchEmpreiteiroData(email).then(empreiteiro => {
+        // Form da esquerda
+        document.getElementById('nomePerfil').innerHTML = empreiteiro[0].nome;
+        document.getElementById('especialidadePerfil').innerHTML = empreiteiro[0].especialidade || empreiteiro[0].type;
+        document.getElementById('emailPerfil').innerHTML = empreiteiro[0].email;
+        document.getElementById('localPerfil').innerHTML = empreiteiro[0].local;
+
+        // Form da Direita
+        document.getElementById('nome').innerHTML = empreiteiro[0].nome;
+        document.getElementById('especialidade').innerHTML = empreiteiro[0].especialidade || empreiteiro[0].type;
+        document.getElementById('email').innerHTML = empreiteiro[0].email;
+        document.getElementById('telefone').innerHTML = empreiteiro[0].telefone;
+        document.getElementById('endereco').innerHTML = empreiteiro[0].endereco;
+      });
+
+      async function fetchEmpreiteiroData(id) {
+      const endpoints = [
+        { url: `http://localhost:3002/arquitetos/email/${id}`, type: 'Arquiteto' },
+        { url: `http://localhost:3002/engenheiros/email/${id}`, type: 'Engenheiro' },
+        { url: `http://localhost:3002/profissionalgeral/email/${id}`, type: 'Profissional Geral' }
+      ];
+
+      for (let i = 0; i < endpoints.length; i++) {
+        const response = await fetch(endpoints[i].url);
+        if (response.ok) {
+          const empreiteiro = await response.json();
+          // Check if the empreiteiro array is not empty
+          if (empreiteiro && empreiteiro.length > 0) {
+            // Add the type to the empreiteiro object
+            empreiteiro[0].type = endpoints[i].type;
+            return empreiteiro;
+          }
+        }
+      }
+      throw new Error('Empreiteiro not found');
+    }
+
+
+    </script>
 </body></html>
