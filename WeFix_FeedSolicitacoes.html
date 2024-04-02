@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <!-- CSS -->
     <style>
         .gradient-custom {
@@ -25,9 +27,48 @@
             top: 13px;
         }
 
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #4a7eee;
+}
+
+li {
+  float: left;
+  border-right:1px solid #0a0a0a;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #f0f1f7;
+}
+
+.active {
+  background-color: #13339c;
+}
     </style>
 </head>
 <body>
+  <ul>
+    <li><a class="active" href="Wefix_PerfilCliente.html">Perfil</a></li>
+    <li><a href="Wefix_SolicitacaoServico.html">Criar Solicitação</a></li>
+    <li></li>
+    
+    
+  </ul>
   <section class="gradient-custom">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
@@ -35,6 +76,7 @@
           <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
               <h1 class="mb-4 pb-2 pb-md-2 mb-md-3">Feed de Solicitações</h3>
+                
               <form>
                 <img src="./Wefix_Inicio_files/map.png" style="height: 25px; width: 20px; vertical-align: top;">
                 <select name="slt_local">
@@ -57,6 +99,7 @@
                   <option value="valor2">Pintor</option>
                 </select>
               </form>
+              
               <a href="#" class="btn btn-primary btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
               <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
