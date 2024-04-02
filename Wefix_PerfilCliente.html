@@ -3,6 +3,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wefix | Perfil Do Cliente</title>
+    <!-- Pra Colocar a logo na aba -->
+    <link rel="icon" href="logo.png">
     <!-- Bootstrap -->  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
@@ -23,51 +25,46 @@
       .card-registration .select-arrow {
           top: 13px;
       }
+
       ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #4a7eee;
-}
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #4a7eee;
+      }
 
-li {
-  float: left;
-  border-right:1px solid #0a0a0a;
-}
+      li {
+        float: left;
+        border-right:1px solid #0a0a0a;
+      }
 
-li:last-child {
-  border-right: none;
-}
+      li:last-child {
+        border-right: none;
+      }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
 
-li a:hover:not(.active) {
-  background-color: #f0f1f7;
-}
+      li a:hover:not(.active) {
+        background-color: #f0f1f7;
+      }
 
-.active {
-  background-color: #13339c;
-}
-
+      .active {
+        background-color: #13339c;
+      }
   </style>
 </head>
 <body>
-
-  <ul>
-    <li><a class="active" href="WeFix_FeedServicos.html">Feed de Profissionais</a></li>
-    <li><a href="Wefix_SolicitacaoServico.html">Criar Solicitação</a></li>
-    <li></li>
-    
-    
-  </ul>
-
+    <ul>
+      <li><a class="active" href="WeFix_FeedServicos.html">Feed de Profissionais</a></li>
+      <li><a href="Wefix_SolicitacaoServico.html">Criar Solicitação</a></li>
+    </ul>
     <section class="vh-100 gradient-custom">
         <div class="container" style="padding-top: 10pc;">
           <div class="row justify-content-center align-items-center">
@@ -75,9 +72,9 @@ li a:hover:not(.active) {
               <div class="card mb-4">
                 <div class="card-body text-center">
                   <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
-                  <h5 class="my-3">Nome</h5>
-                  <p class="text-muted mb-1">E-Mail</p>
-                  <p class="text-muted mb-4">Local</p>
+                  <h5 class="my-3" id="nomePerfil">Nome</h5>
+                  <p class="text-muted mb-1" id="emailPerfil">E-Mail</p>
+                  <p class="text-muted mb-4" id="localPerfil">Local</p>
                   <div class="d-flex justify-content-center mb-2">
                     <button type="button" class="btn btn-primary">Seguir</button>
                     <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
@@ -95,7 +92,7 @@ li a:hover:not(.active) {
                       <p class="mb-0">Nome Completo</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">*Nome*</p>
+                      <p class="text-muted mb-0" id="nome">*Nome*</p>
                     </div>
                   </div>
                   <hr>
@@ -104,7 +101,7 @@ li a:hover:not(.active) {
                       <p class="mb-0">Email</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">exemplo@exemplo</p>
+                      <p class="text-muted mb-0" id="email">exemplo@exemplo</p>
                     </div>
                   </div>
                   <hr>
@@ -113,18 +110,16 @@ li a:hover:not(.active) {
                       <p class="mb-0">Telefone</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">(000) 0000-0000</p>
+                      <p class="text-muted mb-0" id="telefone">(000) 0000-0000</p>
                     </div>
                   </div>
-                  
-                  
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Endereço</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0">*Endereço*</p>
+                      <p class="text-muted mb-0" id="endereco">*Endereço*</p>
                     </div>
                   </div>
                 </div>
@@ -134,5 +129,47 @@ li a:hover:not(.active) {
           </div>
         </div>
       </section>
+  <script>
+    // Pega as End Points de cada tipo de empreiteiro
+    const clienteEndPoint = `http://localhost:3002/clientes/email/${getCookie('user')}`;
 
-</body></html>
+    // Teste
+    window.onload = function() {
+      console.log(clienteEndPoint);
+    }
+
+    // Fetch no cliente
+    fetch(clienteEndPoint)
+    .then(response => response.json())
+    .then(data => alimentaPerfil(data))
+    .catch(error => console.error('Error:', error));
+
+    //Função pra pegar as informações e colocar no perfil
+    function alimentaPerfil(data)
+    {
+      // Form da esquerda
+      document.getElementById('nomePerfil').innerHTML = data[0].nome;
+      document.getElementById('emailPerfil').innerHTML = data[0].email;
+      document.getElementById('localPerfil').innerHTML = data[0].local;
+
+      // Form da direita
+      document.getElementById('nome').innerHTML = data[0].nome;
+      document.getElementById('email').innerHTML = data[0].email;
+      document.getElementById('telefone').innerHTML = data[0].telefone;
+      document.getElementById('endereco').innerHTML = data[0].endereco;
+    }
+
+    // Função pra pegar um cookie especifico
+    function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+      return null;
+    }
+  </script>
+</body>
+</html>

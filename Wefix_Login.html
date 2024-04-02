@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wefix | Login</title>
+    <!-- Pra Colocar a logo na aba -->
+    <link rel="icon" href="logo.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- CSS -->
@@ -80,9 +82,6 @@
         </div>
       </section>
       <script>
-        // Array para armazenar os clientes do servidor
-        let clientes = [];
-      
         // Evento para lidar com o envio do formulario
         document
         .getElementById("loginForm")
@@ -93,14 +92,21 @@
             email: document.getElementById("emailInput").value,
             senha: document.getElementById("senhaInput").value
           };
-          console.log(JSON.stringify(login));
+
+          // Pega as End Points de cada tipo de conta
+          const clienteEndPoint = `http://localhost:3002/clientes/email/${login.email}`;
+          const arquitetoEndPoint = `http://localhost:3002/arquitetos/email/${login.email}`;
+          const engenheiroEndPoint = `http://localhost:3002/engenheiros/email/${login.email}`;
+          const profissionalEndPoint = `http://localhost:3002/profissionalgeral/email/${login.email}`;
+
           // Verifica se ja esta cadastrado como cliente.
-          fetch(`http://localhost:3002/clientes/email/${login.email}`, {method: "GET"})
+          fetch(clienteEndPoint)
           .then((response) => response.json())
           .then((data) => {
               if (data.length > 0) {
                 if (data[0].senha === login.senha)
                 {
+                  cookieLogin(login.email, login.senha)
                   alert("Login com sucesso!")
                   window.location.href = "Wefix_FeedServicos.html"
                 }
@@ -111,7 +117,7 @@
               }
             })
           // Verifica se ja esta cadastrado como Arquiteto.
-          fetch(`http://localhost:3002/arquitetos/email/${login.email}`, {method: "GET"})
+          fetch(arquitetoEndPoint, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
@@ -126,8 +132,8 @@
                 }
             }
           })
-          // Verifica se ja esta cadastrado como Empreiteiro. !!! CADEO OEMPREITERO
-          fetch(`http://localhost:3002/empreiteiros/email/${login.email}`, {method: "GET"})
+          // Verifica se ja esta cadastrado como Engenheiro. !!!
+          fetch(engenheiroEndPoint, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
@@ -143,7 +149,7 @@
             }
           })
           // Verifica se ja esta cadastrado como Profissional Geral.
-          fetch(`http://localhost:3002/profissionalgeral/email/${login.email}`, {method: "GET"})
+          fetch(profissionalEndPoint, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             if (data.length > 0) {
@@ -158,6 +164,17 @@
                 }
             }
           })
+
+          // Função para Guardar informação de Login nos cookies do navegador
+          function cookieLogin(email, senha)
+          {
+            today = new Date();
+            var expire = new Date();
+            expire.setTime(today.getTime() + 3600000*24*15);
+
+            document.cookie = "user="+email+";path=/" + ";expires="+expire.toUTCString();
+            //document.cookie = "password="+encodeURI(senha)+";path=/" + ";expires="+expire.toUTCString();
+          }
         });
       </script>    
 </body>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wefix | Cadastro De Engenheiro</title>
+    <!-- Pra Colocar a logo na aba -->
+    <link rel="icon" href="logo.png">
     <!-- Bootstrap -->  
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
@@ -145,6 +147,8 @@
           .then((data) => {
             console.log(engenheiro);
             document.getElementById("engenheiroForm").reset();
+            alert("Cadastro com sucesso!")
+            window.location.href = "Wefix_Login.html"
           })
         })
         </script>  
