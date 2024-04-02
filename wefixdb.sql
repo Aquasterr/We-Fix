@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Mar-2024 às 14:39
+-- Tempo de geração: 02-Abr-2024 às 14:56
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.3.6
 
@@ -36,8 +36,19 @@ CREATE TABLE `arquiteto` (
   `endereco` varchar(255) NOT NULL,
   `certificados` varchar(255) NOT NULL,
   `telefone` varchar(10) NOT NULL,
-  `id_cau_arquiteto` int(11) NOT NULL
+  `id_cau_arquiteto` int(11) NOT NULL,
+  `local` varchar(255) NOT NULL,
+  `nota` decimal(2,1) NOT NULL DEFAULT 5.0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `arquiteto`
+--
+
+INSERT INTO `arquiteto` (`nome`, `cpf_arquiteto`, `email`, `senha`, `endereco`, `certificados`, `telefone`, `id_cau_arquiteto`, `local`, `nota`) VALUES
+('ariwqitpe', '32132132112', 'Arquiote@email', 'jkasdlkjads', 'sadasdsadas', '', '23323232', 456546654, 'São Caetano do Sul - SP', '5.0'),
+('Arquiteto Nome 2', '78978978978', 'Arquiteto2@email.com', 'Arquiteto123', 'Rua Arquiteto2', 'pipipipipopopo', '456456456', 123123123, 'São Caetano do Sul - SP', '5.0'),
+('Arquiteto Nome 3', '78978978998', 'Arquiteto3@email.com', 'Arquiteto1234', 'Rua Arquiteto33', 'pipipipipopopo232', '456456456', 123321123, 'São Caetano do Sul - SP', '5.0');
 
 -- --------------------------------------------------------
 
@@ -53,6 +64,14 @@ CREATE TABLE `cliente` (
   `endereco` varchar(255) NOT NULL,
   `telefone` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `cliente`
+--
+
+INSERT INTO `cliente` (`nome`, `cpf_cliente`, `email`, `senha`, `endereco`, `telefone`) VALUES
+('NomeCliente', '45678978978', 'NomeCliente@NomeCliente', 'NomeCliente123', 'Rua NomeCliente', '987987654'),
+('Cliente Teste 2', '45685245612', 'Cliente@email.com', 'Cliente123', 'Rua Cliente', '456456456');
 
 -- --------------------------------------------------------
 
@@ -80,8 +99,17 @@ CREATE TABLE `engenheiro` (
   `endereco` varchar(255) NOT NULL,
   `certificados` varchar(255) NOT NULL,
   `telefone` varchar(10) NOT NULL,
-  `id_crea_engenheiro` int(11) NOT NULL
+  `id_crea_engenheiro` int(11) NOT NULL,
+  `local` varchar(255) NOT NULL,
+  `nota` decimal(2,1) NOT NULL DEFAULT 5.0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `engenheiro`
+--
+
+INSERT INTO `engenheiro` (`nome`, `cpf_engenheiro`, `email`, `senha`, `endereco`, `certificados`, `telefone`, `id_crea_engenheiro`, `local`, `nota`) VALUES
+('Engenheiro', '98798798778', 'EngenheiroTF2@Engenheiro', 'Engenheiro123', 'Rua Engenheiro Estrada Engenheiro', 'C:\\fakepath\\Android Large - 1.png', '456456456', 2147483647, 'São Paulo - SP', '5.0');
 
 -- --------------------------------------------------------
 
@@ -144,8 +172,17 @@ CREATE TABLE `profissionalgeral` (
   `endereco` varchar(255) NOT NULL,
   `especialidade` varchar(100) NOT NULL,
   `certificados` varchar(255) DEFAULT NULL,
-  `telefone` varchar(10) NOT NULL
+  `telefone` varchar(10) NOT NULL,
+  `local` varchar(255) NOT NULL,
+  `nota` decimal(2,1) NOT NULL DEFAULT 5.0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `profissionalgeral`
+--
+
+INSERT INTO `profissionalgeral` (`nome`, `cpf_profissional`, `email`, `senha`, `endereco`, `especialidade`, `certificados`, `telefone`, `local`, `nota`) VALUES
+('Profissional Teste 2', '45645678978', 'ProfissionalTeste2@mail.com', 'profissional123', 'Rua Profissional Teste 2', 'Mestre de Obra', NULL, '9845625685', 'São Paulo - SP', '5.0');
 
 -- --------------------------------------------------------
 
