@@ -127,6 +127,16 @@ app.get('/profissionalgeral/email/:email', (req, res) => {
     })
 })
 
+// ---- OBRAS ----
+
+// Obter todas as obras
+app.get('/obras', cors(), (req, res) => {
+    let sql = 'SELECT * FROM obra';
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
 // ---------------- POSTs ----------------
 
 // Adiciona Clientes
@@ -167,6 +177,16 @@ app.post('/profissionalgeral', (req, res) => {
         console.log(resultados);
     });
     res.status(201).json(profissionalgeral);
+})
+
+// Adiciona Obra
+app.post('/obras', (req, res) => {
+    let obra = req.body;
+    let sql = 'INSERT INTO obra SET ?';
+    db.query(sql, obra, (err, resultados) => {
+        console.log(resultados);
+    });
+    res.status(201).json(obra);
 })
 
 // Ola mundo!

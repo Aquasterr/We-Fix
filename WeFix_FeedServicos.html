@@ -93,6 +93,7 @@
   <ul>
     <li><a class="active" href="Wefix_PerfilCliente.html">Perfil</a></li>
     <li><a href="Wefix_SolicitacaoServico.html">Criar Solicitação</a></li>
+    <li><a href="#">Obras Solicitadas</a></li>
   </ul>
   <section class="gradient-custom">
     <div class="container py-5 h-100">
@@ -147,7 +148,9 @@
                     </div>
                     <div class="card-footer">
                       <a href="#" class="btn btn-primary btn-md">Contratar</a>
-                      <a href="#" class="btn btn-primary btn-md">Ver Perfil</a>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#perfilModal">
+                        Ver Perfil
+                      </button>
                     </div>
                   </div>
                 </div>                
@@ -158,6 +161,101 @@
       </div>
     </div>
   </section>
+    <!-- Modal -->
+  <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="perfilModalLabel">Perfil Profissional</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Your HTML code goes here -->
+          <div class="container" style="padding-top: 1pc;">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-lg-4">
+                <div class="card mb-4">
+                  <div class="card-body text-center">
+                    <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
+                    <h3 class="my-3" id="nomePerfil">Nome</h5>
+                    <h4 class="my-3" id="especialidadePerfil">Especialidade</h5>
+                    <p class="text-muted mb-1" id="emailPerfil">E-Mail</p>
+                    <p class="text-muted mb-4" id="localPerfil">Local</p>
+                    <div class="d-flex justify-content-center mb-2">
+                      <button type="button" class="btn btn-primary">Seguir</button>
+                      <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Nome Completo</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="nomeModal">*Nome*</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Especialidade</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="especialidadeModal">*Especialidade*</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="emailModal">exemplo@exemplo</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Telefone</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="telefoneModal">(000) 0000-0000</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Endereço</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="enderecoModal">*Endereço*</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Certificados</p>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="thumbnail">
+                          <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
     // Pega as End Points de cada tipo de empreiteiro
     const arquitetoEndPoint = 'http://localhost:3002/arquitetos/';
@@ -184,44 +282,64 @@
     
     // Função Pra adicionar Empreiteiro no grid
     function alimentaFeed(data, cardContainerId, funcao) {
-      const cardContainer = document.getElementById(cardContainerId);
-      data.forEach(empreiteiro => {
-        let funcaoFinal = funcao;
-        if (funcao === 'Profissional Geral')
-        {
-          funcaoFinal = empreiteiro.especialidade;
-        }
-        const card = document.createElement('div');
-        card.className = 'col';
-        card.innerHTML = `
-        <div class="card">
-          <div class="card-body" style="background-color: #f0f0f0;">
-            <div class="d-flex align-items-center mb-3">
-              <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;" id="avatar">
-              <h5 class="card-title mb-0" id="nome">${empreiteiro.nome}</h5>
-            </div>
-            <p class="card-footer" id="funcaoElocalizacao">${funcaoFinal} - ${empreiteiro.local}</p>
-            <div class="d-flex justify-content-text-center">
-              <div class="content margin">
-                <div class="ratings">
-                  <img src="./Wefix_Inicio_files/estrela.png" style="height: 17px; width: 15px; vertical-align: center;">
-                  <span class="product-rating">${empreiteiro.nota.toFixed(1)}</span><span></span>
-                </div>
+    const cardContainer = document.getElementById(cardContainerId);
+    data.forEach(empreiteiro => {
+      let funcaoFinal = funcao;
+      if (funcao === 'Profissional Geral') {
+        funcaoFinal = empreiteiro.especialidade;
+      }
+      const card = document.createElement('div');
+      card.className = 'col';
+      card.innerHTML = `
+      <div class="card">
+        <div class="card-body" style="background-color: #f0f0f0;">
+          <div class="d-flex align-items-center mb-3">
+            <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;" id="avatar">
+            <h5 class="card-title mb-0" id="nome">${empreiteiro.nome}</h5>
+          </div>
+          <p class="card-footer" id="funcaoElocalizacao">${funcaoFinal} - ${empreiteiro.local}</p>
+          <div class="d-flex justify-content-text-center">
+            <div class="content margin">
+              <div class="ratings">
+                <img src="./Wefix_Inicio_files/estrela.png" style="height: 17px; width: 15px; vertical-align: center;">
+                <span class="product-rating">${empreiteiro.nota.toFixed(1)}</span><span></span>
               </div>
-            </div> 
-          </div>
-          <div class="card-footer">
-            <a href="Wefix_CadastroObra.html" class="btn btn-primary btn-md">Contratar</a>
-            <a href="Wefix_PerfilProfissional.html?email=${empreiteiro.email}" class="btn btn-primary btn-md">Ver Perfil</a>
-          </div>
+            </div>
+          </div> 
         </div>
-        `;
-        cardContainer.appendChild(card);
+        <div class="card-footer">
+          <a href="Wefix_CadastroObra.html" class="btn btn-primary btn-md" onclick="localStorage.setItem('empreiteiro', '${empreiteiro.email}')">Contratar</a>
+          <a href="#" class="btn btn-primary btn-md ver-perfil-btn" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</a>
+        </div>
+      </div>
+      `;
+      cardContainer.appendChild(card);
+
+      // Add event listener to the "Ver Perfil" button
+      card.querySelector('.ver-perfil-btn').addEventListener('click', () => {
+        popularModal(empreiteiro, funcaoFinal);
       });
+    });
+    }
+
+    function popularModal(empreiteiro, funcao) {
+      // Populate the modal with empreiteiro data
+      // For example:
+      document.getElementById('nomePerfil').innerHTML = empreiteiro.nome;
+      document.getElementById('especialidadePerfil').innerHTML = funcao;
+      document.getElementById('emailPerfil').innerHTML = empreiteiro.email;
+      document.getElementById('localPerfil').innerHTML = empreiteiro.local;
+
+      document.getElementById('nomeModal').innerHTML = empreiteiro.nome;
+      document.getElementById('especialidadeModal').innerHTML = funcao;
+      document.getElementById('emailModal').innerHTML = empreiteiro.email;
+      document.getElementById('telefoneModal').innerHTML = empreiteiro.telefone;
+      document.getElementById('enderecoModal').innerHTML = empreiteiro.endereco;
     }
     
     window.onload = function() {
       console.log('User: ' + getCookie('user'));
+      
     }
 
     // Função pra pegar um cookie especifico

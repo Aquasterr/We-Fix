@@ -80,34 +80,155 @@ li a:hover:not(.active) {
             <div class="col-12 col-lg-9 col-xl-7">
               <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro de Obra</h3>
-                       
-                     
-                  <div class="form-group">
-                    <label for="SolicitacaoServico">Descrição da obra</label>
-                    <textarea class="form-control" id="DescricaoObra" rows="3" placeholder="Digite a descrição da obra"></textarea>
-                  </div>
-
-                  <div class="form-outline">
-                    <label for="especialidade">Localização</label>
-                      <select class="form-control form-control-lg" aria-label=".form-select-lg" id="especialidade" >
-                          <option disabled selected>Selecione a Região</option>
-                          <option value="1">São Paulo - SP </option>
-                          <option value="2">São Caetano do Sul -SP</option>
-                        </select>
-                      </div>
-
-                        
-                                          
-                     <div class="mt-4 pt-2">
-                      <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
+                  <form id="obraForm">
+                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro de Obra</h3>
+                    <div class="form-group">
+                      <label for="SolicitacaoServico">Descrição da obra</label>
+                      <textarea class="form-control" id="DescricaoObra" rows="3" placeholder="Digite a descrição da obra" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="InicioObra">Inicio da Obra</label>
+                      <input type="date" class="form-control" id="InicioObra" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="TerminoObra">Termino da Obra</label>
+                      <input type="date" class="form-control" id="TerminoObra" required>
+                    </div>
+                    <div class="form-outline">
+                      <label for="obraLocal">Localização</label>
+                      <select class="form-control form-control-lg" aria-label=".form-select-lg" id="obraLocal" required>
+                        <option disabled selected>Selecione a Região</option>
+                        <option value="São Paulo - SP">São Paulo - SP </option>
+                        <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="empreiteiro">Empreiteiro</label>
+                      <input type="text" class="form-control" id="empreiteiro" value="Empreiteiro" readonly>
+                    </div>
+                    <div class="mt-4 pt-2">
+                      <input class="btn btn-primary btn-lg" type="submit" value="Solicitar" />
                     </div>      
                   </form>
-                </div>
+                </div>                
               </div>
             </div>
           </div>
         </div>
       </section> 
+      <script>
+        // Quando o Cliente Apertar o botão de solicitar
+        // Pega as End Points de cada tipo de empreiteiro
+        const arquitetoEndPoint = 'http://localhost:3002/arquitetos/';
+        const engenheiroEndPoint = 'http://localhost:3002/engenheiros/';
+        const profissionalEndPoint = 'http://localhost:3002/profissionalgeral/';
+
+        document.getElementById("obraForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          // Pega o CPF do cliente
+          let cpf_cliente = await fetch(`http://localhost:3002/clientes/email/Cliente@email.com`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data[0].cpf_cliente)
+            return data[0].cpf_cliente;
+          });
+
+          // Pega CPF do Empreiteiro
+          let cpf_arquiteto, cpf_engenheiro, cpf_profissional;
+          let email_empreiteiro = localStorage.getItem('empreiteiro');
+
+          await fetch(`${arquitetoEndPoint}email/${email_empreiteiro}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            cpf_arquiteto = data[0].cpf_arquiteto;
+          })
+          .catch(error => console.error('Error:', error));
+
+          await fetch(`${engenheiroEndPoint}email/${email_empreiteiro}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            cpf_engenheiro = data[0].cpf_engenheiro;
+          })
+          .catch(error => console.error('Error:', error));
+
+          await fetch(`${profissionalEndPoint}email/${email_empreiteiro}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            cpf_profissional = data[0].cpf_profissional;
+          })
+          .catch(error => console.error('Error:', error));
+
+          const obra = {
+            id_obra: Math.floor(100000 + Math.random() * 900000),
+            local_obra: document.getElementById("obraLocal").value,
+            descricao_obra: document.getElementById("DescricaoObra").value,
+            data_inicio: document.getElementById("InicioObra").value,
+            data_termino: document.getElementById("TerminoObra").value,
+            cpf_cliente: cpf_cliente,
+            cpf_arquiteto: cpf_arquiteto,
+            cpf_engenheiro: cpf_engenheiro,
+            cpf_profissional: cpf_profissional
+          };
+          fetch('http://localhost:3002/obras/', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(obra),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(JSON.stringify(obra));
+            document.getElementById("obraForm").reset();
+            alert("Obra Solicitada com sucesso!")
+            window.location.href = "Wefix_FeedServicos.html"
+          })
+        })
+
+        window.onload = async function() {
+          fetchEmpreiteiroDetails();
+          console.log('User: ' + getCookie('user'));
+        }
+
+         // Funcao pra pegar os detalhes do empreiteiro
+        async function fetchEmpreiteiroDetails() {
+          let email_empreiteiro = localStorage.getItem('empreiteiro');
+
+          await fetch(`${arquitetoEndPoint}email/${email_empreiteiro}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById('empreiteiro').value = data[0].nome;
+          })
+          .catch(error => console.error('Error:', error));
+
+          await fetch(`${engenheiroEndPoint}email/${email_empreiteiro}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById('empreiteiro').value = data[0].nome;
+          })
+          .catch(error => console.error('Error:', error));
+
+          await fetch(`${profissionalEndPoint}email/${email_empreiteiro}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById('empreiteiro').value = data[0].nome;
+          })
+          .catch(error => console.error('Error:', error));
+        }
+
+
+        // Função pra pegar um cookie especifico
+        function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+        }
+        </script>  
 </body>
 </html>

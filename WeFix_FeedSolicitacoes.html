@@ -65,6 +65,7 @@ li a:hover:not(.active) {
   <ul>
     <ul>
       <li><a class="active" href="Wefix_PerfilProfissional.html">Perfil</a></li>
+      <li><a class="active" href="#">Obras Em Andamento</a></li>
     </ul>
   <section class="gradient-custom">
     <div class="container py-5 h-100">
@@ -121,6 +122,21 @@ li a:hover:not(.active) {
       </div>
     </div>
   </section>
-
+<script>
+    window.onload = function() {
+      console.log('User: ' + getCookie('user'));
+    }
+    // Função pra pegar um cookie especifico
+    function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+</script>
 </body>
 </html>

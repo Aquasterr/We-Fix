@@ -67,6 +67,7 @@
 <body>
   <ul>
     <li><a class="active" href="WeFix_FeedSolicitacoes.html">Feed de Solicitações</a></li>
+    <li><a href="#">Obras em Andamento</a></li>
   </ul>
     <section class="vh-100 gradient-custom">
         <div class="container" style="padding-top: 10pc;">
@@ -151,36 +152,6 @@
                   </div>
                   </div>
 
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Portfólio</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="thumbnail">
-                            <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
-                  </div>
-                  </div>
-
-                  <div class="col-sm-3">
-                    <div class="thumbnail">
-                        <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
-              </div>
-              </div>
-
-              <div class="col-sm-3">
-                    <div class="thumbnail">
-                        <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
-              </div>
-              </div>
-                  
-              <div class="col-sm-3">
-                <div class="thumbnail">
-                    <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
-          </div>
-          </div>
-
-                </div>
               </div>
               
             </div>
@@ -188,8 +159,7 @@
         </div>
       </section>
     <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const email = urlParams.get('email');
+      const email = getCookie('user');
 
       const arquitetoEndPoint = `http://localhost:3002/arquitetos/email/${email}`;
       const engenheiroEndPoint = `http://localhost:3002/engenheiros/email/${email}`;
@@ -232,6 +202,17 @@
       throw new Error('Empreiteiro not found');
     }
 
+    // Função pra pegar um cookie especifico
+    function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+      return null;
+    }
 
     </script>
 </body></html>
