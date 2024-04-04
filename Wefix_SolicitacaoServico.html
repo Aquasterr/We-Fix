@@ -69,7 +69,7 @@
   <ul>
     <li><a class="active" href="Wefix_PerfilCliente.html">Perfil</a></li>
     <li><a href="WeFix_FeedServicos.html">Feed de Profissionais</a></li>
-    <li><a href="#">Obras Solicitadas</a></li>
+    <li><a href="Wefix_ObrasSolicitadas.html">Obras Solicitadas</a></li>
   </ul>
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
@@ -77,23 +77,20 @@
             <div class="col-12 col-lg-9 col-xl-7">
               <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
+                  <form id="solicitacaoForm">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Solicitação de Serviço</h3>
                   <div class="form-group">
                     <label for="SolicitacaoServico">Solicitar Serviço</label>
                     <textarea class="form-control" id="SolicitacaoServico" rows="3" placeholder="Descreva o Serviço Desejado"></textarea>
                   </div>
-
                   <div class="form-outline">
-                    <label for="especialidade">Localização</label>
-                      <select class="form-control form-control-lg" aria-label=".form-select-lg" id="especialidade" >
+                    <label for="local">Localização</label>
+                      <select class="form-control form-control-lg" aria-label=".form-select-lg" id="local" >
                           <option disabled selected>Selecione a Região</option>
-                          <option value="1">São Paulo - SP </option>
-                          <option value="2">São Caetano do Sul -SP</option>
+                          <option value="São Paulo - SP">São Paulo - SP</option>
+                          <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
                         </select>
                       </div>
-
-                        
-                                          
                      <div class="mt-4 pt-2">
                       <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
                     </div>      
@@ -104,5 +101,73 @@
           </div>
         </div>
       </section> 
+      <script>
+        // Quando o Cliente Apertar o botão de Cadastrar
+        document.getElementById("solicitacaoForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          // Pega o CPF do cliente
+          let cpf_cliente = await fetch(`http://localhost:3002/clientes/email/${getCookie('user')}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data[0].cpf_cliente)
+            return data[0].cpf_cliente;
+          });
+
+          // Pega o nome do cliente
+          let nome_cliente = await fetch(`http://localhost:3002/clientes/email/${getCookie('user')}`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data[0].nome_cliente)
+            return data[0].nome_cliente;
+          });
+
+          // Pega a Data atual
+          const agr = new Date();
+
+          const data = agr.getFullYear()+'-'+(agr.getMonth()+1)+'-'+agr.getDate();
+          const tempo = agr.getHours() + ":" + agr.getMinutes() + ":" + agr.getSeconds();
+          const dateTime = data+' '+tempo;
+
+          const solicitacao = {
+            id_solicitacao: Math.floor(100000 + Math.random() * 900000),
+            local: document.getElementById("local").value,
+            descricao: document.getElementById("SolicitacaoServico").value,
+            data_solicitacao: dateTime,
+            cpf_cliente: cpf_cliente,
+            nome_cliente: nome_cliente
+          };
+          fetch('http://localhost:3002/solicitacao/', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(solicitacao),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(JSON.stringify(solicitacao));
+            document.getElementById("solicitacaoForm").reset();
+            alert("Solicitação Criada com sucesso!")
+            window.location.href = "Wefix_FeedServicos.html"
+          })
+        })
+
+        window.onload = async function() {
+          console.log('User: ' + getCookie('user'));
+        }
+
+        // Função pra pegar um cookie especifico
+        function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+        }
+        </script>  
 </body>
 </html>

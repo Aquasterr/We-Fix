@@ -137,6 +137,16 @@ app.get('/obras', cors(), (req, res) => {
     });
 });
 
+// ---- SOLICITAÇÕES ----
+
+// Obter todas as Solicitações
+app.get('/solicitacao', cors(), (req, res) => {
+    let sql = 'SELECT * FROM solicitacao';
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
 // ---------------- POSTs ----------------
 
 // Adiciona Clientes
@@ -179,6 +189,8 @@ app.post('/profissionalgeral', (req, res) => {
     res.status(201).json(profissionalgeral);
 })
 
+// ---- OBRA ----
+
 // Adiciona Obra
 app.post('/obras', (req, res) => {
     let obra = req.body;
@@ -187,6 +199,18 @@ app.post('/obras', (req, res) => {
         console.log(resultados);
     });
     res.status(201).json(obra);
+})
+
+// ---- SOLICITAÇÕES ----
+
+// Adiciona Solicitacao
+app.post('/solicitacao', (req, res) => {
+    let solicitacao = req.body;
+    let sql = 'INSERT INTO solicitacao SET ?';
+    db.query(sql, solicitacao, (err, resultados) => {
+        console.log(resultados);
+    });
+    res.status(201).json(solicitacao);
 })
 
 // Ola mundo!

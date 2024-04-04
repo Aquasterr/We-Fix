@@ -127,7 +127,7 @@ li a:hover:not(.active) {
           event.preventDefault();
 
           // Pega o CPF do cliente
-          let cpf_cliente = await fetch(`http://localhost:3002/clientes/email/Cliente@email.com`, {method: "GET"})
+          let cpf_cliente = await fetch(`http://localhost:3002/clientes/email/${getCookie('user')}`, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             console.log(data[0].cpf_cliente)
