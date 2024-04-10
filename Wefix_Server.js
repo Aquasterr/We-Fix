@@ -137,6 +137,14 @@ app.get('/obras', cors(), (req, res) => {
     });
 });
 
+// Obter obra por id
+app.get('/obras/:id_obra', cors(), (req, res) => {
+    let sql = `SELECT * FROM obra WHERE id_obra='${req.params.id_obra}'`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
 // Obter todas as obras por cpf_cliente
 app.get('/obras/cpfcliente/:cpf_cliente', cors(), (req, res) => {
     let sql = `SELECT * FROM obra WHERE cpf_cliente='${req.params.cpf_cliente}'`;
