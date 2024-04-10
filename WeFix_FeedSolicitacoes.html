@@ -30,37 +30,43 @@
         }
 
         ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #4a7eee;
-}
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #4a7eee;
+      }
 
-li {
-  float: left;
-  border-right:1px solid #0a0a0a;
-}
+      li {
+        float: left;
+        border-right:1px solid #0a0a0a;
+      }
 
-li:last-child {
-  border-right: none;
-}
+      li:last-child {
+        border-right: none;
+      }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
 
-li a:hover:not(.active) {
-  background-color: #f0f1f7;
-}
+      li a:hover:not(.active) {
+        background-color: #f0f1f7;
+      }
 
-.active {
-  background-color: #13339c;
-}
+      .active {
+        background-color: #13339c;
+      }
+
+      .blur-texto {
+      color: transparent !important;
+      text-shadow: 0 0 6px rgba(0,0,0,0.5);
+      user-select: none;
+    }
     </style>
 </head>
 <body>
@@ -105,7 +111,9 @@ li a:hover:not(.active) {
                       </div>
                       <div class="card-footer">
                         <a href="#" class="btn btn-primary btn-md">Aceitar</a>
-                        <a href="#" class="btn btn-primary btn-md">Ver Perfil</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#perfilModal">
+                          Ver Perfil
+                        </button>
                       </div>
                     </div>
                 </div>                
@@ -116,6 +124,81 @@ li a:hover:not(.active) {
       </div>
     </div>
   </section>
+    <!-- Modal -->
+    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="perfilModalLabel">Perfil Profissional</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <!-- HTML -->
+            <div class="container" style="padding-top: 1pc;">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-lg-4">
+                  <div class="card mb-4">
+                    <div class="card-body text-center">
+                      <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
+                      <h3 class="my-3" id="nomePerfil">Nome</h5>
+                      <p class="text-muted mb-1 blur-texto" id="emailPerfil">E-Mail</p>
+                      <p class="text-muted mb-4" id="localPerfil">Local</p>
+                      <!-- <div class="d-flex justify-content-center mb-2">
+                        <button type="button" class="btn btn-primary">Seguir</button>
+                        <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Nome Completo</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-muted mb-0" id="nomeModal">*Nome*</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Email</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-muted mb-0 blur-texto" id="emailModal">exemplo@exemplo</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Telefone</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-muted mb-0 blur-texto" id="telefoneModal">(000) 0000-0000</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Endereço</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-muted mb-0 blur-texto" id="enderecoModal">*Endereço*</p>
+                        </div>
+                      </div>
+                      <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 <script>
     // Pega as End Points de cada tipo de empreiteiro
     const solicitacaoEndPoint = 'http://localhost:3002/solicitacao/';
@@ -127,7 +210,7 @@ li a:hover:not(.active) {
         .catch(error => console.error('Error:', error));
 
     // Função Pra adicionar solicitacao no grid
-    function alimentaFeed(data, cardSolicitacao, funcao) {
+    function alimentaFeed(data, cardSolicitacao) {
     const cardContainer = document.getElementById(cardSolicitacao);
     data.forEach(solicitacao => {
       const card = document.createElement('div');
@@ -139,12 +222,12 @@ li a:hover:not(.active) {
             <img src="./Wefix_Inicio_files/user.png" alt="..." style="width: 60px; height: 60px; margin-right: 15px;">
             <h5 class="card-title mb-0">${solicitacao.nome_cliente}</h5>
           </div>
-          <p id="localValor"><img src="./Wefix_Inicio_files/map.png" style="height: 20px; width: 15px; vertical-align: top;">${solicitacao.local}</p>
+          <p id="localValor"><img src="./Wefix_Inicio_files/map.png" style="height: 20px; width: 15px; vertical-align: top;"> ${solicitacao.local} </p>
           <p class="card-footer">${solicitacao.descricao}</p>
           </div>
           <div class="card-footer">
             <a href="#" class="btn btn-primary btn-md">Aceitar</a>
-            <a href="#" class="btn btn-primary btn-md">Ver Perfil</a>
+            <a href="#" class="btn btn-primary btn-md ver-perfil-btn" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</a>
           </div>
         </div>
       `;
@@ -152,9 +235,30 @@ li a:hover:not(.active) {
 
       // Add event listener to the "Ver Perfil" button
       card.querySelector('.ver-perfil-btn').addEventListener('click', () => {
-        popularModal(empreiteiro, funcaoFinal);
+        popularModal(solicitacao);
       });
     });
+    }
+
+    function popularModal(solicitacao) {
+      const clienteEndPoint = `http://localhost:3002/clientes/${solicitacao.cpf_cliente}`;
+
+      // Fetch cliente data
+      fetch(clienteEndPoint)
+      .then(response => response.json())
+      .then(cliente => {
+          // Popula modal
+          document.getElementById('nomePerfil').innerHTML = cliente[0].nome_cliente;
+          document.getElementById('emailPerfil').innerHTML = cliente[0].email;
+          document.getElementById('localPerfil').innerHTML = cliente[0].local;
+
+          // Popula modal
+          document.getElementById('nomeModal').innerHTML = cliente[0].nome_cliente;
+          document.getElementById('emailModal').innerHTML = cliente[0].email;
+          document.getElementById('telefoneModal').innerHTML = cliente[0].telefone;
+          document.getElementById('enderecoModal').innerHTML = cliente[0].endereco;
+      })
+      .catch(error => console.error('Error:', error));
     }
 
     window.onload = function() {
