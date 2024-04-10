@@ -90,9 +90,8 @@ li a:hover:not(.active) {
             <!--Table head-->
             <!--Table body-->
             <tbody>
-              <tr>
+              <tr> <!--This one!-->
                 <td scope="row" class="text-nowrap">
-      
                   <a href="#" type="button" class="btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect">
                     <span class="value">Nota: N/A</span>
                     <i class="fas fa-thumbs-up ml-1"></i>
@@ -235,21 +234,153 @@ li a:hover:not(.active) {
     </div>
     </div>
     </section>
-<script>
-    window.onload = function() {
-      console.log('User: ' + getCookie('user'));
-    }
-    // Função pra pegar um cookie especifico
-    function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-</script>
+      <!-- Modal -->
+      <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="perfilModalLabel">Perfil Profissional</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <!-- HTML -->
+              <div class="container" style="padding-top: 1pc;">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-lg-4">
+                    <div class="card mb-4">
+                      <div class="card-body text-center">
+                        <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h3 class="my-3" id="nomePerfil">Nome</h5>
+                        <h4 class="my-3" id="especialidadePerfil">Especialidade</h5>
+                        <p class="text-muted mb-1 blur-texto" id="emailPerfil">E-Mail</p>
+                        <p class="text-muted mb-4 blur-texto" id="localPerfil">Local</p>
+                        <!-- <div class="d-flex justify-content-center mb-2">
+                          <button type="button" class="btn btn-primary">Seguir</button>
+                          <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Nome Completo</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" id="nomeModal">*Nome*</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Especialidade</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0" id="especialidadeModal">*Especialidade*</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Email</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0 blur-texto" id="emailModal">exemplo@exemplo</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Telefone</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0 blur-texto" id="telefoneModal">(000) 0000-0000</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Endereço</p>
+                          </div>
+                          <div class="col-sm-9">
+                            <p class="text-muted mb-0 blur-texto" id="enderecoModal">*Endereço*</p>
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p class="mb-0">Certificados</p>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="thumbnail">
+                              <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        // Pega o CPF do cliente
+        let cpf_cliente = await fetch(`http://localhost:3002/clientes/email/Cliente@email.com`, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data[0].cpf_cliente)
+            return data[0].cpf_cliente;
+          });
+      
+        // Pega as End Points de cada tipo de Obra por CPF
+        const obrasPendentesEndPoint = `http://localhost:3002/obras/pendentes/${cpf_cliente}`;
+      
+        // Fetch Tabela do Obras Pendentes
+        fetch(obrasPendentesEndPoint)
+          .then(response => response.json())
+          .then(data => obrasPendentes(data))
+          .catch(error => console.error('Error:', error));
+      
+          function obrasPendentes(data) {
+          let tableBody = document.querySelector("#obrasPendentes table tbody");
+          data.forEach(obra => {
+            let row = document.createElement("tr");
+
+            let cell1 = document.createElement("td");
+            cell1.scope = "row";
+            cell1.className = "text-nowrap";
+            let button = document.createElement("a");
+            button.href = "#";
+            button.type = "button";
+            button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
+            button.innerHTML = `<span class="value">Nota: ${obra.nota}</span><i class="fas fa-thumbs-up ml-1"></i>`;
+            cell1.appendChild(button);
+
+            let cell2 = document.createElement("td");
+            cell2.className = "text-start";
+            cell2.innerHTML = `
+                <a href="#" class="font-weight-bold blue-text">${obra.descricao}</a>
+                <div class="my-2">
+                    <a href="#" class="blue-text"><strong>${obra.profissional}</strong></a>
+                    <span class="badge bg-secondary mx-1">${obra.especialidade}</span>
+                    <span class="badge bg-primary mx-1">${obra.local}</span>
+                </div>
+                <div class="my-2">
+                    <span class="badge bg-primary mx-1">${obra.dataInicio}</span>
+                    <span class="badge bg-danger mx-1">${obra.dataTermino}</span>
+                </div>`;
+
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            tableBody.appendChild(row);
+        });
+      }
+      </script>
 </body>
 </html>

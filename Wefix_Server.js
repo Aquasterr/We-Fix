@@ -137,6 +137,81 @@ app.get('/obras', cors(), (req, res) => {
     });
 });
 
+// Obter todas as obras por cpf_cliente
+app.get('/obras/cpfcliente/:cpf_cliente', cors(), (req, res) => {
+    let sql = `SELECT * FROM obra WHERE cpf_cliente='${req.params.cpf_cliente}'`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obter todas as obras que estão PENDENTES
+app.get('/obras/pendentes', cors(), (req, res) => {
+    let sql = "SELECT * FROM `obra` WHERE `status`='PENDENTE'";
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obter todas as obras que estão EM ANDAMENTO
+app.get('/obras/emandamento', cors(), (req, res) => {
+    let sql = "SELECT * FROM `obra` WHERE `status`='EM ANDAMENTO'";
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obter todas as obras que estão FINALIZADAS
+app.get('/obras/finalizadas', cors(), (req, res) => {
+    let sql = "SELECT * FROM `obra` WHERE `status`='FINALIZADAS'";
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
+
+// Obter todas as obras que estão PENDENTES por cpf_cliente
+app.get('/obras/pendentes/:cpf_cliente', cors(), (req, res) => {
+    let cpf_cliente = req.params.cpf_cliente;
+    let sql = `SELECT * FROM obra WHERE status='PENDENTE' AND cpf_cliente='${cpf_cliente}'`;
+    db.query(sql, (err, resultados) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            res.json(resultados);
+        }
+    });
+});
+
+// Obter todas as obras que estão EM ANDAMENTO por cpf_cliente
+app.get('/obras/emandamento/:cpf_cliente', cors(), (req, res) => {
+    let cpf_cliente = req.params.cpf_cliente;
+    let sql = `SELECT * FROM obra WHERE status='EM ANDAMENTO' AND cpf_cliente='${cpf_cliente}'`;
+    db.query(sql, (err, resultados) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            res.json(resultados);
+        }
+    });
+});
+
+// Obter todas as obras que estão FINALIZADAS por cpf_cliente
+app.get('/obras/finalizadas/:cpf_cliente', cors(), (req, res) => {
+    let cpf_cliente = req.params.cpf_cliente;
+    let sql = `SELECT * FROM obra WHERE status='FINALIZADAS' AND cpf_cliente='${cpf_cliente}'`;
+    db.query(sql, (err, resultados) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            res.json(resultados);
+        }
+    });
+});
+
+
 // ---- SOLICITAÇÕES ----
 
 // Obter todas as Solicitações
