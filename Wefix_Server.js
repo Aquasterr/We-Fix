@@ -284,6 +284,66 @@ app.post('/obras', (req, res) => {
     res.status(201).json(obra);
 })
 
+// Transforma Solicitação em Obra
+app.post('/obras/solicitacao/:id_solicitacao/:user_email', (req, res) => {
+    let id_solicitacao = req.params.id_solicitacao;
+    let user_email = req.params.user_email; 
+
+    getCpfTipo(user_email, (err, user) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            let sql = `SELECT * FROM solicitacao WHERE id_solicitacao='${id_solicitacao}'`;
+            db.query(sql, (err, solicitacao) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send(err);
+                } else {
+                    console.log(solicitacao)
+                    let dataInicio = new Date();
+                    let dataTermino = new Date();
+                    dataTermino.setDate(dataInicio.getDate() + 31);
+                    let newObra = {
+                        id_obra: Math.floor(100000 + Math.random() * 900000),
+                        local_obra: solicitacao[0].local,
+                        descricao_obra: solicitacao[0].descricao,
+                        data_inicio: dataInicio,
+                        data_termino: dataTermino,
+                        cpf_arquiteto: user.type === 'arquiteto' ? user.cpf : null,
+                        cpf_engenheiro: user.type === 'engenheiro' ? user.cpf : null,
+                        cpf_profissional: user.type === 'profissionalgeral' ? user.cpf : null,
+                        cpf_cliente: solicitacao[0].cpf_cliente,
+                        status: "EM ANDAMENTO"
+                    };
+
+                    // Cria Obra com as informaçoes acima
+                    let insertSql = `INSERT INTO obra SET ?`;
+                    db.query(insertSql, newObra, (insertErr, insertResult) => {
+                        if (insertErr) {
+                            console.log(insertErr);
+                            res.status(500).send(insertErr);
+                        } else {
+                            // Deleta solicitacao dps que foi criada com sucesso
+                            let deleteSql = `DELETE FROM solicitacao WHERE id_solicitacao='${id_solicitacao}'`;
+                            db.query(deleteSql, (deleteErr, deleteResult) => {
+                                if (deleteErr) {
+                                    console.log(deleteErr);
+                                    res.status(500).send(deleteErr);
+                                } else {
+                                    res.json(insertResult);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+
+
 // ---- SOLICITAÇÕES ----
 
 // Adiciona Solicitacao
@@ -295,6 +355,23 @@ app.post('/solicitacao', (req, res) => {
     });
     res.status(201).json(solicitacao);
 })
+
+// Function pra pegar cpf e tipo de conta por email
+function getCpfTipo(email, callback) {
+    let sql = `SELECT cpf_arquiteto as cpf, 'arquiteto' as type FROM arquiteto WHERE email='${email}' 
+               UNION ALL SELECT cpf_engenheiro as cpf, 'engenheiro' as type FROM engenheiro WHERE email='${email}' 
+               UNION ALL SELECT cpf_profissional as cpf, 'profissionalgeral' as type FROM profissionalgeral WHERE email='${email}'`;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else {
+            let user = results[0];
+            callback(null, user);
+        }
+    });
+}
 
 // Ola mundo!
 app.get('/', (request, response) => {
