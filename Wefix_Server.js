@@ -153,6 +153,38 @@ app.get('/obras/cpfcliente/:cpf_cliente', cors(), (req, res) => {
     });
 });
 
+// Obter todas as obras por cpf_prestador
+app.get('/obras/:cpf_prestador/:tipo', cors(), (req, res) => {
+    let tipo = req.params.tipo;
+    let cpf_prestador = req.params.cpf_prestador;
+    let campo;
+
+    switch(tipo) {
+        case 'arquiteto':
+            campo = 'cpf_arquiteto';
+            break;
+        case 'engenheiro':
+            campo = 'cpf_engenheiro';
+            break;
+        case 'profissionalgeral':
+            campo = 'cpf_profissional';
+            break;
+        default:
+            res.status(400).send('Tipo inválido');
+            return;
+    }
+
+    let sql = `SELECT * FROM obra WHERE ${campo}='${cpf_prestador}'`;
+    db.query(sql, (err, resultados) => {
+        if (err) {
+            res.status(500).send('Erro ao executar a consulta');
+        } else {
+            res.json(resultados);
+        }
+    });
+});
+
+
 // Obter todas as obras que estão PENDENTES
 app.get('/obras/pendentes', cors(), (req, res) => {
     let sql = "SELECT * FROM `obra` WHERE `status`='PENDENTE'";
@@ -358,9 +390,9 @@ app.post('/solicitacao', (req, res) => {
 
 // Function pra pegar cpf e tipo de conta por email
 function getCpfTipo(email, callback) {
-    let sql = `SELECT cpf_arquiteto as cpf, 'arquiteto' as type FROM arquiteto WHERE email='${email}' 
-               UNION ALL SELECT cpf_engenheiro as cpf, 'engenheiro' as type FROM engenheiro WHERE email='${email}' 
-               UNION ALL SELECT cpf_profissional as cpf, 'profissionalgeral' as type FROM profissionalgeral WHERE email='${email}'`;
+    let sql = `SELECT cpf_arquiteto as cpf, 'arquiteto' as tipo FROM arquiteto WHERE email='${email}' 
+               UNION ALL SELECT cpf_engenheiro as cpf, 'engenheiro' as tipo FROM engenheiro WHERE email='${email}' 
+               UNION ALL SELECT cpf_profissional as cpf, 'profissionalgeral' as tipo FROM profissionalgeral WHERE email='${email}'`;
 
     db.query(sql, (err, results) => {
         if (err) {
@@ -372,6 +404,24 @@ function getCpfTipo(email, callback) {
         }
     });
 }
+
+// ---- ETC. ----
+
+// Endpoint pro getCpfTipo
+app.get('/getCpfTipo/:email', (req, res) => {
+    let user_email = req.params.email; 
+    getCpfTipo(user_email, (err, user) => {
+        res.json(user);
+    })
+})
+
+// Obter um Cliente por CPF
+app.get('/clientes/:cpf_cliente', (req, res) => {
+    let sql = `SELECT * FROM cliente WHERE cpf_cliente=${req.params.cpf_cliente}`;
+    db.query(sql, (err, resultados) => {
+        res.json(resultados);
+    });
+});
 
 // Ola mundo!
 app.get('/', (request, response) => {

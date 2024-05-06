@@ -89,7 +89,7 @@ li a:hover:not(.active) {
             <!--Table head-->
             <!--Table body-->
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td scope="row" class="text-nowrap">
                   <a href="#" type="button" class="btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect">
                     <span class="value">Nota: N/A</span>
@@ -120,7 +120,7 @@ li a:hover:not(.active) {
                     <button type="button" class="btn btn-danger ms-1">Recusar</button>
                   </div>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
             <!--Table body-->
           </table>
@@ -145,7 +145,7 @@ li a:hover:not(.active) {
             <!--Table head-->
             <!--Table body-->
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td scope="row" class="text-nowrap">
       
                   <a href="#" type="button" class="btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect">
@@ -171,7 +171,7 @@ li a:hover:not(.active) {
                     <div></div>
                   </div>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
             <!--Table body-->
           </table>
@@ -197,7 +197,7 @@ li a:hover:not(.active) {
             <!--Table head-->
             <!--Table body-->
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td scope="row" class="text-nowrap">
                   <a href="#" type="button" class="btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect">
                     <span class="value">Nota: N/A</span>
@@ -222,7 +222,7 @@ li a:hover:not(.active) {
                     <div></div>
                   </div>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
             <!--Table body-->
           </table>
@@ -233,10 +233,325 @@ li a:hover:not(.active) {
     </div>
     </div>
     </section>
+  <!-- Modal -->
+  <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="perfilModalLabel">Perfil Profissional</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- HTML -->
+          <div class="container" style="padding-top: 1pc;">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-lg-4">
+                <div class="card mb-4">
+                  <div class="card-body text-center">
+                    <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
+                    <h3 class="my-3" id="nomePerfil">Nome</h5>
+                    <h4 class="my-3" id="especialidadePerfil">Especialidade</h5>
+                    <p class="text-muted mb-1 blur-texto" id="emailPerfil">E-Mail</p>
+                    <p class="text-muted mb-4 blur-texto" id="localPerfil">Local</p>
+                    <!-- <div class="d-flex justify-content-center mb-2">
+                      <button type="button" class="btn btn-primary">Seguir</button>
+                      <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Nome Completo</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="nomeModal">*Nome*</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Especialidade</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0" id="especialidadeModal">*Especialidade*</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0 blur-texto" id="emailModal">exemplo@exemplo</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Telefone</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0 blur-texto" id="telefoneModal">(000) 0000-0000</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Endereço</p>
+                      </div>
+                      <div class="col-sm-9">
+                        <p class="text-muted mb-0 blur-texto" id="enderecoModal">*Endereço*</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p class="mb-0">Certificados</p>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="thumbnail">
+                          <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
     window.onload = function() {
       console.log('User: ' + getCookie('user'));
     }
+
+    // Pega o CPF do Prestador de serviço
+    fetch(`http://localhost:3002/getCpfTipo/${getCookie('user')}`, {method: "GET"})
+      .then((response) => response.json())
+      .then((data) => {
+        let cpf_prestador = data['cpf'];
+        let tipo_prestador = data['tipo'];
+
+        console.log(cpf_prestador, tipo_prestador);
+
+        // Pega as End Points de cada tipo de Obra por CPF
+        const obrasPrestador = `http://localhost:3002/obras/${cpf_prestador}/${tipo_prestador}`;
+        fetch(obrasPrestador)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            let obras_Pendentes = [];
+            let obras_EmAndamento = [];
+            let obras_finalizadas = [];
+            data.forEach(obra => {
+              if (obra.status == "PENDENTE") {
+                obras_Pendentes.push(obra);
+              }
+              if (obra.status == "EM ANDAMENTO") {
+                obras_EmAndamento.push(obra);
+              }
+              if (obra.status == "FINALIZADAS") {
+                obras_finalizadas.push(obra);
+              }
+            });
+            ObrasPendentes(obras_Pendentes);
+            ObrasEmAndamento(obras_EmAndamento);
+            ObrasFinalizadas(obras_finalizadas);
+            console.log(obras_finalizadas);
+
+          })
+      });
+
+      function ObrasPendentes(data) {
+        let tableBody = document.querySelector("#obrasPendentes table tbody");
+        data.forEach(async obra => {
+          let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
+          let row = document.createElement("tr");
+
+            let cell1 = document.createElement("td");
+            cell1.scope = "row";
+            cell1.className = "text-nowrap";
+            let button = document.createElement("a");
+            button.href = "#";
+            button.type = "button";
+            button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
+            let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
+            button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
+            cell1.appendChild(button);
+
+            let cell2 = document.createElement("td");
+            cell2.className = "text-start";
+            let profissionaisHTML = profissionais.map(profissional => {
+              return `<a href="#" class="blue-text profissional-link" data-cpf="${profissional.cpf}" data-especialidade="${profissional.especialidade}"><strong>${profissional.nome}</strong></a> <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
+            }).join(' ');
+            cell2.innerHTML = `
+                <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
+                <div class="my-2">
+                    ${profissionaisHTML}
+                    <span class="badge bg-primary mx-1">${obra.local_obra}</span>
+                </div>
+                <div class="my-2">
+                    <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
+                    <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
+                </div>`;
+
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            tableBody.appendChild(row);
+          });
+        }
+
+      function ObrasEmAndamento(data) {
+      let tableBody = document.querySelector("#obrasEmAndamento table tbody");
+      data.forEach(async obra => {
+        let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
+        let row = document.createElement("tr");
+
+        let cell1 = document.createElement("td");
+        cell1.scope = "row";
+        cell1.className = "text-nowrap";
+        let button = document.createElement("a");
+        button.href = "#";
+        button.type = "button";
+        button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
+        let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
+        button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
+        cell1.appendChild(button);
+
+        let cell2 = document.createElement("td");
+        cell2.className = "text-start";
+        let profissionaisHTML = profissionais.map(profissional => {
+        let a = document.createElement("a");
+        a.href = "#";
+        a.className = "blue-text profissional-link";
+        a.dataset.cpf = profissional.cpf;
+        a.dataset.especialidade = profissional.especialidade;
+        a.innerHTML = `<strong>${profissional.nome}</strong>`;
+        return a.outerHTML + ` <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
+      }).join(' ');
+      cell2.innerHTML = `
+          <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
+          <div class="my-2">
+              ${profissionaisHTML}
+              <span class="badge bg-primary mx-1">${obra.local_obra}</span>
+          </div>
+          <div class="my-2">
+              <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
+              <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
+          </div>`;
+
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      tableBody.appendChild(row);
+
+      // Add the event listener to the <a> elements after they are added to the DOM
+      cell2.querySelectorAll('.profissional-link').forEach(a => {
+        a.addEventListener('click', () => populateModal({cpf: a.dataset.cpf, especialidade: a.dataset.especialidade}));
+          });
+        });
+      }
+
+      function ObrasFinalizadas(data) {
+        let tableBody = document.querySelector("#obrasFinalizadas table tbody");
+        data.forEach(async obra => {
+          let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
+          let row = document.createElement("tr");
+
+          let cell1 = document.createElement("td");
+          cell1.scope = "row";
+          cell1.className = "text-nowrap";
+          let button = document.createElement("a");
+          button.href = "#";
+          button.type = "button";
+          button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
+          let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
+          button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
+          cell1.appendChild(button);
+
+          let cell2 = document.createElement("td");
+          cell2.className = "text-start";
+          let profissionaisHTML = profissionais.map(profissional => {
+          let a = document.createElement("a");
+          a.href = "#";
+          a.className = "blue-text profissional-link";
+          a.dataset.cpf = profissional.cpf;
+          a.dataset.especialidade = profissional.especialidade;
+          a.innerHTML = `<strong>${profissional.nome}</strong>`;
+          return a.outerHTML + ` <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
+        }).join(' ');
+        cell2.innerHTML = `
+            <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
+            <div class="my-2">
+                ${profissionaisHTML}
+                <span class="badge bg-primary mx-1">${obra.local_obra}</span>
+            </div>
+            <div class="my-2">
+                <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
+                <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
+            </div>`;
+
+            let cell3 = document.createElement("td");
+            let div = document.createElement("div");
+            div.className = "d-flex justify-content-center mb-2";
+            let avaliarButton = document.createElement("button");
+            avaliarButton.type = "button";
+            avaliarButton.className = "btn btn-warning";
+            avaliarButton.textContent = "Avaliar";
+            avaliarButton.addEventListener('click', () => {
+              // Funcao de Avaliar Aq
+            });
+            div.appendChild(avaliarButton);
+            cell3.appendChild(div);
+
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            row.appendChild(cell3);
+            tableBody.appendChild(row);
+
+            // Add the event listener to the <a> elements after they are added to the DOM
+            cell2.querySelectorAll('.profissional-link').forEach(a => {
+              a.addEventListener('click', () => populateModal({cpf: a.dataset.cpf, especialidade: a.dataset.especialidade}));
+            });
+          });
+        }
+
+      async function getProfissional(cpf_arquiteto, cpf_engenheiro, cpf_profissional) {
+        let profissionais = [];
+        if (cpf_arquiteto) {
+          await fetch(`http://localhost:3002/arquitetos/${cpf_arquiteto}`)
+            .then(response => response.json())
+            .then(data => { profissionais.push({cpf: cpf_arquiteto, nome: data[0].nome, especialidade: 'Arquiteto'}); });
+        }
+        if (cpf_engenheiro) {
+          await fetch(`http://localhost:3002/engenheiros/${cpf_engenheiro}`)
+            .then(response => response.json())
+            .then(data => { profissionais.push({cpf: cpf_engenheiro, nome: data[0].nome, especialidade: 'Engenheiro'}); });
+        }
+        if (cpf_profissional) {
+          await fetch(`http://localhost:3002/profissionalgeral/${cpf_profissional}`)
+            .then(response => response.json())
+            .then(data => { profissionais.push({cpf: cpf_profissional, nome: data[0].nome, especialidade: data[0].especialidade}); });
+        }
+        return profissionais;
+      }
+
+      function formataData(dateString) {
+      let date = new Date(dateString);
+      let day = String(date.getDate()).padStart(2, '0');
+      let month = String(date.getMonth() + 1).padStart(2, '0'); 
+      let year = date.getFullYear();
+  
+      return day + '/' + month + '/' + year;
+      }
+
     // Função pra pegar um cookie especifico
     function getCookie(name) {
     var nameEQ = name + "=";

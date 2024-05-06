@@ -310,8 +310,11 @@ li a:hover:not(.active) {
         </div>
       </div>
       <script>
+        window.onload = function() {
+          console.log('User: ' + getCookie('user'));
+        }
         // Pega o CPF do cliente
-        fetch(`http://localhost:3002/clientes/email/Cliente@email.com`, {method: "GET"})
+        fetch(`http://localhost:3002/clientes/email/${getCookie('user')}`, {method: "GET"})
           .then((response) => response.json())
           .then((data) => {
             let cpf_cliente = data[0].cpf_cliente;
@@ -566,6 +569,17 @@ li a:hover:not(.active) {
     
         return day + '/' + month + '/' + year;
       }
+
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
     </script>
       
 </body>
