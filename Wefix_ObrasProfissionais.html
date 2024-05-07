@@ -343,7 +343,7 @@ li a:hover:not(.active) {
         console.log(cpf_prestador, tipo_prestador);
 
         // Pega as End Points de cada tipo de Obra por CPF
-        const obrasPrestador = `http://localhost:3002/obras/${cpf_prestador}/${tipo_prestador}`;
+        const obrasPrestador = `http://localhost:3002/obrasPrestador/${cpf_prestador}/${tipo_prestador}`;
         fetch(obrasPrestador)
           .then(response => response.json())
           .then(data => {
@@ -374,6 +374,7 @@ li a:hover:not(.active) {
         let tableBody = document.querySelector("#obrasPendentes table tbody");
         data.forEach(async obra => {
           let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
+          let cliente = await getCliente(obra.cpf_cliente);
           let row = document.createElement("tr");
 
             let cell1 = document.createElement("td");
@@ -392,9 +393,11 @@ li a:hover:not(.active) {
             let profissionaisHTML = profissionais.map(profissional => {
               return `<a href="#" class="blue-text profissional-link" data-cpf="${profissional.cpf}" data-especialidade="${profissional.especialidade}"><strong>${profissional.nome}</strong></a> <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
             }).join(' ');
+            let clienteHTML = `<a href="#" class="blue-text cliente-link" data-cpf="${cliente.cpf}"><strong>${cliente.nome}</strong></a> <span class="badge bg-secondary mx-1"> CLIENTE </span>`;
             cell2.innerHTML = `
                 <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
                 <div class="my-2">
+                    ${clienteHTML}
                     ${profissionaisHTML}
                     <span class="badge bg-primary mx-1">${obra.local_obra}</span>
                 </div>
@@ -402,9 +405,45 @@ li a:hover:not(.active) {
                     <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
                     <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
                 </div>`;
+            let cell3 = document.createElement("td");
+            let aceitarButton = document.createElement("button");
+            aceitarButton.type = "button";
+            aceitarButton.className = "btn btn-primary";
+            aceitarButton.innerText = "Aceitar";
+            aceitarButton.addEventListener('click', async () => {
+                let response = await fetch(`http://localhost:3002/obras/status/${obra.id_obra}/FINALIZADAS`, { method: 'PUT' });
+                if (response.ok) {
+                    alert('Obra Aceita com sucesso!');
+                    location.reload();
+                } else {
+                    alert('Erro ao aceitar a obra');
+                }
+            });
+
+            let recusarButton = document.createElement("button");
+            recusarButton.type = "button";
+            recusarButton.className = "btn btn-danger ms-1";
+            recusarButton.innerText = "Recusar";
+            recusarButton.addEventListener('click', async() => {
+              let response = await fetch(`http://localhost:3002/obras/${obra.id_obra}`, { method: 'DELETE' });
+              if (response.ok) {
+                    alert('Obra Recusada com sucesso!');
+                    location.reload();
+                } else {
+                    alert('Erro ao recusar a obra');
+                }
+            })
+
+            let buttonDiv = document.createElement("div");
+            buttonDiv.className = "d-flex justify-content-center mb-2";
+            buttonDiv.appendChild(aceitarButton);
+            buttonDiv.appendChild(recusarButton);
+
+            cell3.appendChild(buttonDiv);
 
             row.appendChild(cell1);
             row.appendChild(cell2);
+            row.appendChild(cell3);
             tableBody.appendChild(row);
           });
         }
@@ -542,6 +581,16 @@ li a:hover:not(.active) {
         }
         return profissionais;
       }
+
+    async function getCliente(cpf_cliente) {
+      let cliente = null;
+      if (cpf_cliente) {
+          await fetch(`http://localhost:3002/clientes/${cpf_cliente}`)
+              .then(response => response.json())
+              .then(data => { cliente = {cpf: cpf_cliente, nome: data[0].nome_cliente}; });
+      }
+      return cliente;
+    }
 
       function formataData(dateString) {
       let date = new Date(dateString);

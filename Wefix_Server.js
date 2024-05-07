@@ -154,7 +154,7 @@ app.get('/obras/cpfcliente/:cpf_cliente', cors(), (req, res) => {
 });
 
 // Obter todas as obras por cpf_prestador
-app.get('/obras/:cpf_prestador/:tipo', cors(), (req, res) => {
+app.get('/obrasPrestador/:cpf_prestador/:tipo', cors(), (req, res) => {
     let tipo = req.params.tipo;
     let cpf_prestador = req.params.cpf_prestador;
     let campo;
@@ -250,6 +250,8 @@ app.get('/obras/finalizadas/:cpf_cliente', cors(), (req, res) => {
         }
     });
 });
+
+
 
 
 // ---- SOLICITAÇÕES ----
@@ -374,7 +376,31 @@ app.post('/obras/solicitacao/:id_solicitacao/:user_email', (req, res) => {
     });
 });
 
+// Altera Status da obra
+app.put('/obras/status/:id_obra/:status', cors(), (req, res) => {
+    let status = req.params.status;
+    let id_obra = req.params.id_obra;
+    let sql = `UPDATE obra SET status = '${status}' WHERE id_obra = '${id_obra}'`;
+    db.query(sql, (err, resultados) => {
+        if (err) {
+            res.status(500).send('Erro ao executar a consulta');
+        } else {
+            res.json("Status atualizado com sucesso" + resultados);
+        }
+    });
+});
 
+app.delete('/obras/:id_obra', (req, res) => {
+    let id_obra = req.params.id_obra;
+    let sql = `DELETE FROM obra WHERE id_obra = '${id_obra}'`;
+    db.query(sql, (err, resultados) => {
+        if (err) {
+            res.status(500).send('Erro ao executar a consulta');
+        } else {
+            res.json("Obra deletada com sucesso" + resultados);
+        }
+    });
+})
 
 // ---- SOLICITAÇÕES ----
 
