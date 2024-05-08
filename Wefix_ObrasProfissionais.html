@@ -330,11 +330,12 @@ li a:hover:not(.active) {
   </div>
 <script>
     window.onload = function() {
-      console.log('User: ' + getCookie('user'));
+      //console.log('User: ' + getCookie('user'));
     }
 
     // Pega o CPF do Prestador de serviço
-    fetch(`http://localhost:3002/getCpfTipo/${getCookie('user')}`, {method: "GET"})
+    //fetch(`http://localhost:3002/getCpfTipo/${getCookie('user')}`, {method: "GET"})
+    fetch(`http://localhost:3002/getCpfTipo/ProfissionalTeste2@mail.com`, {method: "GET"})
       .then((response) => response.json())
       .then((data) => {
         let cpf_prestador = data['cpf'];
@@ -369,6 +370,28 @@ li a:hover:not(.active) {
 
           })
       });
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        // Get all profissional links
+        let profissionalLinks = document.querySelectorAll('.profissional-link');
+        // Add event listener to each link
+        profissionalLinks.forEach((link) => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Get data from the clicked link
+                let nome = this.innerText;
+                let especialidade = this.dataset.especialidade;
+                let cpf = this.dataset.cpf;
+                // Populate the modal
+                document.getElementById('nomePerfil').innerText = nome;
+                document.getElementById('especialidadePerfil').innerText = especialidade;
+                // Show the modal
+                let perfilModal = new bootstrap.Modal(document.getElementById('perfilModal'));
+                perfilModal.show();
+            });
+        });
+    });
+
 
       function ObrasPendentes(data) {
         let tableBody = document.querySelector("#obrasPendentes table tbody");
