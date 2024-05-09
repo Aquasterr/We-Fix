@@ -238,7 +238,7 @@ li a:hover:not(.active) {
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="perfilModalLabel">Perfil Profissional</h5>
+          <h5 class="modal-title" id="perfilModalLabel">Perfil do usuário</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
@@ -271,6 +271,7 @@ li a:hover:not(.active) {
                         <p class="text-muted mb-0" id="nomeModal">*Nome*</p>
                       </div>
                     </div>
+                    <div id="especialidadeRow">
                     <hr>
                     <div class="row">
                       <div class="col-sm-3">
@@ -279,6 +280,7 @@ li a:hover:not(.active) {
                       <div class="col-sm-9">
                         <p class="text-muted mb-0" id="especialidadeModal">*Especialidade*</p>
                       </div>
+                    </div>
                     </div>
                     <hr>
                     <div class="row">
@@ -307,6 +309,7 @@ li a:hover:not(.active) {
                         <p class="text-muted mb-0 blur-texto" id="enderecoModal">*Endereço*</p>
                       </div>
                     </div>
+                    <div id="certificadosRow">
                     <hr>
                     <div class="row">
                       <div class="col-sm-3">
@@ -317,7 +320,7 @@ li a:hover:not(.active) {
                           <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
                     </div>
                   </div>
-                </div>
+                </div> </div>
               </div>
             </div>
           </div>
@@ -328,6 +331,8 @@ li a:hover:not(.active) {
       </div>
     </div>
   </div>
+</div>
+</div>
 <script>
     window.onload = function() {
       //console.log('User: ' + getCookie('user'));
@@ -371,27 +376,7 @@ li a:hover:not(.active) {
           })
       });
 
-      document.addEventListener('DOMContentLoaded', (event) => {
-        // Get all profissional links
-        let profissionalLinks = document.querySelectorAll('.profissional-link');
-        // Add event listener to each link
-        profissionalLinks.forEach((link) => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Get data from the clicked link
-                let nome = this.innerText;
-                let especialidade = this.dataset.especialidade;
-                let cpf = this.dataset.cpf;
-                // Populate the modal
-                document.getElementById('nomePerfil').innerText = nome;
-                document.getElementById('especialidadePerfil').innerText = especialidade;
-                // Show the modal
-                let perfilModal = new bootstrap.Modal(document.getElementById('perfilModal'));
-                perfilModal.show();
-            });
-        });
-    });
-
+      let perfilModal = new bootstrap.Modal(document.getElementById('perfilModal'));
 
       function ObrasPendentes(data) {
         let tableBody = document.querySelector("#obrasPendentes table tbody");
@@ -468,11 +453,59 @@ li a:hover:not(.active) {
             row.appendChild(cell2);
             row.appendChild(cell3);
             tableBody.appendChild(row);
+            addEventListeners();
           });
         }
 
-      function ObrasEmAndamento(data) {
-      let tableBody = document.querySelector("#obrasEmAndamento table tbody");
+    function ObrasEmAndamento(data) {
+    let tableBody = document.querySelector("#obrasEmAndamento table tbody");
+    data.forEach(async obra => {
+      let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
+      let row = document.createElement("tr");
+
+      let cell1 = document.createElement("td");
+      cell1.scope = "row";
+      cell1.className = "text-nowrap";
+      let button = document.createElement("a");
+      button.href = "#";
+      button.type = "button";
+      button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
+      let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
+      button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
+      cell1.appendChild(button);
+
+      let cell2 = document.createElement("td");
+      cell2.className = "text-start";
+      let profissionaisHTML = profissionais.map(profissional => {
+      let a = document.createElement("a");
+      a.href = "#";
+      a.className = "blue-text profissional-link";
+      a.dataset.cpf = profissional.cpf;
+      a.dataset.especialidade = profissional.especialidade;
+      a.innerHTML = `<strong>${profissional.nome}</strong>`;
+      return a.outerHTML + ` <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
+      }).join(' ');
+      cell2.innerHTML = `
+          <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
+          <div class="my-2">
+              ${profissionaisHTML}
+              <span class="badge bg-primary mx-1">${obra.local_obra}</span>
+          </div>
+          <div class="my-2">
+              <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
+              <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
+          </div>`;
+
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      tableBody.appendChild(row);
+      addEventListeners();
+
+        });
+      }
+
+    function ObrasFinalizadas(data) {
+      let tableBody = document.querySelector("#obrasFinalizadas table tbody");
       data.forEach(async obra => {
         let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
         let row = document.createElement("tr");
@@ -510,100 +543,128 @@ li a:hover:not(.active) {
               <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
           </div>`;
 
-      row.appendChild(cell1);
-      row.appendChild(cell2);
-      tableBody.appendChild(row);
-
-      // Add the event listener to the <a> elements after they are added to the DOM
-      cell2.querySelectorAll('.profissional-link').forEach(a => {
-        a.addEventListener('click', () => populateModal({cpf: a.dataset.cpf, especialidade: a.dataset.especialidade}));
+          let cell3 = document.createElement("td");
+          let div = document.createElement("div");
+          div.className = "d-flex justify-content-center mb-2";
+          let avaliarButton = document.createElement("button");
+          avaliarButton.type = "button";
+          avaliarButton.className = "btn btn-warning";
+          avaliarButton.textContent = "Avaliar";
+          avaliarButton.addEventListener('click', () => {
+            // Funcao de Avaliar Aq
           });
+          div.appendChild(avaliarButton);
+          cell3.appendChild(div);
+
+          row.appendChild(cell1);
+          row.appendChild(cell2);
+          row.appendChild(cell3);
+          tableBody.appendChild(row);
+          addEventListeners();
+
         });
       }
 
-      function ObrasFinalizadas(data) {
-        let tableBody = document.querySelector("#obrasFinalizadas table tbody");
-        data.forEach(async obra => {
-          let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
-          let row = document.createElement("tr");
-
-          let cell1 = document.createElement("td");
-          cell1.scope = "row";
-          cell1.className = "text-nowrap";
-          let button = document.createElement("a");
-          button.href = "#";
-          button.type = "button";
-          button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
-          let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
-          button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
-          cell1.appendChild(button);
-
-          let cell2 = document.createElement("td");
-          cell2.className = "text-start";
-          let profissionaisHTML = profissionais.map(profissional => {
-          let a = document.createElement("a");
-          a.href = "#";
-          a.className = "blue-text profissional-link";
-          a.dataset.cpf = profissional.cpf;
-          a.dataset.especialidade = profissional.especialidade;
-          a.innerHTML = `<strong>${profissional.nome}</strong>`;
-          return a.outerHTML + ` <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
-        }).join(' ');
-        cell2.innerHTML = `
-            <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
-            <div class="my-2">
-                ${profissionaisHTML}
-                <span class="badge bg-primary mx-1">${obra.local_obra}</span>
-            </div>
-            <div class="my-2">
-                <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
-                <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
-            </div>`;
-
-            let cell3 = document.createElement("td");
-            let div = document.createElement("div");
-            div.className = "d-flex justify-content-center mb-2";
-            let avaliarButton = document.createElement("button");
-            avaliarButton.type = "button";
-            avaliarButton.className = "btn btn-warning";
-            avaliarButton.textContent = "Avaliar";
-            avaliarButton.addEventListener('click', () => {
-              // Funcao de Avaliar Aq
-            });
-            div.appendChild(avaliarButton);
-            cell3.appendChild(div);
-
-            row.appendChild(cell1);
-            row.appendChild(cell2);
-            row.appendChild(cell3);
-            tableBody.appendChild(row);
-
-            // Add the event listener to the <a> elements after they are added to the DOM
-            cell2.querySelectorAll('.profissional-link').forEach(a => {
-              a.addEventListener('click', () => populateModal({cpf: a.dataset.cpf, especialidade: a.dataset.especialidade}));
-            });
-          });
+    async function populateModal(user, userType) {
+        // Determine the correct endpoint based on the user type and specialty (if applicable)
+        let endpoint;
+        if (userType === 'profissional') {
+          if (['Mestre de Obra', 'Eletricista', 'Encanador', 'Pintor'].includes(user.especialidade)) {
+            endpoint = `http://localhost:3002/profissionalgeral/${user.cpf}`;
+          } else {
+            endpoint = `http://localhost:3002/${user.especialidade.toLowerCase()}s/${user.cpf}`;
+          }
+        } else if (userType === 'cliente') {
+          endpoint = `http://localhost:3002/clientes/${user.cpf}`;
         }
 
-      async function getProfissional(cpf_arquiteto, cpf_engenheiro, cpf_profissional) {
-        let profissionais = [];
-        if (cpf_arquiteto) {
-          await fetch(`http://localhost:3002/arquitetos/${cpf_arquiteto}`)
-            .then(response => response.json())
-            .then(data => { profissionais.push({cpf: cpf_arquiteto, nome: data[0].nome, especialidade: 'Arquiteto'}); });
+        // Fetch the user's information
+        let response = await fetch(endpoint);
+        let data = await response.json();
+        console.log(data);
+
+        // Populate the modal with the user's information
+        document.getElementById('nomePerfil').textContent = data[0].nome_cliente;
+        document.getElementById('emailPerfil').textContent = data[0].email;
+        document.getElementById('localPerfil').textContent = data[0].local;
+
+        document.getElementById('nomeModal').textContent = data[0].nome_cliente;
+        document.getElementById('emailModal').textContent = data[0].email;
+        document.getElementById('telefoneModal').textContent = data[0].telefone;
+        document.getElementById('enderecoModal').textContent = data[0].endereco;
+
+        // Get the elements that should be hidden for 'cliente'
+        let certificadosRow = document.getElementById('certificadosRow');
+        let especialidadeRow = document.getElementById('especialidadeRow');
+
+        // If the user is a professional, also populate the specialty fields and show all fields
+        if (userType === 'profissional') {
+          document.getElementById('nomePerfil').textContent = data[0].nome;
+          document.getElementById('nomeModal').textContent = data[0].nome;
+          document.getElementById('especialidadePerfil').textContent = user.especialidade;
+          document.getElementById('especialidadeModal').textContent = user.especialidade;
+          certificadosRow.style.display = 'block';
+          especialidadeRow.style.display = 'block';
+        } else {
+          // If the user is a 'cliente', hide the 'certificados' and 'especialidade' fields
+          certificadosRow.style.display = 'none';
+          especialidadeRow.style.display = 'none';
         }
-        if (cpf_engenheiro) {
-          await fetch(`http://localhost:3002/engenheiros/${cpf_engenheiro}`)
-            .then(response => response.json())
-            .then(data => { profissionais.push({cpf: cpf_engenheiro, nome: data[0].nome, especialidade: 'Engenheiro'}); });
-        }
-        if (cpf_profissional) {
-          await fetch(`http://localhost:3002/profissionalgeral/${cpf_profissional}`)
-            .then(response => response.json())
-            .then(data => { profissionais.push({cpf: cpf_profissional, nome: data[0].nome, especialidade: data[0].especialidade}); });
-        }
-        return profissionais;
+
+        // Show the modal
+        perfilModal.show();
       }
+
+    function addEventListeners() {
+      // Fetch all the links
+      let profissionalLinks = document.querySelectorAll('.profissional-link');
+      let clienteLinks = document.querySelectorAll('.cliente-link');
+
+      // Add event listeners to the 'profissional' links
+      for (let item of profissionalLinks) {
+        item.addEventListener('click', event => {
+          event.preventDefault();
+          // Fetch the data related to the clicked user
+          let cpf = event.currentTarget.getAttribute('data-cpf');
+          let especialidade = event.currentTarget.getAttribute('data-especialidade');
+          let profissional = { cpf: cpf, especialidade: especialidade };
+          // Populate the modal with the fetched data
+          populateModal(profissional, 'profissional');
+        });
+      }
+
+      // Add event listeners to the 'cliente' links
+      for (let item of clienteLinks) {
+        item.addEventListener('click', event => {
+          event.preventDefault();
+          // Fetch the data related to the clicked user
+          let cpf = event.currentTarget.getAttribute('data-cpf');
+          let cliente = { cpf: cpf };
+          // Populate the modal with the fetched data
+          populateModal(cliente, 'cliente');
+        });
+      }
+    }
+
+    async function getProfissional(cpf_arquiteto, cpf_engenheiro, cpf_profissional) {
+      let profissionais = [];
+      if (cpf_arquiteto) {
+        await fetch(`http://localhost:3002/arquitetos/${cpf_arquiteto}`)
+          .then(response => response.json())
+          .then(data => { profissionais.push({cpf: cpf_arquiteto, nome: data[0].nome, especialidade: 'Arquiteto'}); });
+      }
+      if (cpf_engenheiro) {
+        await fetch(`http://localhost:3002/engenheiros/${cpf_engenheiro}`)
+          .then(response => response.json())
+          .then(data => { profissionais.push({cpf: cpf_engenheiro, nome: data[0].nome, especialidade: 'Engenheiro'}); });
+      }
+      if (cpf_profissional) {
+        await fetch(`http://localhost:3002/profissionalgeral/${cpf_profissional}`)
+          .then(response => response.json())
+          .then(data => { profissionais.push({cpf: cpf_profissional, nome: data[0].nome, especialidade: data[0].especialidade}); });
+      }
+      return profissionais;
+    }
 
     async function getCliente(cpf_cliente) {
       let cliente = null;
