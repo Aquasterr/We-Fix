@@ -37,6 +37,10 @@
   background-color: #4a7eee;
 }
 
+.logout {
+        margin-left: 70%;
+    }
+
 li {
   float: left;
   border-right:1px solid #0a0a0a;
@@ -69,6 +73,7 @@ li a:hover:not(.active) {
     <li><a class="active" href="Wefix_PerfilCliente.html">Perfil</a></li>
     <li><a class="active" href="Wefix_SolicitacaoServico.html">Criar Solicitação</a></li>
     <li><a class="active" href="WeFix_FeedServicos.html">Feed de Profissionais</a></li>
+    <li class="logout"><a href="Wefix_Login.html"><img src="./Wefix_Inicio_files/logout.png" height="24" alt="logout"></a>
     </ul>
     <div class="container py-3 h-100"> 
     <div class="row justify-content-center align-items-center h-100">
@@ -361,7 +366,7 @@ li a:hover:not(.active) {
             return profissionais;
           }
       
-          // Initialize the modal
+          // Inicia o modal
           let perfilModal = new bootstrap.Modal(document.getElementById('perfilModal'));
 
           document.querySelector("#obrasPendentes table tbody").addEventListener('click', function(event) {

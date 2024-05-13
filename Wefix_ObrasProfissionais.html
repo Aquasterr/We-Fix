@@ -37,6 +37,10 @@
   background-color: #4a7eee;
 }
 
+.logout {
+        margin-left: 70%;
+    }
+
 li {
   float: left;
   border-right:1px solid #0a0a0a;
@@ -68,6 +72,7 @@ li a:hover:not(.active) {
     <ul>
     <li><a class="active" href="Wefix_PerfilProfissional.html">Perfil</a></li>
     <li><a class="active" href="WeFix_FeedSolicitacoes.html">Feed de Solicitações</a></li>
+    <li class="logout"><a href="Wefix_Login.html"><img src="./Wefix_Inicio_files/logout.png" height="24" alt="logout"></a>
     </ul>
     <div class="container py-3 h-100"> 
     <div class="row justify-content-center align-items-center h-100">
@@ -250,7 +255,7 @@ li a:hover:not(.active) {
                   <div class="card-body text-center">
                     <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
                     <h3 class="my-3" id="nomePerfil">Nome</h5>
-                    <h4 class="my-3" id="especialidadePerfil">Especialidade</h5>
+                    <div id="especialidadeModalH"><h4 class="my-3" id="especialidadePerfil">Especialidade</h5></div>
                     <p class="text-muted mb-1 blur-texto" id="emailPerfil">E-Mail</p>
                     <p class="text-muted mb-4 blur-texto" id="localPerfil">Local</p>
                     <!-- <div class="d-flex justify-content-center mb-2">
@@ -335,12 +340,12 @@ li a:hover:not(.active) {
 </div>
 <script>
     window.onload = function() {
-      //console.log('User: ' + getCookie('user'));
+      console.log('User: ' + getCookie('user'));
     }
 
     // Pega o CPF do Prestador de serviço
-    //fetch(`http://localhost:3002/getCpfTipo/${getCookie('user')}`, {method: "GET"})
-    fetch(`http://localhost:3002/getCpfTipo/ProfissionalTeste2@mail.com`, {method: "GET"})
+    fetch(`http://localhost:3002/getCpfTipo/${getCookie('user')}`, {method: "GET"})
+    //fetch(`http://localhost:3002/getCpfTipo/ProfissionalTeste2@mail.com`, {method: "GET"})
       .then((response) => response.json())
       .then((data) => {
         let cpf_prestador = data['cpf'];
@@ -566,7 +571,7 @@ li a:hover:not(.active) {
       }
 
     async function populateModal(user, userType) {
-        // Determine the correct endpoint based on the user type and specialty (if applicable)
+        // Determina a endpoint a ser usada
         let endpoint;
         if (userType === 'profissional') {
           if (['Mestre de Obra', 'Eletricista', 'Encanador', 'Pintor'].includes(user.especialidade)) {
@@ -578,12 +583,12 @@ li a:hover:not(.active) {
           endpoint = `http://localhost:3002/clientes/${user.cpf}`;
         }
 
-        // Fetch the user's information
+        // Fetch na info do usuario
         let response = await fetch(endpoint);
         let data = await response.json();
         console.log(data);
 
-        // Populate the modal with the user's information
+        // popula o modal com a info do usuario
         document.getElementById('nomePerfil').textContent = data[0].nome_cliente;
         document.getElementById('emailPerfil').textContent = data[0].email;
         document.getElementById('localPerfil').textContent = data[0].local;
@@ -593,11 +598,11 @@ li a:hover:not(.active) {
         document.getElementById('telefoneModal').textContent = data[0].telefone;
         document.getElementById('enderecoModal').textContent = data[0].endereco;
 
-        // Get the elements that should be hidden for 'cliente'
+        // esconde campos se for 'cliente'
         let certificadosRow = document.getElementById('certificadosRow');
         let especialidadeRow = document.getElementById('especialidadeRow');
 
-        // If the user is a professional, also populate the specialty fields and show all fields
+        // Se o usuario for 'profissional' popula esses campos adicionais
         if (userType === 'profissional') {
           document.getElementById('nomePerfil').textContent = data[0].nome;
           document.getElementById('nomeModal').textContent = data[0].nome;
@@ -605,22 +610,24 @@ li a:hover:not(.active) {
           document.getElementById('especialidadeModal').textContent = user.especialidade;
           certificadosRow.style.display = 'block';
           especialidadeRow.style.display = 'block';
+          especialidadeModalH.style.display = 'block';
         } else {
-          // If the user is a 'cliente', hide the 'certificados' and 'especialidade' fields
+          // se for 'cliente' esconde o campo de certificado e especialidade
           certificadosRow.style.display = 'none';
           especialidadeRow.style.display = 'none';
+          especialidadeModalH.style.display = 'none';
         }
 
-        // Show the modal
+        // Mostra o modal
         perfilModal.show();
       }
 
     function addEventListeners() {
-      // Fetch all the links
+      // Fetch nos links
       let profissionalLinks = document.querySelectorAll('.profissional-link');
       let clienteLinks = document.querySelectorAll('.cliente-link');
 
-      // Add event listeners to the 'profissional' links
+      // adiciona listeners nos links de 'profissionals'
       for (let item of profissionalLinks) {
         item.addEventListener('click', event => {
           event.preventDefault();
@@ -633,14 +640,14 @@ li a:hover:not(.active) {
         });
       }
 
-      // Add event listeners to the 'cliente' links
+      // adiciona listeners nos links de 'cliente'
       for (let item of clienteLinks) {
         item.addEventListener('click', event => {
           event.preventDefault();
           // Fetch the data related to the clicked user
           let cpf = event.currentTarget.getAttribute('data-cpf');
           let cliente = { cpf: cpf };
-          // Populate the modal with the fetched data
+          // popula o modal com data do cliente
           populateModal(cliente, 'cliente');
         });
       }
