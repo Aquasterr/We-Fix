@@ -319,7 +319,7 @@ app.post('/obras', (req, res) => {
 })
 
 // Transforma Solicitação em Obra
-app.post('/obras/solicitacao/:id_solicitacao/:user_email', (req, res) => {
+app.post('/obras/solicitacao/:id_solicitacao/:user_email', cors(), (req, res) => {
     let id_solicitacao = req.params.id_solicitacao;
     let user_email = req.params.user_email; 
 
