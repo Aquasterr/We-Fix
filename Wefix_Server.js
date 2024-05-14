@@ -319,7 +319,7 @@ app.post('/obras', (req, res) => {
 })
 
 // Transforma Solicitação em Obra
-app.post('/obras/solicitacao/:id_solicitacao/:user_email', cors(), (req, res) => {
+app.post('/obras/solicitacao/:id_solicitacao/:user_email', (req, res) => {
     let id_solicitacao = req.params.id_solicitacao;
     let user_email = req.params.user_email; 
 
@@ -344,9 +344,9 @@ app.post('/obras/solicitacao/:id_solicitacao/:user_email', cors(), (req, res) =>
                         descricao_obra: solicitacao[0].descricao,
                         data_inicio: dataInicio,
                         data_termino: dataTermino,
-                        cpf_arquiteto: user.type === 'arquiteto' ? user.cpf : null,
-                        cpf_engenheiro: user.type === 'engenheiro' ? user.cpf : null,
-                        cpf_profissional: user.type === 'profissionalgeral' ? user.cpf : null,
+                        cpf_arquiteto: user.tipo === 'arquiteto' ? user.cpf : null,
+                        cpf_engenheiro: user.tipo === 'engenheiro' ? user.cpf : null,
+                        cpf_profissional: user.tipo === 'profissionalgeral' ? user.cpf : null,
                         cpf_cliente: solicitacao[0].cpf_cliente,
                         status: "EM ANDAMENTO"
                     };

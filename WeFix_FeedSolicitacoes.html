@@ -241,6 +241,7 @@
 
       // Listener "Aceitar" Botao
       card.querySelector('.ver-aceitar-btn').addEventListener('click', () => {
+        event.preventDefault();
         SolicitacaoParaObra(solicitacao);
       });
 
@@ -277,7 +278,12 @@
       const SolicitacaoObraEndpoint = `http://localhost:3002/obras/solicitacao/${solicitacao.id_solicitacao}/${getCookie('user')}`;
       console.log(SolicitacaoObraEndpoint);
 
-      fetch(SolicitacaoObraEndpoint)
+      fetch(SolicitacaoObraEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
