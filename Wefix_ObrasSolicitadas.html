@@ -421,54 +421,67 @@ li a:hover:not(.active) {
             });
           }
 
-        function obrasEmAndamento(data) {
-        let tableBody = document.querySelector("#obrasEmAndamento table tbody");
-        data.forEach(async obra => {
-          let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
-          let row = document.createElement("tr");
+          function obrasEmAndamento(data) {
+            let tableBody = document.querySelector("#obrasEmAndamento table tbody");
+            data.forEach(async obra => {
+              let profissionais = await getProfissional(obra.cpf_arquiteto, obra.cpf_engenheiro, obra.cpf_profissional);
+              let row = document.createElement("tr");
 
-          let cell1 = document.createElement("td");
-          cell1.scope = "row";
-          cell1.className = "text-nowrap";
-          let button = document.createElement("a");
-          button.href = "#";
-          button.type = "button";
-          button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
-          let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
-          button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
-          cell1.appendChild(button);
+              let cell1 = document.createElement("td");
+              cell1.scope = "row";
+              cell1.className = "text-nowrap";
+              let button = document.createElement("a");
+              button.href = "#";
+              button.type = "button";
+              button.className = "btn btn-outline-dark-green btn-sm p-1 m-0 waves-effect";
+              let avaliacao = obra.avaliacao_obra ? obra.avaliacao_obra.toFixed(1) : 'N/A';
+              button.innerHTML = `<span class="value">Nota: ${avaliacao}</span><i class="fas fa-thumbs-up ml-1"></i>`;
+              cell1.appendChild(button);
 
-          let cell2 = document.createElement("td");
-          cell2.className = "text-start";
-          let profissionaisHTML = profissionais.map(profissional => {
-          let a = document.createElement("a");
-          a.href = "#";
-          a.className = "blue-text profissional-link";
-          a.dataset.cpf = profissional.cpf;
-          a.dataset.especialidade = profissional.especialidade;
-          a.innerHTML = `<strong>${profissional.nome}</strong>`;
-          return a.outerHTML + ` <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
-        }).join(' ');
-        cell2.innerHTML = `
-            <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
-            <div class="my-2">
-                ${profissionaisHTML}
-                <span class="badge bg-primary mx-1">${obra.local_obra}</span>
-            </div>
-            <div class="my-2">
-                <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
-                <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
-            </div>`;
+              let cell2 = document.createElement("td");
+              cell2.className = "text-start";
+              let profissionaisHTML = profissionais.map(profissional => {
+              let a = document.createElement("a");
+              a.href = "#";
+              a.className = "blue-text profissional-link";
+              a.dataset.cpf = profissional.cpf;
+              a.dataset.especialidade = profissional.especialidade;
+              a.innerHTML = `<strong>${profissional.nome}</strong>`;
+              return a.outerHTML + ` <span class="badge bg-secondary mx-1">${profissional.especialidade}</span>`;
+            }).join(' ');
+            cell2.innerHTML = `
+                <a href="#" class="font-weight-bold blue-text">${obra.descricao_obra}</a>
+                <div class="my-2">
+                    ${profissionaisHTML}
+                    <span class="badge bg-primary mx-1">${obra.local_obra}</span>
+                </div>
+                <div class="my-2">
+                    <span class="badge bg-primary mx-1">Data de Inicio: ${formataData(obra.data_inicio)}</span>
+                    <span class="badge bg-danger mx-1">Data de Termino: ${formataData(obra.data_termino)}</span>
+                </div>`;
 
-        row.appendChild(cell1);
-        row.appendChild(cell2);
-        tableBody.appendChild(row);
+              let cell3 = document.createElement("td");
+              let div = document.createElement("div");
+              div.className = "d-flex justify-content-center mb-2";
+              let obraCompletaButton = document.createElement("button");
+              obraCompletaButton.type = "button";
+              obraCompletaButton.className = "btn btn-outline-success";
+              obraCompletaButton.textContent = "Finalizar Obra";
+              obraCompletaButton.addEventListener('click', () => {
+                // Funcao de Obra Completa Aq
+              });
+              div.appendChild(obraCompletaButton);
+              cell3.appendChild(div);
 
-        // Add the event listener to the <a> elements after they are added to the DOM
-        cell2.querySelectorAll('.profissional-link').forEach(a => {
-          a.addEventListener('click', () => populateModal({cpf: a.dataset.cpf, especialidade: a.dataset.especialidade}));
+              row.appendChild(cell1);
+              row.appendChild(cell2);
+              row.appendChild(cell3);
+              tableBody.appendChild(row);
+
+              cell2.querySelectorAll('.profissional-link').forEach(a => {
+                a.addEventListener('click', () => populateModal({cpf: a.dataset.cpf, especialidade: a.dataset.especialidade}));
+              });
             });
-          });
         }
 
         function obrasFinalizadas(data) {
