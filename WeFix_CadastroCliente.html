@@ -92,11 +92,6 @@
         </div>
       </section>
       <script>
-        // Array para armazenar os clientes do servidor
-        let clientes = [];
-        // ID do cliente em edição
-        let clienteAtual = null;
-      
         // Evento para lidar com o envio do formulario
         document
         .getElementById("clienteForm")
@@ -105,14 +100,14 @@
           // Coleta os valores do formulario
           const cliente = {
             cpf_cliente: document.getElementById("cpf").value,
-            nome: document.getElementById("nome").value,
+            nome_cliente: document.getElementById("nome").value,
             email: document.getElementById("email").value,
             senha: document.getElementById("senha").value,
             endereco: document.getElementById("endereco").value,
             telefone: document.getElementById("telefone").value,
             local: document.getElementById("local").value
           };
-          console.log(JSON.stringify(cliente));
+          console.log(cliente);
           // Se o Cliente ja for cadastrado.
           fetch(`http://localhost:3002/clientes/${cliente.cpf_cliente}`, {method: "GET"})
           .then((response) => response.json())
@@ -139,6 +134,7 @@
                   })
                   .then((response) => response.json())
                   .then((data) => {
+                    console.log(data);
                     document.getElementById("clienteForm").reset();
                     alert("Cadastro com sucesso!")
                     window.location.href = "Wefix_Login.html"
