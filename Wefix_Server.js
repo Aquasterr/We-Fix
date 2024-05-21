@@ -455,6 +455,6 @@ app.get('/', (request, response) => {
 })
 
 // Printa Mensagem ao conectar com a porta
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log("Servidor conectado na porta " + port)
 })
