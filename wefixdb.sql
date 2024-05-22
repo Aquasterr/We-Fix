@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Maio-2024 às 14:26
+-- Tempo de geração: 22-Maio-2024 às 15:58
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.3.6
 
@@ -47,7 +47,7 @@ CREATE TABLE `arquiteto` (
 
 INSERT INTO `arquiteto` (`nome`, `cpf_arquiteto`, `email`, `senha`, `endereco`, `certificados`, `telefone`, `id_cau_arquiteto`, `local`, `nota`) VALUES
 ('Lara Isis Galvão', '37600419734', 'lara-galvao80@mpcnet.com.br', 'lara123', 'Travessa do Piquizeiro', '', '9936376747', 2147483647, 'São Paulo - SP', '5.0'),
-('Arquiteto Nome 2', '78978978978', 'Arquiteto2@email.com', 'Arquiteto123', 'Rua Arquiteto2', 'pipipipipopopo', '456456456', 123123123, 'São Caetano do Sul - SP', '5.0');
+('Daniel Arquiteto', '78978978978', 'Arquiteto2@email.com', 'Arquiteto123', 'Rua Arquiteto2', 'pipipipipopopo', '456456456', 123123123, 'São Caetano do Sul - SP', '5.0');
 
 -- --------------------------------------------------------
 
@@ -70,9 +70,14 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`nome_cliente`, `cpf_cliente`, `email`, `senha`, `endereco`, `telefone`, `local`) VALUES
+('Kauê Kaique Heitor Pires', '07781697901', 'kaue_kaique_pires@rjnet.com.br', 'Kaue123', 'Residencial Santa Clara 456', '39913522', 'Selecione a Local'),
+('Tomás Theo Jorge Carvalho', '17559839568', 'tomas_theo_carvalho@eton.com.br', 'Tomas123', 'Rua B 988', '29007735', 'São Paulo - SP'),
 ('Davi Renan Ryan da Mota', '32741045747', 'davi_damota@alcastro.com.br', 'davi123', 'Rua Presidente Roosevelt', '(21) 2795-', 'São Paulo - SP'),
 ('NomeCliente', '45678978978', 'NomeCliente@NomeCliente', 'NomeCliente123', 'Rua NomeCliente', '987987654', 'São Caetano do Sul - SP'),
-('ClienteTeste', '45685245612', 'Cliente@email.com', 'Cliente123', 'Rua Cliente', '456456456', 'São Caetano do Sul - SP');
+('ClienteTeste', '45685245612', 'Cliente@email.com', 'Cliente123', 'Rua Cliente', '456456456', 'São Caetano do Sul - SP'),
+('Cliente CRUD', '78945612325', 'clientecrud@email.com', '123', 'sadasdasd', '123123123', 'São Paulo - SP'),
+('Gabriel Rafael Thiago Araújo', '85069409743', 'gabriel-araujo97@aol.com', 'gabriel123', 'Avenida Francisco de Souza 985', '26114816', 'Selecione a Local'),
+('Martin Bento Drumond', '92449315160', 'martin-drumond92@live.se', 'Martin123', 'Rua São João 596', '92449315160', 'São Paulo - SP');
 
 -- --------------------------------------------------------
 
@@ -152,14 +157,17 @@ CREATE TABLE `obra` (
 --
 
 INSERT INTO `obra` (`id_obra`, `local_obra`, `descricao_obra`, `data_inicio`, `data_termino`, `avaliacao_obra`, `cpf_arquiteto`, `cpf_engenheiro`, `cpf_profissional`, `cpf_cliente`, `status`) VALUES
-(0, 'São Caetano do Sul - SP', 'Solicitação Teste2Solicitação Teste2Solicitação Teste2Solicitação Teste2', '2024-11-14', NULL, NULL, NULL, NULL, '45645678978', '45685245612', 'EM ANDAMENTO'),
-(123, 'São Paulo - SP', 'e uma obra', '2024-04-02', '2024-04-30', '5.0', '78978978978', '98798798778', '45645678978', '45685245612', 'FINALIZADAS'),
-(11111, 'São Paulo - SP', 'Descricao Descricao', '2024-04-12', '2024-08-15', NULL, NULL, NULL, '31238949088', '45685245612', 'EM ANDAMENTO'),
-(22222, 'São Paulo - SP', 'Teste Obra Finalizada Teste', '2024-04-26', '2024-12-05', '4.5', NULL, '142100262', NULL, '45685245612', 'FINALIZADAS'),
-(123122, 'São Paulo - SP', 'obras', '2024-11-08', '2025-04-18', NULL, NULL, NULL, '45645678978', '45685245612', 'FINALIZADAS'),
-(528047, 'São Caetano do Sul - SP', 'Salve Josefa', '2024-04-12', '2024-04-30', NULL, NULL, NULL, '40833523880', '45685245612', 'PENDENTE'),
-(667499, 'São Paulo - SP', 'Obra Importante', '2024-03-05', '2024-09-19', NULL, NULL, NULL, '45645678978', '45685245612', 'PENDENTE'),
-(821487, 'São Caetano do Sul - SP', 'asdasdsad', '2322-12-31', '1111-11-11', NULL, '37600419734', NULL, NULL, '45685245612', 'PENDENTE');
+(0, 'São Caetano do Sul - SP', 'Buscando um profissional para construir uma academia de ginástica.', '2024-11-14', NULL, NULL, NULL, NULL, '45645678978', '45685245612', 'EM ANDAMENTO'),
+(123, 'São Paulo - SP', 'Necessito de um profissional para construir uma galeria de arte.', '2024-04-02', '2024-04-30', '5.0', '78978978978', '98798798778', '45645678978', '45685245612', 'FINALIZADAS'),
+(11111, 'São Paulo - SP', 'Estou buscando um profissional para ampliar minha loja de roupas.', '2024-04-12', '2024-08-15', NULL, NULL, NULL, '31238949088', '45685245612', 'EM ANDAMENTO'),
+(123122, 'São Paulo - SP', 'Estou buscando um profissional para ampliar nossa escola infantil.', '2024-11-08', '2025-04-18', NULL, NULL, NULL, '45645678978', '45685245612', 'FINALIZADAS'),
+(500869, 'São Paulo - SP', 'Preciso reformar minha clínica médica.', '2024-05-23', '2024-10-17', NULL, '78978978978', NULL, NULL, '92449315160', 'PENDENTE'),
+(528047, 'São Caetano do Sul - SP', 'Estou buscando um profissional para reformar meu apartamento.', '2024-04-12', '2024-04-30', NULL, NULL, NULL, '40833523880', '45685245612', 'PENDENTE'),
+(579260, 'São Paulo - SP', 'Preciso construir uma casa de campo.', '2024-06-07', '2024-08-21', NULL, '78978978978', NULL, NULL, '85069409743', 'EM ANDAMENTO'),
+(588147, 'São Paulo - SP', 'Estou procurando um profissional para reformar meu restaurante.', '2024-05-14', '2024-06-14', NULL, NULL, NULL, '40833523880', '45685245612', 'EM ANDAMENTO'),
+(667499, 'São Paulo - SP', 'Preciso de um profissional para construir uma casa de campo.', '2024-03-05', '2024-09-19', NULL, NULL, NULL, '45645678978', '45685245612', 'PENDENTE'),
+(738746, 'São Paulo - SP', 'Estou procurando alguem para reformar o meu apartamento', '2024-05-24', '2024-06-08', NULL, NULL, NULL, '31238949088', '32741045747', 'PENDENTE'),
+(821487, 'São Caetano do Sul - SP', 'Procurando um profissional para reformar minha loja de conveniência.', '2322-12-31', '1111-11-11', NULL, '37600419734', NULL, NULL, '45685245612', 'PENDENTE');
 
 -- --------------------------------------------------------
 
@@ -201,7 +209,7 @@ CREATE TABLE `profissionalgeral` (
 INSERT INTO `profissionalgeral` (`nome`, `cpf_profissional`, `email`, `senha`, `endereco`, `especialidade`, `certificados`, `telefone`, `local`, `nota`) VALUES
 ('André Pedro Henrique Rafael Farias', '31238949088', 'andre-farias72@macroengenharia.com', 'andre123', 'Residencial Solar da Chapada', 'Pintor', '', '6599946899', 'São Caetano do Sul - SP', '5.0'),
 ('Josefa Liz Nogueira', '40833523880', 'josefa-nogueira97@imeio.com', 'josefa123', 'Passagem Santo Antônio', 'Mestre de Obra', '', '9699805621', 'São Paulo - SP', '5.0'),
-('Profissional Teste 2', '45645678978', 'ProfissionalTeste2@mail.com', 'profissional123', 'Rua Profissional Teste 2', 'Mestre de Obra', NULL, '9845625685', 'São Paulo - SP', '5.0'),
+('Daniel Profissional', '45645678978', 'ProfissionalTeste2@mail.com', 'profissional123', 'Rua Profissional Teste 2', 'Mestre de Obra', NULL, '9845625685', 'São Paulo - SP', '5.0'),
 ('Marcos Vinicius Marcelo Almada', '78599340271', 'marcos-almada95@viamoc.com.br', 'marcos123', 'Rua Marechal Deodoro', 'Eletricista', '', '5599787956', 'São Paulo - SP', '5.0'),
 ('Geraldo Victor Lopes', '96335953048', 'geraldo_lopes@hotmail.con', 'geraldo123', 'Rua Homero Viana', 'Encanador', '', '5125024398', 'São Caetano do Sul - SP', '5.0');
 
@@ -225,7 +233,11 @@ CREATE TABLE `solicitacao` (
 --
 
 INSERT INTO `solicitacao` (`id_solicitacao`, `local`, `descricao`, `data_solicitacao`, `nome_cliente`, `cpf_cliente`) VALUES
-(875111, 'São Paulo - SP', 'Solicitação Teste', '2024-04-09 22:26:47', 'ClienteTeste', '45685245612');
+(340079, 'São Paulo - SP', 'Preciso de um profissional para construir um prédio comercial.\nO prédio terá 5 andares e será usado para escritórios e lojas. Preciso de um projeto moderno e eficiente.', '2024-05-22 10:19:02', 'Gabriel Rafael Thiago Araújo', '85069409743'),
+(391135, 'São Paulo - SP', 'Estou buscando um profissional para construir um edifício residencial de médio porte. O projeto inclui apartamentos, áreas comuns e estacionamento.', '2024-05-22 10:14:34', 'Kauê Kaique Heitor Pires', '07781697901'),
+(532346, 'São Caetano do Sul - SP', 'Estou procurando um profissional para reformar nosso escritório comercial.\nPrecisamos de uma atualização completa, incluindo pintura, troca de pisos, instalação de divisórias e renovação dos banheiros.', '2024-05-22 10:15:23', 'Tomás Theo Jorge Carvalho', '17559839568'),
+(875113, 'São Paulo - SP', 'Preciso de um profissional para construir um galpão industrial.\r\nO galpão terá 1.000m e será usado para armazenamento e logística. Requer fundações sólidas, estrutura metálica e instalações elétricas.', '2024-04-09 22:26:47', 'ClienteTeste', '45685245612'),
+(875115, 'São Paulo - SP', 'Estou buscando um profissional para ampliar minha casa.\r\nQuero adicionar um novo quarto, uma área de lazer e uma piscina. A ampliação deve ser integrada ao design existente.', '2024-04-09 22:26:47', 'Davi Renan Ryan da Mota', '32741045747');
 
 --
 -- Índices para tabelas despejadas
