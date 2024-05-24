@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- CSS -->
+    <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
     <style>
         .divider:after,
         .divider:before {
@@ -25,6 +26,18 @@
                 height: 100%;
             }
         }
+        .show-password-btn {
+          position: absolute; /* Posicionamento absoluto sobre o campo de senha */
+          top: 44%; /* Alinha no centro verticalmente */
+          left: auto; /* Alinha à esquerda */
+          right: 40px; /* Alinha à direita */
+          padding: 15px;
+          cursor: pointer;
+          background-color: transparent;
+          background-image: url('olho.png');
+          background-size: cover;
+          border: none;
+          }
     </style>
 </head>
 <body>
@@ -32,7 +45,7 @@
         <div class="container-fluid h-custom">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
-              <img src="logo.png"
+              <img src="Wefix.png"
                 class="img-fluid" alt="WeFix Logo">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
@@ -47,8 +60,9 @@
                 <!-- Senha -->
                 <div class="form-outline mb-3">
                     <label class="form-label" for="senhaInput">Senha</label>
-                  <input type="password" id="senhaInput" class="form-control form-control-lg"
-                    placeholder="Digite sua senha" required/>
+                  <input type="password" id="senhaInput" class="form-control form-control-lg" placeholder="Digite sua senha" required>
+                    <button id="show-password-btn" class="show-password-btn" onclick="togglePasswordVisibility()"></button>
+                  </input>
                 </div>
       
                 <div class="d-flex justify-content-between align-items-center">
@@ -178,6 +192,22 @@
             document.cookie = "user="+email+";path=/" + ";expires="+expire.toUTCString();
           }
         });
+
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("senhaInput");
+            const eyeIcon = document.getElementById("eye-icon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("far", "fa-eye");
+                eyeIcon.classList.add("fas", "fa-eye"); // Altera para o ícone do olho aberto
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("fas", "fa-eye");
+                eyeIcon.classList.add("far", "fa-eye"); // Altera de volta para o ícone do olho fechado
+            }
+        }
+        
       </script>    
 </body>
 </html>
