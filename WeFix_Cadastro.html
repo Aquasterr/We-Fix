@@ -11,28 +11,62 @@
     <!-- CSS -->
     <style>
       .gradient-custom {
-          background: linear-gradient(to bottom right, #84a8f8, #4a7eee)
+          background: linear-gradient(to bottom right, #e6e6fa, #4a7eee)
+      }
+
+      .box {
+        background-color: white;
+      }
+
+      .cont {
+        background-color: white;
+      }
+
+      .imagem {
+        margin-top: 20px;
+      }
+
+      .com-borda {
+        border: 3px solid #add8e6; /* largura e cor da borda */
+        border-radius: 1rem; /* arredondamento dos cantos da borda */
+      }
+
+      .botao1 {
+        text-shadow:
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000; /* Sombra ao redor do texto simulando contorno */
+      }
+
+      .botao2 {
+        text-shadow:
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000; /* Sombra ao redor do texto simulando contorno */
       }
     </style>
+    <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
 </head>
 <body>
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="cont col-12 col-md-8 col-lg-6 col-xl-5 com-borda">
               <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
+                <div class="box text-center">
                 
-                    <img class="mb-4" src="WeFix.png" width="64" alt="">
+                    <img class="mb-4 imagem" src="WeFix.png" width="64" alt="imagem">
                   <h3 class="mb-3">Cadastro</h3>
       
                   <hr class="my-4">
       
-                  <a href="WeFix_CadastroCliente.html" class="btn btn-lg btn-block btn-primary" style="background-color: #2d1b6e;">
-                    Quero Contratar
+                  <a href="WeFix_CadastroCliente.html" class="btn btn-lg btn-block btn-primary botao1" style="background-color: #7cb8e0;">
+                    Cadstrar Como Cliente
                   </a>
-                  <a href="Wefix_CadastroEmpreiteiro.html" class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;">
-                    Quero Prestar Serviço
+                  <a href="Wefix_CadastroEmpreiteiro.html" class="btn btn-lg btn-block btn-primary mb-2 botao2" style="background-color: #2a55b1;">
+                    Cadastrar Como Profissional
                   </a>  
                 </div>
               </div>
