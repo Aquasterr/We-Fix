@@ -9,7 +9,7 @@
     <!-- CSS -->
     <style>
         .gradient-custom {
-            background: linear-gradient(to bottom right, #84a8f8, #4a7eee)
+            background: linear-gradient(to bottom right, #e6e6fa, #4a7eee)
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -21,15 +21,22 @@
         .card-registration .select-arrow {
             top: 13px;
         }
+
+        .cont {
+          background-color: white;
+          border: 3px solid #add8e6; /* largura e cor da borda */
+          border-radius: 1rem; /* arredondamento dos cantos da borda */
+        }
     </style>
+    <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
 </head>
 <body>
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
           <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 ">
+            <div class="col-12 col-lg-9 cont">
               <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
-                <div class="card-body p-4 p-md-5">
+                <div class="card-body p-4 p-md-5 com-borda">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro de Cliente</h3>
                   <form id="clienteForm">
                     <div class="row">
@@ -78,6 +85,10 @@
                           <option disabled selected>Selecione a Local</option>
                           <option value="São Paulo - SP">São Paulo - SP</option>
                           <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
+                          <option value="São Bernardo do Campo - SP">São Bernardo do Campo - SP</option>
+                          <option value="Santo André - SP">Santo André - SP</option>
+                          <option value="Diadema - SP">Diadema - SP</option>
+                          <option value="Mauá - SP">Mauá - SP</option>
                       </select>
                       </div>
                     </div>
