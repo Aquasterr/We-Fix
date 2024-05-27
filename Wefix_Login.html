@@ -195,16 +195,11 @@
 
         function togglePasswordVisibility() {
             const passwordField = document.getElementById("senhaInput");
-            const eyeIcon = document.getElementById("eye-icon");
 
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                eyeIcon.classList.remove("far", "fa-eye");
-                eyeIcon.classList.add("fas", "fa-eye"); // Altera para o ícone do olho aberto
             } else {
                 passwordField.type = "password";
-                eyeIcon.classList.remove("fas", "fa-eye");
-                eyeIcon.classList.add("far", "fa-eye"); // Altera de volta para o ícone do olho fechado
             }
         }
         
