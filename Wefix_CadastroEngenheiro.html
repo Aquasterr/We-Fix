@@ -12,7 +12,7 @@
     <style>
         .gradient-custom {
           background: linear-gradient(to bottom right, #e6e6fa, #4a7eee);
-          min-height: 105vh;
+          min-height: 120vh;
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -60,7 +60,7 @@
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="senha">Senha</label>
-                          <input type="password" id="senha" class="form-control form-control-lg" placeholder="Digite sua Senha" />
+                          <input type="text" id="senha" class="form-control form-control-lg" placeholder="Digite sua Senha" />
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
@@ -85,19 +85,22 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 mb-4 pb-2">
+                      <div class="certif mt-3 pt-1">
                         <div class="form-outline">
                           <label class="form-label select-label" for="endereco">Digite seu Endereço</label>
                           <textarea class="form-control form-control-lg" id="endereco" rows="2" placeholder="Digite o Endereço" required></textarea>
                         </div>
                       </div>
-                      <div class="col-md-6 mb-4">
+                    </div>
+                    <div class="row">
+                      <div class="certif mt-3 pt-1">
                         <div class="form-outline">
                           <label class="form-label" for="formFileMultiple">Certificados</label>
                           <input type="file" id="certificados" class="form-control form-control-lg" placeholder="Anexar" multiple />
                         </div>
                       </div>
                     </div>
+                    <br>
                     <label for="local">Local</label>
                     <select class="form-control form-control-lg" aria-label=".form-select-lg" id="local">
                       <option disabled selected>Selecione a Região</option>
