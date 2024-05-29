@@ -11,7 +11,7 @@
     <!-- CSS -->
     <style>
         .gradient-custom {
-          background: linear-gradient(to bottom right, #84a8f8)
+          background: linear-gradient(to bottom right, #e6e6fa, #4a7eee)
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -22,47 +22,48 @@
         }
         .card-registration .select-arrow {
             top: 13px;
+        } 
+    
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #4a7eee;
         }
 
-        body {
-  background-color: #84a8f8;
-  margin: 0;
-  padding: 0;
-    }  
-    
-    ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #4a7eee;
-}
+        li {
+          float: left;
+          border-right:1px solid #0a0a0a;
+        }
 
-li {
-  float: left;
-  border-right:1px solid #0a0a0a;
-}
+        li:last-child {
+          border-right: none;
+        }
 
-li:last-child {
-  border-right: none;
-}
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+        li a:hover:not(.active) {
+          background-color: #f0f1f7;
+        }
 
-li a:hover:not(.active) {
-  background-color: #f0f1f7;
-}
+        .active {
+          background-color: #13339c;
+        }
 
-.active {
-  background-color: #13339c;
-}
+        .cont {
+          background-color: white;
+          border: 3px solid #add8e6; /* largura e cor da borda */
+          border-radius: 1rem; /* arredondamento dos cantos da borda */
+        }
     </style>
+    <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
 </head>
 <body>
   <!----
@@ -77,11 +78,11 @@ li a:hover:not(.active) {
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
           <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
+            <div class="col-12 col-lg-9 col-xl-7 cont">
               <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
                   <form id="obraForm">
-                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro de Obra</h3>
+                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Solicitar Serviço</h3>
                     <div class="form-group">
                       <label for="SolicitacaoServico">Descrição da obra</label>
                       <textarea class="form-control" id="DescricaoObra" rows="3" placeholder="Digite a descrição da obra" required></textarea>
@@ -100,14 +101,19 @@ li a:hover:not(.active) {
                         <option disabled selected>Selecione a Região</option>
                         <option value="São Paulo - SP">São Paulo - SP </option>
                         <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
+                        <option value="São Bernardo do Campo - SP">São Bernardo do Campo - SP</option>
+                        <option value="Santo André - SP">Santo André - SP</option>
+                        <option value="Diadema - SP">Diadema - SP</option>
+                        <option value="Mauá - SP">Mauá - SP</option>
                       </select>
                     </div>
+                    <br>
                     <div class="form-group">
                       <label for="empreiteiro">Empreiteiro</label>
                       <input type="text" class="form-control" id="empreiteiro" value="Empreiteiro" readonly>
                     </div>
                     <div class="mt-4 pt-2">
-                      <input class="btn btn-primary btn-lg" type="submit" value="Solicitar" />
+                      <input class="btn btn-outline-primary btn-lg" type="submit" value="Solicitar" />
                     </div>      
                   </form>
                 </div>                
