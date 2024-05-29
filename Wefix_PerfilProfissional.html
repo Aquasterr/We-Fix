@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wefix | Perfil Do Profissional</title>
     <!-- Pra Colocar a logo na aba -->
@@ -9,14 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- CSS -->
     <style>
-      .gradient-custom {
-          background: linear-gradient(to bottom right, #9dbaf8, #4a7eee);
-          min-height: 100vh;
+      body {
+        background: linear-gradient(to bottom right, #e6e6fa, #4a7eee)
       }
 
       .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -28,17 +25,16 @@
       .card-registration .select-arrow {
           top: 13px;
       }
+
       ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: #4a7eee;
+        background-color: #95a4f7;
+        border: 1px solid black;
       }
-      .logout {
-        float: right;
-    }
-
+      
       li {
         float: left;
         border-right:1px solid #0a0a0a;
@@ -61,11 +57,38 @@
       }
 
       .active {
-        background-color: #13339c;
+        background-color: white;
+        color: black;
+        border-left: 1px solid black;
       }
 
+      .container {
+        padding-top: 10pc;
+      }
 
+      .cont {
+        background-color: white;
+        border: 3px solid #add8e6; /* largura e cor da borda */
+        border-radius: 1rem; /* arredondamento dos cantos da borda */
+      }
+
+      .cont2 {
+        background-color: white;
+        border: 3px solid #add8e6; /* largura e cor da borda */
+        border-radius: 1rem; /* arredondamento dos cantos da borda */
+        position: relative;
+        left: 2%;
+        right: auto;
+      }
+
+      .logout {
+        background-color: white;
+        border-right:1px solid black;
+        border-left: 1px solid black;
+        float: right;
+      }
   </style>
+  <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
 </head>
 <body>
   <ul>
@@ -74,9 +97,9 @@
     <li class="logout"><a href="Wefix_Login.html"><img src="./Wefix_Inicio_files/logout.png" height="24" alt="logout"></a>
   </ul>
     <section class="vh-100 gradient-custom">
-        <div class="container" style="padding-top: 10pc;">
+        <div class="container">
           <div class="row justify-content-center align-items-center">
-            <div class="col-lg-4">
+            <div class="col-lg-4 cont">
               <div class="card mb-4">
                 <div class="card-body text-center">
                   <img src="./Wefix_Inicio_files/user.png" alt="avatarCliente" class="rounded-circle img-fluid" style="width: 150px;">
@@ -89,13 +112,11 @@
                     <button type="button" class="btn btn-outline-primary ms-1">Enviar Mensagem</button>
                   </div> -->
                 </div>
-              </div>
-              
+              </div>             
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8 cont2">
               <div class="card mb-4">
                 <div class="card-body">
-
                   <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Nome Completo</p>
@@ -114,7 +135,6 @@
                     </div>
                   </div>
                   <hr>
-
                   <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Email</p>
@@ -131,9 +151,7 @@
                     <div class="col-sm-9">
                       <p class="text-muted mb-0" id="telefone">(000) 0000-0000</p>
                     </div>
-                  </div>
-                  
-                  
+                  </div>                 
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
@@ -143,45 +161,46 @@
                       <p class="text-muted mb-0" id="endereco">*Endereço*</p>
                     </div>
                   </div>
-
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Certificados</p>
                     </div>
                     <div class="col-sm-3">
-                        <div class="thumbnail">
-                            <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
+                      <div class="thumbnail">
+                        <img src="/w3images/nature.jpg" alt="INSERIR IMAGEM" style="width:100%">
+                      </div>
+                    </div>
                   </div>
-                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-    <script>
-      const email = getCookie('user');
+  <script>
+    const email = getCookie('user');
 
-      const arquitetoEndPoint = `http://localhost:3002/arquitetos/email/${email}`;
-      const engenheiroEndPoint = `http://localhost:3002/engenheiros/email/${email}`;
-      const profissionalEndPoint = `http://localhost:3002/profissionalgeral/email/${email}`;
+    const arquitetoEndPoint = `http://localhost:3002/arquitetos/email/${email}`;
+    const engenheiroEndPoint = `http://localhost:3002/engenheiros/email/${email}`;
+    const profissionalEndPoint = `http://localhost:3002/profissionalgeral/email/${email}`;
 
-      fetchEmpreiteiroData(email).then(empreiteiro => {
-        // Form da esquerda
-        document.getElementById('nomePerfil').innerHTML = empreiteiro[0].nome;
-        document.getElementById('especialidadePerfil').innerHTML = empreiteiro[0].especialidade || empreiteiro[0].type;
-        document.getElementById('emailPerfil').innerHTML = empreiteiro[0].email;
-        document.getElementById('localPerfil').innerHTML = empreiteiro[0].local;
+    fetchEmpreiteiroData(email).then(empreiteiro => {
+      // Form da esquerda
+      document.getElementById('nomePerfil').innerHTML = empreiteiro[0].nome;
+      document.getElementById('especialidadePerfil').innerHTML = empreiteiro[0].especialidade || empreiteiro[0].type;
+      document.getElementById('emailPerfil').innerHTML = empreiteiro[0].email;
+      document.getElementById('localPerfil').innerHTML = empreiteiro[0].local;
 
-        // Form da Direita
-        document.getElementById('nome').innerHTML = empreiteiro[0].nome;
-        document.getElementById('especialidade').innerHTML = empreiteiro[0].especialidade || empreiteiro[0].type;
-        document.getElementById('email').innerHTML = empreiteiro[0].email;
-        document.getElementById('telefone').innerHTML = empreiteiro[0].telefone;
-        document.getElementById('endereco').innerHTML = empreiteiro[0].endereco;
-      });
+      // Form da Direita
+      document.getElementById('nome').innerHTML = empreiteiro[0].nome;
+      document.getElementById('especialidade').innerHTML = empreiteiro[0].especialidade || empreiteiro[0].type;
+      document.getElementById('email').innerHTML = empreiteiro[0].email;
+      document.getElementById('telefone').innerHTML = empreiteiro[0].telefone;
+      document.getElementById('endereco').innerHTML = empreiteiro[0].endereco;
+    });
 
-      async function fetchEmpreiteiroData(id) {
+    async function fetchEmpreiteiroData(id) {
       const endpoints = [
         { url: `http://localhost:3002/arquitetos/email/${id}`, type: 'Arquiteto' },
         { url: `http://localhost:3002/engenheiros/email/${id}`, type: 'Engenheiro' },
@@ -214,6 +233,6 @@
     }
       return null;
     }
-
-    </script>
-</body></html>
+  </script>
+</body>
+</html>
