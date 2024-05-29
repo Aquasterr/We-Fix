@@ -10,10 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- CSS -->
     <style>
-        .gradient-custom {
-          background: linear-gradient(to bottom right, #84a8f8)
-        }
-
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
             font-size: 1rem;
             line-height: 2.15;
@@ -22,52 +18,65 @@
         }
         .card-registration .select-arrow {
             top: 13px;
-        }
+        } 
 
         body {
-        background-color: #84a8f8;
-        margin: 0;
-        padding: 0;
-          }   
+          background: linear-gradient(to bottom right, #e6e6fa, #4a7eee)
+        }
 
-          ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #4a7eee;
-          }
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #95a4f7;
+          border: 1px solid black
+        }
 
-          li {
-            float: left;
-            border-right:1px solid #0a0a0a;
-          }
+        li {
+          float: left;
+          border-right:1px solid black;
+        }
 
-          li:last-child {
-            border-right: none;
-          }
+        li:last-child {
+          border-right: none;
+        }
 
-          .logout {
-            float: right;
-          }
+        .logout {
+          float: right;
+        }
 
-          li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-          }
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
 
-          li a:hover:not(.active) {
-            background-color: #f0f1f7;
-          }
+        li a:hover:not(.active) {
+          background-color: #f0f1f7;
+        }
 
-          .active {
-            background-color: #13339c;
-          }
+        .active {
+          background-color: white;
+          color: black;
+          border-left: 1px solid black;
+        }
 
+        .cont {
+          background-color: white;
+          border: 3px solid #add8e6; /* largura e cor da borda */
+          border-radius: 1rem; /* arredondamento dos cantos da borda */
+        }
+
+        .logout {
+          background-color: white;
+          border-right:1px solid black;
+          border-left: 1px solid black;
+        }
     </style>
+    <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
 </head>
 <body>
   <ul>
@@ -79,25 +88,42 @@
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
           <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
+            <div class="col-12 col-lg-9 col-xl-7 cont">
               <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
                 <div class="card-body p-4 p-md-5">
                   <form id="solicitacaoForm">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Solicitação de Serviço</h3>
                   <div class="form-group">
-                    <label for="SolicitacaoServico">Solicitar Serviço</label>
-                    <textarea class="form-control" id="SolicitacaoServico" rows="3" placeholder="Descreva o Serviço Desejado"></textarea>
+                    <label for="SolicitacaoServico">Descrição do Serviço</label>
+                    <textarea class="form-control" id="SolicitacaoServico" rows="5" placeholder="Escreva sobre o Serviço Desejado"></textarea>
                   </div>
+                  <div class="form-outline">
+                    <label for="especialidade">Tipo de Profissional</label>
+                      <select class="form-control form-control-lg" aria-label=".form-select-lg" id="especialidade">
+                        <option disabled selected>Selecione o Tipo de Profissional Desejado</option>
+                        <option value="Arquiteto">Arquiteto</option>
+                        <option value="Engenheiro">Engenheiro</option>
+                        <option value="Eletricista">Eletricista</option>
+                        <option value="Encanador">Encanador</option>
+                        <option value="Mestre de Obra">Mestre de Obra</option>
+                        <option value="Pintor">Pintor</option>
+                      </select>
+                  </div>
+                  <br>
                   <div class="form-outline">
                     <label for="local">Localização</label>
                       <select class="form-control form-control-lg" aria-label=".form-select-lg" id="local" >
                           <option disabled selected>Selecione a Região</option>
                           <option value="São Paulo - SP">São Paulo - SP</option>
                           <option value="São Caetano do Sul - SP">São Caetano do Sul - SP</option>
+                          <option value="São Bernardo do Campo - SP">São Bernardo do Campo - SP</option>
+                          <option value="Santo André - SP">Santo André - SP</option>
+                          <option value="Diadema - SP">Diadema - SP</option>
+                          <option value="Mauá - SP">Mauá - SP</option>
                         </select>
                       </div>
                      <div class="mt-4 pt-2">
-                      <input class="btn btn-primary btn-lg" type="submit" value="Cadastrar" />
+                      <input class="btn btn-outline-primary btn-lg" type="submit" value="Solicitar" />
                     </div>      
                   </form>
                 </div>
