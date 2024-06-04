@@ -12,50 +12,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <!-- CSS -->
     <style>
-        .gradient-custom {
-          background: linear-gradient(to bottom right, #9dbaf8, #4a7eee);
-          min-height: 100vh;
-        }
+      .gradient-custom {
+        background: linear-gradient(to bottom right, #9dbaf8, #4a7eee);
+        min-height: 100vh;
+      }
 
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-          font-size: 1rem;
-          line-height: 2.15;
-          padding-left: .75em;
-          padding-right: .75em;
-        }
-        .card-registration .select-arrow {
-          top: 13px;
-        }
+      .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+      }
 
-        body {
-          margin: 0;
-          padding: 0;
-        }
+      .card-registration .select-arrow {
+        top: 13px;
+      }
 
-        .content{
-          width: 420px;
-          margin-top: 0px;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-        .ratings{
-          padding: 0.1px;
-          text-align: left;
-        }
+      .content{
+        width: 420px;
+        margin-top: 0px;
+      }
 
-        .product-rating{
-          font-size: 20px;
-        }
+      .ratings{
+        padding: 0.1px;
+        text-align: left;
+      }
 
-        .stars i{
-          font-size: 20px;
-          color: #28a745;
-        }
+      .product-rating{
+        font-size: 20px;
+      }
 
-        .rating-text{
-          margin-top: 0.5px;
-        }
+      .stars i{
+        font-size: 20px;
+        color: #28a745;
+      }
 
-        ul {
+      .rating-text{
+        margin-top: 0.5px;
+      }
+
+      ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -65,7 +66,7 @@
 
       .logout {
         float: right;
-    }
+      }
 
       li {
         float: left;
@@ -96,8 +97,16 @@
       color: transparent !important;
       text-shadow: 0 0 6px rgba(0,0,0,0.5);
       user-select: none;
-    }
+      }
+
+      .buscar {
+        height: 25px;
+        width: 80px;
+        vertical-align: top;
+        padding: 1px;
+      }
     </style>
+    <!-- <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet"> -->
 </head>
 <body>
   <ul>
@@ -119,6 +128,10 @@
                   <option value="" disabled selected>Local</option>
                   <option value="valor1">São Paulo - SP</option>
                   <option value="valor2">São Caetano do Sul - SP</option>
+                  <option value="São Bernardo do Campo - SP">São Bernardo do Campo - SP</option>
+                  <option value="Santo André - SP">Santo André - SP</option>
+                  <option value="Diadema - SP">Diadema - SP</option>
+                  <option value="Mauá - SP">Mauá - SP</option>
                 </select>
                 <img src="./Wefix_Inicio_files/sort.png" style="height: 25px; width: 25px; vertical-align: top; margin-left: 10px;">
                 <select name="slt_ordem">
@@ -137,8 +150,11 @@
                   <option value="valor5">Mestre de Obra</option>
                   <option value="valor6">Pintor</option>
                 </select>
+                <img src="./Wefix_Inicio_files/lupa.png" style="height: 30px; width: 28px; vertical-align: top; margin-left: 10px;">
+                <input class="form" type="search" id="barraPesquisa" placeholder="Buscar..." style="height: 25px; width: 250px; vertical-align: top;">
+                <button class="btn btn-outline-success buscar" type="submit">Buscar</button>
               </form>
-              <a href="#" class="btn btn-primary btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
+              <a href="#" class="btn btn-outline-primary btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
               <div class="row row-cols-1 row-cols-md-3 g-4"  id="cardEmpreiteiro">
               </div>
             </div>
