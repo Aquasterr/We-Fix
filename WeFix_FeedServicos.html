@@ -29,6 +29,7 @@
       }
 
       body {
+        background: linear-gradient(to bottom right, #9dbaf8, #4a7eee);
         margin: 0;
         padding: 0;
       }
@@ -61,7 +62,8 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: #4a7eee;
+        background-color: #95a4f7;
+        border: 1px solid black;
       }
 
       .logout {
@@ -90,23 +92,37 @@
       }
 
       .active {
-        background-color: #13339c;
+        background-color: white;
+        color: black;
+        border-left: 1px solid black;
+      }
+
+      .cont {
+        background-color: white;
+        border: 3px solid #add8e6; /* largura e cor da borda */
+        border-radius: 1rem; /* arredondamento dos cantos da borda */
       }
 
       .blur-texto {
       color: transparent !important;
-      text-shadow: 0 0 6px rgba(0,0,0,0.5);
+      text-shadow: 0 0 10px rgba(0, 0, 0, 1);
       user-select: none;
       }
 
       .buscar {
-        height: 25px;
-        width: 80px;
-        vertical-align: top;
-        padding: 1px;
+        height: 30px;
+        width: 100px;
       }
+
+      .logout {
+        background-color: white;
+        border-right:1px solid black;
+        border-left: 1px solid black;
+        float: right;
+      }
+
     </style>
-    <!-- <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet"> -->
+     <link href="./Wefix_Inicio_files/theme.css" rel="stylesheet">
 </head>
 <body>
   <ul>
@@ -118,7 +134,7 @@
   <section class="gradient-custom">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
-        <div class="col-lg">
+        <div class="col-lg cont">
           <div class="card shadow-2-strong card-registration text-center" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
               <h1 class="mb-4 pb-2 pb-md-2 mb-md-3">Prestadores de Serviço</h3>
@@ -151,10 +167,10 @@
                   <option value="valor6">Pintor</option>
                 </select>
                 <img src="./Wefix_Inicio_files/lupa.png" style="height: 30px; width: 28px; vertical-align: top; margin-left: 10px;">
-                <input class="form" type="search" id="barraPesquisa" placeholder="Buscar..." style="height: 25px; width: 250px; vertical-align: top;">
+                <input class="form" type="search" id="barraPesquisa" placeholder="Buscar..." style="height: 25px; width: 200px; vertical-align: top;">
                 <button class="btn btn-outline-success buscar" type="submit">Buscar</button>
               </form>
-              <a href="#" class="btn btn-outline-primary btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
+              <a href="#" class="btn btn-outline-danger btn-md" style="margin-top: 10px; margin-bottom: 10px">Filtrar</a>
               <div class="row row-cols-1 row-cols-md-3 g-4"  id="cardEmpreiteiro">
               </div>
             </div>
@@ -310,8 +326,8 @@
           </div> 
         </div>
         <div class="card-footer">
-          <a href="Wefix_CadastroObra.html" class="btn btn-primary btn-md" onclick="localStorage.setItem('empreiteiro', '${empreiteiro.email}')">Contratar</a>
-          <a href="#" class="btn btn-primary btn-md ver-perfil-btn" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</a>
+          <a href="Wefix_CadastroObra.html" class="btn btn-outline-info btn-md" onclick="localStorage.setItem('empreiteiro', '${empreiteiro.email}')">Contratar</a>
+          <a href="#" class="btn btn-outline-primary btn-md ver-perfil-btn" data-bs-toggle="modal" data-bs-target="#perfilModal">Ver Perfil</a>
         </div>
       </div>
       `;
